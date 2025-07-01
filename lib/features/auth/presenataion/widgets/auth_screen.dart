@@ -117,11 +117,11 @@ class _AuthScreenState extends State<AuthScreen> {
                       onAuthActionTap:() {
                         Navigator.pushReplacementNamed(
                           context,
-                          widget.isLoginScreen ? '/register' : '/login',
+                          widget.isLoginScreen ? '/register': '/login',
                         );
-                      }
+                      },
 
-                    )
+                    ),
 
                   ],
                 ),
