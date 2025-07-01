@@ -1,0 +1,11 @@
+class AppRoutes {
+  static const String baseRoute = '/';
+  static const String registerRoute = '/register';
+  static const String loginRoute = '/login';
+  static const String homePage = '/home';
+  static const String emailVerification = '/emailVerification';
+  static const String dashboard = '/dashboard';
+  static const String dropOffDetails = '/dropOffDetails';
+  static const String allDropOffPoints = '/allDropOffPoints';
+   
+}
