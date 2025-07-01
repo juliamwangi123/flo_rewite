@@ -48,7 +48,7 @@ class _AuthScreenState extends State<AuthScreen> {
                   borderRadius: BorderRadius.circular(24),
                   boxShadow: [
                     BoxShadow(
-                      color: AppColors.floaidPink.withOpacity(0.3),
+                      color: AppColors.floaidPink.withValues(alpha: 0.3),
                       blurRadius: 20,
                       offset: const Offset(0, 8),
                     ),
@@ -86,7 +86,7 @@ class _AuthScreenState extends State<AuthScreen> {
                   borderRadius: BorderRadius.circular(28),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.08),
+                      color: Colors.black.withValues(alpha: 0.08),
                       blurRadius: 30,
                       offset: const Offset(0, 2),
                     ),
@@ -101,9 +101,8 @@ class _AuthScreenState extends State<AuthScreen> {
                       formKey: _formKey,
                     ),
                   smallVerticalSizedBox,
-                  widget.isLoginScreen ? 
-                   ForgotPassword(
-                    ): SizedBox.shrink(),
+                  if (widget.isLoginScreen) const ForgotPassword(
+                    ) else const SizedBox.shrink(),
                     mediumVerticalSizedBox,
                     SubmitAuthButton(
                       isButtonActive:

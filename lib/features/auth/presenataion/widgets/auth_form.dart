@@ -29,10 +29,10 @@ class _AuthFormState extends State<AuthForm> {
         mainAxisSize: MainAxisSize.min,
         children: [
           CustomTextField(
-            hintText: "Enter valid email",
-            borderColor: AppColors.lightGray.withOpacity(0.3),
+            hintText: 'Enter valid email',
+            borderColor: AppColors.lightGray.withValues(alpha: 0.3),
             focusedBorderColor:AppColors.floaidPink,
-            prefixIcon: Icon(
+            prefixIcon: const Icon(
               Icons.email_outlined,
               color: AppColors.floaidPink,
               size: 20,
@@ -41,8 +41,8 @@ class _AuthFormState extends State<AuthForm> {
           ),
          mediumVerticalSizedBox,
           CustomTextField(
-            hintText: "Create a password",
-            borderColor: AppColors.lightGray.withOpacity(0.3),
+            hintText: 'Create a password',
+            borderColor: AppColors.lightGray.withValues(alpha:0.3),
             focusedBorderColor:AppColors.floaidPink,
             prefixIcon: const Icon(
               Icons.lock_outline,
@@ -68,8 +68,8 @@ class _AuthFormState extends State<AuthForm> {
           if(!widget.isLoginScreen)...[
             mediumVerticalSizedBox,
             CustomTextField(
-            hintText: "Confirm password",
-            borderColor: AppColors.lightGray.withOpacity(0.3),
+            hintText: 'Confirm password',
+            borderColor: AppColors.lightGray.withValues(alpha:0.3),
             focusedBorderColor:AppColors.floaidPink,
             prefixIcon: const Icon(
               Icons.lock_outline,

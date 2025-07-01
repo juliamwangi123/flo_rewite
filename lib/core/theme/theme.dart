@@ -12,13 +12,12 @@ class AppTheme {
       colorScheme: ColorScheme.light(
         primary: AppColors.themeColors.primaryColor,
         secondary: AppColors.themeColors.accentColor,
-        surface: AppColors.softWhite,
-        background: AppColors.themeColors.backgroundColor,
+        // surface: AppColors.softWhite,
+        surface: AppColors.themeColors.backgroundColor,
         onPrimary: Colors.white,
         onSecondary: Colors.white,
         onSurface: AppColors.deepNavy,
-        onBackground: AppColors.deepNavy,
-      ).copyWith(background: AppColors.themeColors.backgroundColor),
+      ).copyWith(surface: AppColors.themeColors.backgroundColor),
     );
   }
 }
@@ -115,7 +114,7 @@ static const Color veryLightGray = Color(0xFFF3F4F6);
         end: Alignment.bottomRight,
         colors: [
           cardBackground,
-          softBackground.withOpacity(0.5),
+          softBackground.withValues(alpha: 0.5),
         ],
       );
 }

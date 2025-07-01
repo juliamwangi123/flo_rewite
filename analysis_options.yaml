@@ -35,7 +35,6 @@ linter:
     always_declare_return_types: true
     avoid_unnecessary_containers: true
     prefer_final_fields: true
-    require_trailing_commas: true
     use_key_in_widget_constructors: true
     sized_box_for_whitespace: true
     

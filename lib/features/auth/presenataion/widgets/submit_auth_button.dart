@@ -26,7 +26,7 @@ class SubmitAuthButton extends StatelessWidget {
         boxShadow: isButtonActive
             ? [
                 BoxShadow(
-                  color: AppColors.floaidPink.withOpacity(0.4),
+                  color: AppColors.floaidPink.withValues(alpha: 0.4),
                   blurRadius: 20,
                   offset: const Offset(0, 8),
                 ),

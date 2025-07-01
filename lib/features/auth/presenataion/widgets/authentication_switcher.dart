@@ -24,9 +24,7 @@ class AuthenticationSwitcher extends StatelessWidget {
             style: normalSize12Text(AppColors.floaidPink).copyWith(
               fontWeight: FontWeight.w600,),
               recognizer: TapGestureRecognizer()
-                ..onTap = () {
-                  onAuthActionTap();
-                }
+                ..onTap = onAuthActionTap as GestureTapCallback?
               )
         ]
       ) ,

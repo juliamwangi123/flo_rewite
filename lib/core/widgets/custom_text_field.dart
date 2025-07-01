@@ -86,7 +86,7 @@ class CustomTextField extends StatelessWidget {
               isRequired: isRequired,
             ),
           ),
-          SizedBox(height: 8.0),
+         const SizedBox(height: 8.0),
         ],
       );
     }
@@ -122,7 +122,7 @@ class CustomTextField extends StatelessWidget {
             suffixIconConstraints:
                 const BoxConstraints(minHeight: 24, minWidth: 24),
             prefixIcon: prefixIcon,
-            labelStyle: labelStyle ?? TextStyle(color: Colors.grey),
+            labelStyle: labelStyle ?? const TextStyle(color: Colors.grey),
             enabledBorder: OutlineInputBorder(
               borderSide: BorderSide(
                 color: borderColor ?? customFillColor ?? Colors.white24,
@@ -205,7 +205,7 @@ class HintText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       hintText,
-      style: TextStyle(color: Colors.grey, fontSize: 14),
+      style:const TextStyle(color: Colors.grey, fontSize: 14),
     );
   }
 }
