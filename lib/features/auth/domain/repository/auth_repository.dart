@@ -1,7 +1,5 @@
 // ignore_for_file: non_constant_identifier_names
 
-import 'dart:ffi';
-
 import 'package:dartz/dartz.dart';
 import 'package:floo_aid_rewrite/core/data_types/auth_params.dart';
 import 'package:floo_aid_rewrite/core/errors/failures.dart';
@@ -11,5 +9,5 @@ abstract class AuthRepository {
   Future<Either<Failure, AuthEntity>> signUpUserWithEmailAndPassword(AuthParams authParams);
   Future<Either<Failure, AuthEntity>> signInUserWithEmailAndPassword(AuthParams authParams);
   Future<Either<Failure, AuthEntity>> signInUserWithGoogle();
-  Future<Either<Failure, Void>> signOutUser();
+  Future<Either<Failure, void>> signOutUser();
 }

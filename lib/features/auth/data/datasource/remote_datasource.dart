@@ -4,7 +4,7 @@ import 'package:floo_aid_rewrite/core/errors/exception.dart';
 import 'package:floo_aid_rewrite/features/auth/data/models/auth_model.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-abstract class AuthRepository {
+abstract class AuthRemoteDataSource {
   Future<AuthModel> signUpUserWithEmailAndPassword(AuthParams params);
   Future<AuthModel> signInUserWithEmailAndPassword(AuthParams params);
   Future<AuthModel> signInUserWithGoogle();
@@ -12,7 +12,7 @@ abstract class AuthRepository {
   
 }
 
-class AuthRepositoryImpl implements AuthRepository{
+class AuthRepositoryImpl implements AuthRemoteDataSource{
   final FirebaseAuth firebaseAuth;
   final GoogleSignIn googleSignIn;
 
