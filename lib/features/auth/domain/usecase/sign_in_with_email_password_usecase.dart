@@ -8,7 +8,7 @@ import 'package:floo_aid_rewrite/features/auth/domain/repository/auth_repository
 class SignInWithEmailAndPasswordUsecase implements UseCase<AuthEntity, AuthParams> {
   final AuthRepository authRepository;
 
-  SignInWithEmailAndPasswordUsecase(this.authRepository);
+  SignInWithEmailAndPasswordUsecase({required this.authRepository});
 
   @override
   Future<Either<Failure, AuthEntity>> call(AuthParams params) async {

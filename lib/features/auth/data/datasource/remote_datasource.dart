@@ -12,11 +12,11 @@ abstract class AuthRemoteDataSource {
   
 }
 
-class AuthRepositoryImpl implements AuthRemoteDataSource{
+class AuthRemoteDataSourceImpl implements AuthRemoteDataSource{
   final FirebaseAuth firebaseAuth;
   final GoogleSignIn googleSignIn;
 
-  AuthRepositoryImpl({required this.firebaseAuth, required this.googleSignIn});
+  AuthRemoteDataSourceImpl({required this.firebaseAuth, required this.googleSignIn});
 
   @override
   Future<AuthModel> signUpUserWithEmailAndPassword(AuthParams params) async{

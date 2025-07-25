@@ -6,10 +6,10 @@ import 'package:floo_aid_rewrite/features/auth/data/datasource/remote_datasource
 import 'package:floo_aid_rewrite/features/auth/domain/entities/auth_entity.dart';
 import 'package:floo_aid_rewrite/features/auth/domain/repository/auth_repository.dart';
 
-class AuthImplRepository implements AuthRepository{
+class AuthRepositoryImpl implements AuthRepository{
   final AuthRemoteDataSource authRemoteDataSource;
 
-  AuthImplRepository({required this.authRemoteDataSource});
+  AuthRepositoryImpl({required this.authRemoteDataSource});
 
   @override
   Future<Either<Failure, AuthEntity>> signInUserWithEmailAndPassword(AuthParams authParams) async{
