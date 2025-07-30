@@ -5,6 +5,6 @@ class CollectionPoints extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  const Center(child: const Text('collection points'));
+    return  const Center(child:  Text('collection points'));
   }
 }

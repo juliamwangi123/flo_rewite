@@ -2,17 +2,25 @@ import 'package:floo_aid_rewrite/features/collection_points/presentation/pages/c
 import 'package:floo_aid_rewrite/features/community/presentation/pages/community.dart';
 import 'package:floo_aid_rewrite/features/dashboard/presentation/pages/dashboard.dart';
 import 'package:floo_aid_rewrite/features/donations/presentation/pages/donation.dart';
+import 'package:floo_aid_rewrite/features/home/presentation/bloc/navigation_bloc.dart';
 import 'package:floo_aid_rewrite/features/home/presentation/widget/bottom_nav.dart';
 import 'package:floo_aid_rewrite/features/pick_up/presentation/pages/schedule_pick_up.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
-      body: screens[0],
+    return Scaffold(
+      body: BlocConsumer<NavigationBloc, NavigationState>(
+        listener: (context, state) {
+        },
+        builder: (context, state) {
+          return screens[state.currentIndex];
+        },
+      ),
       bottomNavigationBar: const BottomNav(),
     );
   }
@@ -23,6 +31,5 @@ List<Widget> screens = [
   const CollectionPoints(),
   const SchedulePickUp(),
   const DonationScreen(),
-  const CommunityPage()
-  
+  const CommunityPage(),
 ];

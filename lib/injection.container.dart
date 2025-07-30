@@ -10,6 +10,7 @@ import 'package:floo_aid_rewrite/features/auth/domain/usecase/sign_out_usecase.d
 import 'package:floo_aid_rewrite/features/auth/domain/usecase/sign_up_with_email_password_usecase.dart';
 import 'package:floo_aid_rewrite/features/auth/domain/usecase/sign_up_with_google_usecase.dart';
 import 'package:floo_aid_rewrite/features/auth/presenataion/bloc/auth_bloc.dart';
+import 'package:floo_aid_rewrite/features/home/presentation/bloc/navigation_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -62,4 +63,6 @@ Future<void> init() async {
         sl<SignUpWithGoogleUsecase>(),
         sl<SignOutUsecase>(),
       ));
+
+  sl.registerFactory(NavigationBloc.new);
 }
