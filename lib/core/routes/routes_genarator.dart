@@ -4,6 +4,7 @@ import 'package:floo_aid_rewrite/features/auth/presenataion/pages/email_verifica
 import 'package:floo_aid_rewrite/features/auth/presenataion/pages/login_screen.dart';
 import 'package:floo_aid_rewrite/features/auth/presenataion/pages/regestration_screen.dart';
 import 'package:floo_aid_rewrite/features/dashboard/presentation/pages/dashboard.dart';
+import 'package:floo_aid_rewrite/features/home/presentation/pages/home.dart';
 import 'package:flutter/material.dart';
 
 Route<dynamic> generateRoutes(RouteSettings settings) {
@@ -20,6 +21,9 @@ Route<dynamic> generateRoutes(RouteSettings settings) {
     case AppRoutes.emailVerification:
       return MaterialPageRoute<VerifyEmailScreen>(
           builder: (_) => const VerifyEmailScreen());
+    case AppRoutes.homePage:
+      return MaterialPageRoute<HomePage>(
+          builder: (_) => const HomePage());
     default:
       return MaterialPageRoute<RegestrationScreen>(
         builder: (_) => const RegestrationScreen(),

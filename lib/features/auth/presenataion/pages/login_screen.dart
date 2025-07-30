@@ -21,7 +21,7 @@ class LoginScreen extends StatelessWidget {
     return BlocConsumer<AuthBloc, AuthState>(
       listener: (context, state) {
         if (state.user != null) {
-          Navigator.pushReplacementNamed(context, AppRoutes.dashboardScreen);
+          Navigator.pushReplacementNamed(context, AppRoutes.homePage);
           showCustomSnackBar(
             context,
             'Successfully logged in!',
