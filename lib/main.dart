@@ -7,7 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() async{
-   WidgetsFlutterBinding.ensureInitialized();  try {
+   WidgetsFlutterBinding.ensureInitialized();  
+   try {
     // Initialize dependency injection (which initializes Firebase first)
     await di.init();
     
@@ -26,7 +27,6 @@ void main() async{
     throw Exception('Failed to initialize app: $e');
 
   }
-  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {

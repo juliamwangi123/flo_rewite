@@ -7,9 +7,9 @@ part of 'auth_bloc.dart';
 
 
   const AuthState({
-    this.isLoading,
+    this.isLoading = false,
     this.user,
-    this.errorMessage,
+    this.errorMessage = ''
   });
   
   AuthState copyWith({bool? isLoading, String? errorMessage, AuthEntity? user}){

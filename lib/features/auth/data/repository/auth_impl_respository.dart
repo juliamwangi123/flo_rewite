@@ -14,12 +14,11 @@ class AuthRepositoryImpl implements AuthRepository{
   @override
   Future<Either<Failure, AuthEntity>> signInUserWithEmailAndPassword(AuthParams authParams) async{
     try {
-      final results = await authRemoteDataSource.signInUserWithGoogle();
+      final results = await authRemoteDataSource.signInUserWithEmailAndPassword(authParams);
       return Right(results);
     }  on ServerException catch (e) {
       return Left(ServerFailure(e.message));
-    }
-      
+    }   
   }
 
   @override

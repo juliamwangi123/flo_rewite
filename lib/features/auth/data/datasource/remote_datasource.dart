@@ -1,7 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:floo_aid_rewrite/core/data_types/auth_params.dart';
 import 'package:floo_aid_rewrite/core/errors/exception.dart';
+import 'package:floo_aid_rewrite/core/errors/firebase_error_mapper.dart';
 import 'package:floo_aid_rewrite/features/auth/data/models/auth_model.dart';
+import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 abstract class AuthRemoteDataSource {
@@ -21,14 +23,16 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource{
   @override
   Future<AuthModel> signUpUserWithEmailAndPassword(AuthParams params) async{
     try{
-      final usercredential =  await firebaseAuth.signInWithEmailAndPassword(
+      final usercredential =  await firebaseAuth.createUserWithEmailAndPassword(
         email: params.email,
         password: params.password,
       );
-      if(usercredential.user != null){
-        await usercredential.user?.sendEmailVerification();
+      // TODO: Implement OTP verification
+      
+      // if(usercredential.user != null){
+      //   await usercredential.user?.sendEmailVerification();
 
-      }
+      // }
       return AuthModel(
         uuid: usercredential.user?.uid ?? '',
         email: usercredential.user?.email ?? '',
@@ -36,7 +40,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource{
         isNewUser: usercredential.additionalUserInfo?.isNewUser ?? false,
       );
     }on FirebaseAuthException catch (e) {
-      throw ServerException(e.message ?? 'An unknown error occurred');
+      throw ServerException(mapFirebaseAuthError(e.code, e.message));
     }
     catch (e) {
       throw Exception('Failed to sign up with email and password: $e');
@@ -71,7 +75,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource{
         isNewUser: userCredential.additionalUserInfo!.isNewUser,
       );
     } on FirebaseAuthException catch (e) {
-      throw ServerException(e.message ?? 'An unknown error occurred');
+      throw ServerException(mapFirebaseAuthError(e.code, e.message));
     } catch (e) {
       throw ServerException('Failed to sign in with Google: $e');
     }
@@ -102,7 +106,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource{
           isNewUser: userCredentials.additionalUserInfo?.isNewUser ?? false,
         );
     } on FirebaseAuthException catch (e) {
-      throw ServerException(e.message ?? 'An unknown error occurred');
+      throw ServerException(mapFirebaseAuthError(e.code, e.message));
       
     } catch (e) {
             throw Exception('Failed to sign in with email and password: $e');

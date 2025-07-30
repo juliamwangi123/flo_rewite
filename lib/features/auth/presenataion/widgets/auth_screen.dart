@@ -11,8 +11,11 @@ class AuthScreen extends StatefulWidget {
   final String authHeaderTitle;
   final String authHeaderSubtitle;
   final bool isLoginScreen;
+  final TextEditingController emailController;
+  final TextEditingController passwordController;
+  final TextEditingController? confirmPasswordController;
   final void Function() handleSubmitButton;
-
+  final bool? isLoading;
 
   const AuthScreen({
     super.key,
@@ -20,6 +23,10 @@ class AuthScreen extends StatefulWidget {
     required this.authHeaderSubtitle,
     required this.isLoginScreen,
     required this.handleSubmitButton,
+    required this.emailController,
+    required this.passwordController,
+    this.confirmPasswordController,
+    this.isLoading = false,
   });
 
   @override
@@ -28,6 +35,15 @@ class AuthScreen extends StatefulWidget {
 
 class _AuthScreenState extends State<AuthScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  bool isButtonActive = false;
+
+  void checkIsButtonActive() {
+    final isFormValid = _formKey.currentState?.validate() ?? false;
+    setState(() {
+      isButtonActive = isFormValid;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -97,31 +113,41 @@ class _AuthScreenState extends State<AuthScreen> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     AuthForm(
+                      emailController: widget.emailController,
+                      passwordController: widget.passwordController,
+                      confirmPasswordController:
+                          widget.confirmPasswordController,
                       isLoginScreen: widget.isLoginScreen,
                       formKey: _formKey,
+                      onChanged: checkIsButtonActive,
                     ),
-                  smallVerticalSizedBox,
-                  if (widget.isLoginScreen) const ForgotPassword(
-                    ) else const SizedBox.shrink(),
+                    smallVerticalSizedBox,
+                    if (widget.isLoginScreen)
+                      const ForgotPassword()
+                    else
+                      const SizedBox.shrink(),
                     mediumVerticalSizedBox,
                     SubmitAuthButton(
-                      isButtonActive:
-                          _formKey.currentState?.validate() ?? false,
+                      isLoading: widget.isLoading ?? false,
+                      isButtonActive: isButtonActive,
+                      isLoginScreen: widget.isLoginScreen,
                       handleSubmitButton: widget.handleSubmitButton,
                     ),
                     smallVerticalSizedBox,
                     AuthenticationSwitcher(
-                      authToggleText: widget.isLoginScreen ? 'Don\'t have an account' : 'Already have an account',
-                      authActionText: widget.isLoginScreen ? 'Sign Up' : 'Login',
-                      onAuthActionTap:() {
+                      authToggleText:
+                          widget.isLoginScreen
+                              ? 'Don\'t have an account'
+                              : 'Already have an account',
+                      authActionText:
+                          widget.isLoginScreen ? 'Sign Up' : 'Login',
+                      onAuthActionTap: () {
                         Navigator.pushReplacementNamed(
                           context,
-                          widget.isLoginScreen ? '/register': '/login',
+                          widget.isLoginScreen ? '/register' : '/login',
                         );
                       },
-
                     ),
-
                   ],
                 ),
               ),

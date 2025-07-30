@@ -24,54 +24,53 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     this.signInWithGoogleUsecase,
     this.signOutUserUsecase,
     ) : super( const AuthState()) {
-    on<SignUpwithEmailandPsswordEvent>(_onSignUpWitjEmailAndPassword);
-    on<SignInwithEmailandPasswordEvent>(_onSignUpWithEmaiandPassword);
+    on<SignUpwithEmailandPsswordEvent>(_onSignUpWithEmailAndPassword);
+    on<SignInwithEmailandPasswordEvent>(_onSignInWithEmailAndPassword);
     on<SignInwithGoogleEvent>(_onSignInWithGoogle);
     on<SignOutUserEvent>(_onSignOutUser);
   }
 
-   void _onSignUpWitjEmailAndPassword(SignUpwithEmailandPsswordEvent event, Emitter<AuthState> emit) async {
-    emit(state.copyWith(isLoading: true));
-    final failureOrRegisterUser = await registerUseCase(
-        AuthParams(email: event.authParams.email, password: event.authParams.password));
-    failureOrRegisterUser.fold(
-        (failure) => emit(state.copyWith(
-            isLoading: false,
-            errorMessage: (failure as ServerFailure).message)),
-        (user) => emit(state.copyWith(isLoading: false, user: user)));
-  }
+   void _onSignUpWithEmailAndPassword(SignUpwithEmailandPsswordEvent event, Emitter<AuthState> emit) async {
+  emit(state.copyWith(isLoading: true, errorMessage: null));
+  final failureOrRegisterUser = await registerUseCase(event.authParams);
+  failureOrRegisterUser.fold(
+    (failure) => emit(state.copyWith(
+        isLoading: false,
+        errorMessage: (failure as ServerFailure).message)),
+    (user) => emit(state.copyWith(isLoading: false, user: user, errorMessage: null)),
+  );
+}
 
-  void _onSignUpWithEmaiandPassword(SignInwithEmailandPasswordEvent event, Emitter<AuthState> emit) async {
-    emit(state.copyWith(isLoading: true));
-    final failureOrRegisterUser = await registerUseCase(
-        AuthParams(email: event.authParams.email, password: event.authParams.password));
-    failureOrRegisterUser.fold(
-        (failure) => emit(state.copyWith(
-            isLoading: false,
-            errorMessage: (failure as ServerFailure).message)),
-        (user) => emit(state.copyWith(isLoading: false, user: user)));
-
-  }
+void _onSignInWithEmailAndPassword(SignInwithEmailandPasswordEvent event, Emitter<AuthState> emit) async {
+  emit(state.copyWith(isLoading: true, errorMessage: null));
+  final failureOrRegisterUser = await signInUseCase(event.authParams); 
+  failureOrRegisterUser.fold(
+    (failure) => emit(state.copyWith(
+        isLoading: false,
+        errorMessage: (failure as ServerFailure).message)),
+    (user) => emit(state.copyWith(isLoading: false, user: user, errorMessage: null)),
+  );
+}
 
   void _onSignInWithGoogle(SignInwithGoogleEvent event, Emitter<AuthState> emit) async {
-    emit(state.copyWith(isLoading: true));
+    emit(state.copyWith(isLoading: true, errorMessage: null));
     final failureOrRegisterUser = await signInWithGoogleUsecase(NoParams());
     failureOrRegisterUser.fold(
         (failure) => emit(state.copyWith(
             isLoading: false,
             errorMessage: (failure as ServerFailure).message)),
-        (user) => emit(state.copyWith(isLoading: false, user: user)));
+        (user) => emit(state.copyWith(isLoading: false, user: user, errorMessage: null)));
 
   }
 
     void _onSignOutUser(SignOutUserEvent event, Emitter<AuthState> emit) async {
-    emit(state.copyWith(isLoading: true));
+    emit(state.copyWith(isLoading: true, errorMessage: null));
     final failureOrRegisterUser = await signOutUserUsecase(NoParams());
     failureOrRegisterUser.fold(
         (failure) => emit(state.copyWith(
             isLoading: false,
             errorMessage: (failure as ServerFailure).message)),
-        (user) => emit(state.copyWith(isLoading: false, user: user)));
+        (user) => emit(state.copyWith(isLoading: false, user: user, errorMessage: null)));
 
   }
 

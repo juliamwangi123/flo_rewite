@@ -10,30 +10,25 @@ import 'package:floo_aid_rewrite/features/auth/domain/usecase/sign_out_usecase.d
 import 'package:floo_aid_rewrite/features/auth/domain/usecase/sign_up_with_email_password_usecase.dart';
 import 'package:floo_aid_rewrite/features/auth/domain/usecase/sign_up_with_google_usecase.dart';
 import 'package:floo_aid_rewrite/features/auth/presenataion/bloc/auth_bloc.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 final sl = GetIt.instance;
 
 Future<void> init() async {
-  // Ensure Flutter bindings are initialized first
-  WidgetsFlutterBinding.ensureInitialized();
   
-  // CRITICAL: Initialize Firebase first and await it
   try {
     await Firebase.initializeApp(
           
     );
   } catch (e) {
-    // Consider adding more specific error handling here
-    // Rethrow to prevent continuing if Firebase fails
+   
     rethrow;
   }
   
   // Register Firebase services AFTER Firebase is successfully initialized
   sl.registerLazySingleton<FirebaseAuth>(() => FirebaseAuth.instance);
-sl.registerLazySingleton<GoogleSignIn>(GoogleSignIn.new);
+  sl.registerLazySingleton<GoogleSignIn>(GoogleSignIn.new);
 
   
   // Authentication Data Sources
