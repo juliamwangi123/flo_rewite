@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:floo_aid_rewrite/core/widgets/spaces.dart';
 import 'package:floo_aid_rewrite/features/dashboard/presentation/widgets/recent_activity_card.dart';
 import 'package:floo_aid_rewrite/features/dashboard/presentation/widgets/recent_activity_header.dart';
