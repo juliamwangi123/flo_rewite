@@ -3,7 +3,6 @@ import 'package:floo_aid_rewrite/core/data_types/auth_params.dart';
 import 'package:floo_aid_rewrite/core/errors/exception.dart';
 import 'package:floo_aid_rewrite/core/errors/firebase_error_mapper.dart';
 import 'package:floo_aid_rewrite/features/auth/data/models/auth_model.dart';
-import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 abstract class AuthRemoteDataSource {
