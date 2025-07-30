@@ -5,12 +5,20 @@ import 'package:flutter/material.dart';
 
 class AuthForm extends StatefulWidget {
   final bool isLoginScreen;
+  final TextEditingController emailController;
+  final TextEditingController passwordController;
+  final TextEditingController? confirmPasswordController;
   final GlobalKey<FormState> formKey;
+  final VoidCallback? onChanged;
 
   const AuthForm({
     super.key, 
     required this.isLoginScreen, 
-    required this.formKey
+    required this.formKey,
+    required this.emailController,
+    required this.passwordController,
+    this.confirmPasswordController,
+    this.onChanged,
     });
 
   @override
@@ -24,24 +32,37 @@ class _AuthFormState extends State<AuthForm> {
   Widget build(BuildContext context) {
     return Form(
       key: widget.formKey,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
+      onChanged: widget.onChanged,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
           CustomTextField(
             hintText: 'Enter valid email',
+            controller: widget.emailController,
             borderColor: AppColors.lightGray.withValues(alpha: 0.3),
             focusedBorderColor:AppColors.floaidPink,
             prefixIcon: const Icon(
               Icons.email_outlined,
               color: AppColors.floaidPink,
-              size: 20,
-              
+              size: 20,    
             ),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please enter your email';
+              }
+              final emailRegex = RegExp(r'^[^@]+@[^@]+\.[^@]+');
+              if (!emailRegex.hasMatch(value)) {
+                return 'Please enter a valid email address';
+              }
+              return null;
+            },
           ),
          mediumVerticalSizedBox,
           CustomTextField(
             hintText: 'Create a password',
+            controller: widget.passwordController,
             borderColor: AppColors.lightGray.withValues(alpha:0.3),
             focusedBorderColor:AppColors.floaidPink,
             prefixIcon: const Icon(
@@ -64,11 +85,19 @@ class _AuthFormState extends State<AuthForm> {
                 size: 20,
               ),
             ),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please enter your password';
+              }
+             
+              return null;
+            },  
           ),
           if(!widget.isLoginScreen)...[
             mediumVerticalSizedBox,
             CustomTextField(
             hintText: 'Confirm password',
+            controller: widget.confirmPasswordController,
             borderColor: AppColors.lightGray.withValues(alpha:0.3),
             focusedBorderColor:AppColors.floaidPink,
             prefixIcon: const Icon(
@@ -91,6 +120,15 @@ class _AuthFormState extends State<AuthForm> {
                 size: 20,
               ),
             ),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please confirm your password';
+              }
+              if (value != widget.passwordController.text) {
+                return 'Passwords do not match';
+              }
+              return null;
+            },
           )
           ]
           

@@ -1,7 +1,9 @@
 
 import 'package:floo_aid_rewrite/core/routes/routes.dart';
+import 'package:floo_aid_rewrite/features/auth/presenataion/pages/email_verification.dart';
 import 'package:floo_aid_rewrite/features/auth/presenataion/pages/login_screen.dart';
 import 'package:floo_aid_rewrite/features/auth/presenataion/pages/regestration_screen.dart';
+import 'package:floo_aid_rewrite/features/dashboard/presentation/pages/dashboard.dart';
 import 'package:flutter/material.dart';
 
 Route<dynamic> generateRoutes(RouteSettings settings) {
@@ -12,7 +14,12 @@ Route<dynamic> generateRoutes(RouteSettings settings) {
     case AppRoutes.loginRoute:
       return MaterialPageRoute<LoginScreen>(
           builder: (_) => const LoginScreen());
-
+    case AppRoutes.dashboardScreen:
+      return MaterialPageRoute<DashboardScreen>(
+          builder: (_) => const DashboardScreen());
+    case AppRoutes.emailVerification:
+      return MaterialPageRoute<VerifyEmailScreen>(
+          builder: (_) => const VerifyEmailScreen());
     default:
       return MaterialPageRoute<RegestrationScreen>(
         builder: (_) => const RegestrationScreen(),

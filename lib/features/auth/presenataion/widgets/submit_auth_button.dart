@@ -5,7 +5,8 @@ class SubmitAuthButton extends StatelessWidget {
   final bool isButtonActive;
   final void Function() handleSubmitButton;
   final bool? isLoading;
-  const SubmitAuthButton({super.key, required this.isButtonActive, required this.handleSubmitButton,  this.isLoading = false});
+ final bool  isLoginScreen;
+  const SubmitAuthButton({super.key, required this.isButtonActive, required this.handleSubmitButton,  this.isLoading = false, required this.isLoginScreen});
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +50,7 @@ class SubmitAuthButton extends StatelessWidget {
                     ),
                   )
                 : Text(
-                    'Create Account',
+                  !isLoginScreen?   'Create Account' : 'Login',
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w700,
