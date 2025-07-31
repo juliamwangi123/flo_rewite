@@ -26,7 +26,7 @@ class DrawerItem extends StatelessWidget {
         leading: Icon(leadingIcon, color: AppColors.deepNavy),
         title: Text(title, style: normalSize16Text(AppColors.deepNavy)),
         onTap: onTap,
-        splashColor: AppColors.floaidPink.withOpacity(0.2), 
+        splashColor: AppColors.floaidPink.withOpacity(0.05), 
       ),
     );
   }

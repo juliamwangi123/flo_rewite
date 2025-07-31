@@ -11,7 +11,7 @@ class CustomDrawerHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 15),
+      padding: const EdgeInsets.symmetric(horizontal: 15).copyWith(top: 30,),
       height: 170,
       decoration: BoxDecoration(
          gradient: LinearGradient(
@@ -26,6 +26,7 @@ class CustomDrawerHeader extends StatelessWidget {
       child: Center(
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             CircleAvatar(
               backgroundColor: AppColors.whiteColor,
