@@ -1,15 +1,18 @@
+
 import 'package:flutter/material.dart';
 
 class FloAidAppBar extends StatelessWidget {
-  final Widget? leadingWidget;
+  final IconData? leadingWidget;
   final Widget? titleWidget;
   final Widget? trailingWidget;
+  final VoidCallback? onLeadingPressed;
 
   const FloAidAppBar({
     super.key,
     this.leadingWidget,
     this.titleWidget,
     this.trailingWidget,
+    this.onLeadingPressed
     });
 
   @override
@@ -19,9 +22,14 @@ class FloAidAppBar extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          leadingWidget ?? const SizedBox.shrink(),
+          if(leadingWidget != null)
+            IconButton(
+              icon: Icon(leadingWidget),
+              onPressed: onLeadingPressed 
+            ),
           titleWidget ?? const SizedBox.shrink(),
           trailingWidget ?? const SizedBox.shrink(),
+
         ],
       ),
     );

@@ -42,13 +42,13 @@ class RecentActivityFeed extends StatelessWidget {
         color: AppColors.whiteColor,
         borderRadius: BorderRadius.circular(20),
         border: Border.all(color: AppColors.borderGray, width: 1),
-        boxShadow: [
-          BoxShadow(
-            color: AppColors.shadowGray.withOpacity(0.1),
-            blurRadius: 15,
-            offset: const Offset(0, 5),
-          ),
-        ],
+        // boxShadow: [
+        //   BoxShadow(
+        //     color: AppColors.shadowGray.withOpacity(0.1),
+        //     blurRadius: 15,
+        //     offset: const Offset(0, 5),
+        //   ),
+        // ],
       ),
       child: Column(
         children: [
