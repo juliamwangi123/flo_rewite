@@ -2,7 +2,6 @@ import 'package:floo_aid_rewrite/core/routes/routes_genarator.dart';
 import 'package:floo_aid_rewrite/core/theme/theme.dart';
 import 'package:floo_aid_rewrite/features/auth/presenataion/bloc/auth_bloc.dart';
 import 'package:floo_aid_rewrite/features/auth/presenataion/pages/login_screen.dart';
-import 'package:floo_aid_rewrite/features/dashboard/presentation/pages/dashboard.dart';
 import 'package:floo_aid_rewrite/features/home/presentation/bloc/navigation_bloc.dart';
 import 'package:floo_aid_rewrite/injection.container.dart' as di;
 import 'package:flutter/material.dart';
@@ -40,7 +39,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
        debugShowCheckedModeBanner: false,
       theme: AppTheme.getAppTheme(),
-      home: const DashboardScreen(),
+      home: const LoginScreen(),
       onGenerateRoute:generateRoutes ,
     );
   }
