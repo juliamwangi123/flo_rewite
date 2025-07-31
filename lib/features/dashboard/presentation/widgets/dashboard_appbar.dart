@@ -18,10 +18,10 @@ class _DashboardAppbarState extends State<DashboardAppbar> {
   @override
   Widget build(BuildContext context) {
     return FloAidAppBar(
-                leadingWidget: IconButton(
-                  onPressed: () {},
-                  icon: const Icon(Icons.menu),
-                ),
+                leadingWidget:Icons.menu,
+                onLeadingPressed: () {
+                  Scaffold.of(context).openDrawer();
+                },
                 titleWidget: Row(
                   children: [
                     Container(
