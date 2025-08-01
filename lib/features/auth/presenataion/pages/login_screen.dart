@@ -46,6 +46,7 @@ class LoginScreen extends StatelessWidget {
         return Center(
           child: AuthScreen(
             isLoading:state.isLoading ,
+            isGoogleLoading: state.isGoogleLoading,
             authHeaderTitle: 'Welcome Back',
             authHeaderSubtitle: 'Sign in to continue your journey',
             emailController: emailController,
@@ -63,6 +64,10 @@ class LoginScreen extends StatelessWidget {
                   ),
                 );
               }
+            },
+             onGoogleSignIn: () {
+              debugPrint('Google Sign In Button Pressed');
+              context.read<AuthBloc>().add(const SignInwithGoogleEvent());
             },
           ),
         );

@@ -65,6 +65,9 @@ class RegestrationScreen extends StatelessWidget {
                 );
               }
             },
+            onGoogleSignIn: () {
+              context.read<AuthBloc>().add(const SignInwithGoogleEvent());
+            },
           ),
         );
       },
