@@ -1,5 +1,6 @@
 import 'package:floo_aid_rewrite/core/theme/theme.dart';
 import 'package:floo_aid_rewrite/core/widgets/custom_text_field.dart';
+import 'package:floo_aid_rewrite/core/widgets/spaces.dart';
 import 'package:flutter/material.dart';
 
 class DropOffLocationSearchInputField extends StatelessWidget {
@@ -15,18 +16,16 @@ class DropOffLocationSearchInputField extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        SizedBox(
-          width: MediaQuery.of(context).size.width * 0.80,
-          child: const Expanded(
-            child: CustomTextField(
-              prefixIcon: Icon(Icons.search_outlined),
-              borderColor: Colors.transparent,
-              borderRadius: BorderRadius.all(Radius.circular(8)),
-              customFillColor: AppColors.offWhite,
-              contentPadding: EdgeInsets.symmetric(vertical: 5),
-            ),
+        const Expanded(
+          child: CustomTextField(
+            prefixIcon: Icon(Icons.search_outlined),
+            borderColor: Colors.transparent,
+            borderRadius: BorderRadius.all(Radius.circular(8)),
+            customFillColor: AppColors.offWhite,
+            contentPadding: EdgeInsets.symmetric(vertical: 5),
           ),
         ),
+        smallHorizontalSizedBox,
         Container(
           height: 48, 
           width: 40,
