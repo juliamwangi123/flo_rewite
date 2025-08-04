@@ -14,9 +14,9 @@ class CollectionPoints extends StatelessWidget {
         smallVerticalSizedBox,
         DropOffLocationSearchInputField(handlefilter: () {}),
         mediumVerticalSizedBox,
-       const  DropOffPointsMap(),
+        const  DropOffPointsMap(),
         mediumVerticalSizedBox,
-        const NerbyDropOffPoints(),
+        const Expanded(child: NerbyDropOffPoints()),
         smallVerticalSizedBox,
       ],
     );

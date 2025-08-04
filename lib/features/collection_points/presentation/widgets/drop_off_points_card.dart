@@ -17,11 +17,11 @@ class DropOffPointsCard extends StatelessWidget {
 
   const DropOffPointsCard({
     super.key,
-    this.title = 'Westlands Primary School',
-    this.address = '123 Main St, Nairobi',
-    this.distance = '1.5 km away',
-    this.collectionDate = '12 Aug 2025, 10:00 AM',
-    this.pinLocation = 'User Pin Location',
+     required this.title,
+    required this.address,
+    required this.distance,
+    required this.collectionDate,
+    required this.pinLocation,
     this.onSchedulePickup,
     this.onCall,
     this.onDirections,
@@ -41,6 +41,7 @@ class DropOffPointsCard extends StatelessWidget {
             offset: const Offset(0, 2),
           ),
         ],
+        border: Border.all(color: AppColors.borderGray, width: 1),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -50,7 +51,7 @@ class DropOffPointsCard extends StatelessWidget {
             child: const Icon(
               Icons.school_outlined,
               color: AppColors.aquaTeal,
-              size: 22,
+              size: 25,
             ),
           ),
           smallHorizontalSizedBox,
@@ -65,7 +66,7 @@ class DropOffPointsCard extends StatelessWidget {
                     Text(address, style: normalSize16Text(AppColors.lightGray)),
                   ],
                 ),
-                verySmallVerticalSizedBox,
+               smallVerticalSizedBox,
                 Row(
                   children: [
                     const Icon(
@@ -85,12 +86,12 @@ class DropOffPointsCard extends StatelessWidget {
                     const Icon(
                       Icons.calendar_month_outlined,
                       size: 18,
-                      color: AppColors.deepNavy,
+                      color: AppColors.lightGray,
                     ),
                     const SizedBox(width: 6),
                     Text(
                       'Collection Date: $collectionDate',
-                      style: normalSize12Text(AppColors.deepNavy),
+                      style: normalSize12Text(AppColors.lightGray),
                     ),
                   ],
                 ),
