@@ -11,28 +11,28 @@ class NerbyDropOffPoints extends StatelessWidget {
   Widget build(BuildContext context) {
     final dropOffPoints = [
       {
-        'title': 'Community Center',
+        'title': 'Westlands Primary School',
         'address': '123 Main St, Cityville',
         'distance': '1.2 km',
         'collectionDate': 'Aug 10, 2025',
         'pinLocation': 'loc1',
       },
       {
-        'title': 'Library',
+        'title': 'Karen Community Center',
         'address': '456 Elm St, Townsville',
         'distance': '2.5 km',
         'collectionDate': 'Aug 12, 2025',
         'pinLocation': 'loc2',
       },
       {
-        'title': 'Health Clinic',
+        'title': 'Kilimani Health Clinic',
         'address': '789 Oak St, Villagetown',
         'distance': '3.1 km',
         'collectionDate': 'Aug 15, 2025',
         'pinLocation': 'loc3',
       },
       {
-        'title': 'School Hall',
+        'title': 'Sarit Center Mall',
         'address': '321 Pine St, Hamlet',
         'distance': '4.0 km',
         'collectionDate': 'Aug 18, 2025',
