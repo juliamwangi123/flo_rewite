@@ -2,6 +2,7 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:floo_aid_rewrite/features/auth/data/datasource/remote_datasource.dart';
 import 'package:floo_aid_rewrite/features/auth/data/repository/auth_impl_respository.dart';
 import 'package:floo_aid_rewrite/features/auth/domain/repository/auth_repository.dart';
@@ -10,6 +11,10 @@ import 'package:floo_aid_rewrite/features/auth/domain/usecase/sign_out_usecase.d
 import 'package:floo_aid_rewrite/features/auth/domain/usecase/sign_up_with_email_password_usecase.dart';
 import 'package:floo_aid_rewrite/features/auth/domain/usecase/sign_up_with_google_usecase.dart';
 import 'package:floo_aid_rewrite/features/auth/presenataion/bloc/auth_bloc.dart';
+import 'package:floo_aid_rewrite/features/collection_points/data/datasource/remote_data_source_drop_off_points.dart';
+import 'package:floo_aid_rewrite/features/collection_points/data/repository/drop_off_impl_repository.dart';
+import 'package:floo_aid_rewrite/features/collection_points/domain/usecase/drop_off_point_usecase.dart';
+import 'package:floo_aid_rewrite/features/collection_points/presentation/bloc/drop_off_points_bloc.dart';
 import 'package:floo_aid_rewrite/features/home/presentation/bloc/navigation_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -29,6 +34,7 @@ Future<void> init() async {
   
   // Register Firebase services AFTER Firebase is successfully initialized
   sl.registerLazySingleton<FirebaseAuth>(() => FirebaseAuth.instance);
+  sl.registerLazySingleton<FirebaseDatabase>(() => FirebaseDatabase.instance);
   sl.registerLazySingleton<GoogleSignIn>(GoogleSignIn.new);
 
   
@@ -65,4 +71,26 @@ Future<void> init() async {
       ));
 
   sl.registerFactory(NavigationBloc.new);
+
+  sl.registerLazySingleton<RemoteDataSourceDropOffPoints>(
+    () => RemoteDataSourceDropOffPointsImpl(firebaseDatabase: sl<FirebaseDatabase>()),
+  );
+
+  // Repository
+  sl.registerLazySingleton(
+    () => DropOffImplRepository(remoteDataSourceDropOffPoints: sl<RemoteDataSourceDropOffPoints>()),
+  );
+
+  // Use Case
+  sl.registerLazySingleton(
+    () => DropOffPointUsecase(dropOffPointRepository: sl<DropOffImplRepository>()),
+  );
+
+  // BLoC
+  sl.registerFactory(
+    () => DropOffPointsBloc(sl<DropOffPointUsecase>()),
+  );
+
+
+
 }
