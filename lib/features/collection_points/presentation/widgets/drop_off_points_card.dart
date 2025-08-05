@@ -1,4 +1,5 @@
 // ignore_for_file: deprecated_member_use
+import 'package:floo_aid_rewrite/core/theme/text_theme.dart';
 import 'package:floo_aid_rewrite/core/theme/theme.dart';
 import 'package:floo_aid_rewrite/core/widgets/spaces.dart';
 import 'package:flutter/material.dart';
@@ -48,7 +49,7 @@ class DropOffPointsCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.04),
+            color: AppColors.blackColor.withOpacity(0.04),
             blurRadius: 8,
             offset: const Offset(0, 2),
           ),
@@ -57,7 +58,6 @@ class DropOffPointsCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Header with icon, title, and status
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -84,11 +84,7 @@ class DropOffPointsCard extends StatelessWidget {
                         Expanded(
                           child: Text(
                             title,
-                            style: const TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black,
-                            ),
+                            style: normalSize16Text(AppColors.deepNavy),
                           ),
                         ),
                         if (urgencyLevel == 'urgent')
@@ -112,13 +108,10 @@ class DropOffPointsCard extends StatelessWidget {
                           ),
                       ],
                     ),
-                    const SizedBox(height: 4),
+                    verySmallVerticalSizedBox,
                     Text(
                       address,
-                      style: const TextStyle(
-                        fontSize: 14,
-                        color: Colors.grey,
-                      ),
+                      style: normalSize14Text(AppColors.lightGray)
                     ),
                   ],
                 ),
@@ -126,9 +119,8 @@ class DropOffPointsCard extends StatelessWidget {
             ],
           ),
           
-          const SizedBox(height: 12),
-          
-          // Status and distance row
+         smallVerticalSizedBox,
+         
           Row(
             children: [
               Container(
@@ -146,63 +138,46 @@ class DropOffPointsCard extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(width: 12),
-              Icon(
+              smallHorizontalSizedBox,
+             const Icon(
                 Icons.location_on,
                 size: 16,
                 color: AppColors.floaidPink,
               ),
-              const SizedBox(width: 4),
+              verySmallHorizontalSizedBox,
               Text(
                 distance,
-                style: const TextStyle(
-                  fontSize: 12,
-                  color: Colors.grey,
-                ),
+                style: normalSize14Text(AppColors.lightGray),
               ),
-              const SizedBox(width: 12),
-              Icon(
-                Icons.star,
-                size: 16,
-                color: Colors.amber,
-              ),
-              const SizedBox(width: 4),
-              Text(
-                rating.toString(),
-                style: const TextStyle(
-                  fontSize: 12,
-                  color: Colors.grey,
-                ),
-              ),
+              smallVerticalSizedBox,
+            //  const Icon(
+            //     Icons.star,
+            //     size: 16,
+            //     color: Colors.amber,
+            //   ),
+            //  veryLargeHorizontalSizedBox,
+              // Text(
+              //   rating.toString(),
+              //   style: normalSize12Text(AppColors.lightGray)
+              // ),
             ],
-          ),
-          
-          const SizedBox(height: 16),
-          
-          // Stock level section
+          ),   
+          smallVerticalSizedBox,    
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text(
+               Text(
                 'Stock Level',
-                style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.black87,
-                ),
+                style:normalSize14Text(AppColors.lightGray), 
               ),
               Text(
                 '$currentStock/$maxCapacity',
-                style: const TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.black87,
-                ),
+                style: boldSize14Text(AppColors.deepNavy),
               ),
             ],
           ),
           
-          const SizedBox(height: 8),
+         smallVerticalSizedBox,
           
           // Progress bar
           LinearProgressIndicator(
@@ -214,9 +189,7 @@ class DropOffPointsCard extends StatelessWidget {
             minHeight: 6,
           ),
           
-          const SizedBox(height: 16),
-          
-          // Action buttons
+          smallVerticalSizedBox,
           Row(
             children: [
               Expanded(
@@ -239,8 +212,8 @@ class DropOffPointsCard extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(width: 12),
-              Container(
+           smallHorizontalSizedBox,
+              DecoratedBox(
                 decoration: BoxDecoration(
                   color: Colors.grey.shade100,
                   borderRadius: BorderRadius.circular(8),
@@ -251,8 +224,8 @@ class DropOffPointsCard extends StatelessWidget {
                   tooltip: 'Call',
                 ),
               ),
-              const SizedBox(width: 8),
-              Container(
+             smallHorizontalSizedBox,
+              DecoratedBox(
                 decoration: BoxDecoration(
                   color: Colors.grey.shade100,
                   borderRadius: BorderRadius.circular(8),
@@ -266,15 +239,11 @@ class DropOffPointsCard extends StatelessWidget {
             ],
           ),
           
-          const SizedBox(height: 12),
+          smallVerticalSizedBox,
           
-          // Updated time
           Text(
             'Updated $updatedTime',
-            style: const TextStyle(
-              fontSize: 12,
-              color: Colors.grey,
-            ),
+            style: normalSize12Text(AppColors.lightGray),
           ),
         ],
       ),
@@ -297,19 +266,20 @@ class DropOffPointsCard extends StatelessWidget {
   Color _getStatusColor(String status) {
     switch (status.toUpperCase()) {
       case 'AVAILABLE':
-        return Colors.green;
+        return AppColors.successGreen;
       case 'LOW':
-        return Colors.orange;
+        return AppColors.warningAmber;
       case 'URGENT':
-        return Colors.red;
+        return AppColors.errorRed;
+      case 'UNAVAILABLE':
       default:
-        return Colors.grey;
+        return AppColors.lightGray;
     }
   }
 
   Color _getStockLevelColor(double percentage) {
-    if (percentage >= 70) return Colors.green;
-    if (percentage >= 40) return Colors.orange;
+    if (percentage >= 70) return AppColors.successGreen;
+    if (percentage >= 40) return AppColors.warningAmber;
     return Colors.red;
   }
 }
