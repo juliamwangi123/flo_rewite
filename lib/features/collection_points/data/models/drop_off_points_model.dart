@@ -10,7 +10,7 @@ class DropOffPointsModel extends DropOffPointsEntity {
     required super.urgencyLevel,
     required super.iconType,
     required super.updatedTime,
-    required super.cordinates,
+    required super.coordinates,
     required super.stockLevel,
     required super.isActive,
   });
@@ -28,12 +28,12 @@ class DropOffPointsModel extends DropOffPointsEntity {
     iconType: json['icon_type'] ?? '',
     updatedTime: json['updated_at'] ?? '', 
     isActive: json['is_active'] ?? false,
-    cordinates: coordinates != null 
-        ? DropOffCordinatesEntity(
+    coordinates: coordinates != null 
+        ? DropOffCoordinatesEntity(
             latitude: (coordinates['latitude'] as num?)?.toDouble() ?? 0.0,
             longitude: (coordinates['longitude'] as num?)?.toDouble() ?? 0.0,
           )
-        : const DropOffCordinatesEntity(latitude: 0.0, longitude: 0.0),
+        : const DropOffCoordinatesEntity(latitude: 0.0, longitude: 0.0),
     stockLevel: stockLevel != null 
         ? StockLevelEntity(
             current: stockLevel['current'] ?? 0, 
@@ -53,8 +53,8 @@ class DropOffPointsModel extends DropOffPointsEntity {
       'availability_status': availabilityStatus,
       'urgency_level': urgencyLevel,
       'coordinates': {
-        'latitude': cordinates.latitude,
-        'longitude': cordinates.longitude,
+        'latitude': coordinates.latitude,
+        'longitude': coordinates.longitude,
       },
       'stock_level': {
         'current_stock': stockLevel.current,

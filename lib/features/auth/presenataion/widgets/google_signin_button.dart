@@ -22,7 +22,7 @@ Widget buildGoogleButton(final VoidCallback onPressed, final bool? isLoading) {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image.asset(googleIcon, height: 24, width: 24),
-             smallVerticalSizedBox,
+             smallHorizontalSizedBox,
                Text(
                 'Continue with Google',
                  style: normalSize14Text(

@@ -5,7 +5,7 @@ import 'package:floo_aid_rewrite/features/collection_points/domain/entity/stock_
 class DropOffPointsEntity extends Equatable {
   final String name;
   final String address;
-  final DropOffCordinatesEntity cordinates;
+  final DropOffCoordinatesEntity coordinates;
   final String availabilityStatus;
   final String urgencyLevel;
   final StockLevelEntity stockLevel;
@@ -21,7 +21,7 @@ class DropOffPointsEntity extends Equatable {
     required this.urgencyLevel,
     required this.iconType,
     required this.updatedTime,
-    required this.cordinates,
+    required this.coordinates,
     required this.stockLevel,
     required this.isActive,
     //  this.operatingHours,
@@ -34,7 +34,7 @@ class DropOffPointsEntity extends Equatable {
     String? urgencyLevel,
     String? iconType,
     String? updatedTime,
-    DropOffCordinatesEntity? cordinates,
+    DropOffCoordinatesEntity? coordinates,
     StockLevelEntity? stockLevel,
     bool? isActive,
     // OperatingHoursEntity? operatingHours,
@@ -46,7 +46,7 @@ class DropOffPointsEntity extends Equatable {
       urgencyLevel: urgencyLevel ?? this.urgencyLevel,
       iconType: iconType ?? this.iconType,
       updatedTime: updatedTime ?? this.updatedTime,
-      cordinates: cordinates ?? this.cordinates,
+      coordinates: coordinates ?? this.coordinates,
       stockLevel: stockLevel ?? this.stockLevel,
       isActive: isActive ?? this.isActive,
       // operatingHours: operatingHours ?? this.operatingHours,
@@ -62,7 +62,7 @@ class DropOffPointsEntity extends Equatable {
         urgencyLevel,
         iconType,
         updatedTime,
-        cordinates,
+        coordinates,
         stockLevel,
         isActive,
         // operatingHours,

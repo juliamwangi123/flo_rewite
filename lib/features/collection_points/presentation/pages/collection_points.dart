@@ -16,7 +16,7 @@ class CollectionPoints extends StatelessWidget {
         mediumVerticalSizedBox,
         const  DropOffPointsMap(),
         mediumVerticalSizedBox,
-        const Expanded(child: NerbyDropOffPoints()),
+        const Expanded(child: NearbyDropOffPoints()),
         smallVerticalSizedBox,
       ],
     );

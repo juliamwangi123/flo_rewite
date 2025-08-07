@@ -6,14 +6,14 @@ import 'package:floo_aid_rewrite/features/collection_points/presentation/widgets
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class NerbyDropOffPoints extends StatefulWidget {
-  const NerbyDropOffPoints({super.key});
+class NearbyDropOffPoints extends StatefulWidget {
+  const NearbyDropOffPoints({super.key});
 
   @override
-  State<NerbyDropOffPoints> createState() => _NerbyDropOffPointsState();
+  State<NearbyDropOffPoints> createState() => _NerbyDropOffPointsState();
 }
 
-class _NerbyDropOffPointsState extends State<NerbyDropOffPoints> {
+class _NerbyDropOffPointsState extends State<NearbyDropOffPoints> {
   @override
   void initState() {
     super.initState();

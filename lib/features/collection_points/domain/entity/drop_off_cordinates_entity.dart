@@ -1,13 +1,13 @@
 import 'package:equatable/equatable.dart';
 
-class DropOffCordinatesEntity  extends Equatable{
+class DropOffCoordinatesEntity  extends Equatable{
   final double latitude;
   final double longitude;
 
-  const DropOffCordinatesEntity({required this.latitude, required this.longitude});
+  const DropOffCoordinatesEntity({required this.latitude, required this.longitude});
 
-  DropOffCordinatesEntity copyWith({double? latitude, double? longitude}) {
-    return DropOffCordinatesEntity(
+  DropOffCoordinatesEntity copyWith({double? latitude, double? longitude}) {
+    return DropOffCoordinatesEntity(
       latitude: latitude ?? this.latitude,
       longitude: longitude ?? this.longitude
     );
