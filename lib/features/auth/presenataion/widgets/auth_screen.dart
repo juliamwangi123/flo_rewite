@@ -1,9 +1,11 @@
 import 'package:floo_aid_rewrite/core/theme/text_theme.dart';
 import 'package:floo_aid_rewrite/core/theme/theme.dart';
 import 'package:floo_aid_rewrite/core/widgets/spaces.dart';
+import 'package:floo_aid_rewrite/features/auth/presenataion/widgets/auth_divider.dart';
 import 'package:floo_aid_rewrite/features/auth/presenataion/widgets/auth_form.dart';
 import 'package:floo_aid_rewrite/features/auth/presenataion/widgets/authentication_switcher.dart';
 import 'package:floo_aid_rewrite/features/auth/presenataion/widgets/forgot_password.dart';
+import 'package:floo_aid_rewrite/features/auth/presenataion/widgets/google_signin_button.dart';
 import 'package:floo_aid_rewrite/features/auth/presenataion/widgets/submit_auth_button.dart';
 import 'package:flutter/material.dart';
 
@@ -16,6 +18,8 @@ class AuthScreen extends StatefulWidget {
   final TextEditingController? confirmPasswordController;
   final void Function() handleSubmitButton;
   final bool? isLoading;
+  final bool? isGoogleLoading;
+  final VoidCallback? onGoogleSignIn;
 
   const AuthScreen({
     super.key,
@@ -26,7 +30,9 @@ class AuthScreen extends StatefulWidget {
     required this.emailController,
     required this.passwordController,
     this.confirmPasswordController,
+    this.onGoogleSignIn,
     this.isLoading = false,
+    this.isGoogleLoading = false,
   });
 
   @override
@@ -136,8 +142,16 @@ class _AuthScreenState extends State<AuthScreen> {
                           isButtonActive: isButtonActive,
                           isLoginScreen: widget.isLoginScreen,
                           handleSubmitButton: widget.handleSubmitButton,
+                          
                         ),
-                        smallVerticalSizedBox,
+                        mediumVerticalSizedBox,
+                        buildAuthDivider(),
+                        mediumVerticalSizedBox, 
+                        buildGoogleButton(
+                         widget.onGoogleSignIn ?? () {}
+                        , widget.isGoogleLoading ?? false
+                        ),                   
+                        mediumVerticalSizedBox,
                         AuthenticationSwitcher(
                           authToggleText:
                               widget.isLoginScreen

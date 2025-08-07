@@ -19,7 +19,7 @@ class RegestrationScreen extends StatelessWidget {
 
     return BlocConsumer<AuthBloc, AuthState>(
       listener: (context, state) {
-        if (state.user?.uuid.isNotEmpty ?? false) {
+        if (state.user?.isEmailVerified == false) {
           Navigator.pushReplacementNamed(context, AppRoutes.emailVerification);
           showCustomSnackBar(
             context,
@@ -27,7 +27,14 @@ class RegestrationScreen extends StatelessWidget {
             AppColors.successGreen,
             AppColors.offWhite,
           );
-        }
+        }else if(state.user?.isEmailVerified == true) {
+          Navigator.pushReplacementNamed(context, AppRoutes.homePage);
+          showCustomSnackBar(
+            context,
+            'Account successfully created!',
+            AppColors.successGreen,
+            AppColors.offWhite,
+          );}
          else if ( 
             state.errorMessage != null && 
             state.errorMessage!.isNotEmpty && 
@@ -64,6 +71,9 @@ class RegestrationScreen extends StatelessWidget {
                   ),
                 );
               }
+            },
+            onGoogleSignIn: () {
+              context.read<AuthBloc>().add(const SignInwithGoogleEvent());
             },
           ),
         );

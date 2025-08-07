@@ -53,7 +53,7 @@ void _onSignInWithEmailAndPassword(SignInwithEmailandPasswordEvent event, Emitte
 }
 
   void _onSignInWithGoogle(SignInwithGoogleEvent event, Emitter<AuthState> emit) async {
-    emit(state.copyWith(isLoading: true, errorMessage: null));
+    emit(state.copyWith(isGoogleLoading: true, errorMessage: null));
     final failureOrRegisterUser = await signInWithGoogleUsecase(NoParams());
     failureOrRegisterUser.fold(
         (failure) => emit(state.copyWith(

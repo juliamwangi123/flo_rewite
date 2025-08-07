@@ -17,21 +17,22 @@ class _DashboardScreenState extends State<DashboardScreen> {
   @override
   Widget build(BuildContext context) {
     return   
-       Column(
-         children: [
-           
-                 const WelcomeSection(),
-                 mediumVerticalSizedBox,
-                const DashboardQuickActionWidget(),
-                mediumVerticalSizedBox,
-                const  DashboardStatWidget(),
-                 mediumVerticalSizedBox,
-                 const RecentActivityFeed(),
-                 mediumVerticalSizedBox,
-               ],
+       SingleChildScrollView(
+         child: Column(
+           children: [
+                   const WelcomeSection(),
+                   mediumVerticalSizedBox,
+                  const DashboardQuickActionWidget(),
+                  mediumVerticalSizedBox,
+                  const  DashboardStatWidget(),
+                   mediumVerticalSizedBox,
+                   const RecentActivityFeed(),
+                   mediumVerticalSizedBox,
+                 ],
+               
              
            
-         
+         ),
        );
   }
 }

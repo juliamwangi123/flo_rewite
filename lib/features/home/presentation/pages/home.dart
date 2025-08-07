@@ -17,19 +17,19 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-    backgroundColor: AppColors.whiteColor,
+      backgroundColor: AppColors.whiteColor,
       body: SafeArea(
         child: BlocConsumer<NavigationBloc, NavigationState>(
-          listener: (context, state) {
-          },
+          listener: (context, state) {},
           builder: (context, state) {
             return Padding(
-         padding:  const EdgeInsets.symmetric(horizontal: 17),
-
+              padding: const EdgeInsets.symmetric(horizontal: 17),
               child: Column(
                 children: [
-                  const  DashboardAppbar(),
-                  Expanded(child: SingleChildScrollView(child: screens[state.currentIndex])),
+                  const DashboardAppbar(),
+                  Expanded(
+                    child: screens[state.currentIndex],
+                  ),
                 ],
               ),
             );
@@ -38,7 +38,6 @@ class HomePage extends StatelessWidget {
       ),
       bottomNavigationBar: const BottomNav(),
       drawer: DashboardDrawer(),
-
     );
   }
 }
