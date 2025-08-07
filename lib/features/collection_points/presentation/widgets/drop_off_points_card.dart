@@ -8,7 +8,6 @@ class DropOffPointsCard extends StatelessWidget {
   final String title;
   final String address;
   final String distance;
-  final double rating;
   final String availabilityStatus;
   final String urgencyLevel;
   final int currentStock;
@@ -25,7 +24,6 @@ class DropOffPointsCard extends StatelessWidget {
     required this.title,
     required this.address,
     required this.distance,
-    required this.rating,
     required this.availabilityStatus,
     required this.urgencyLevel,
     required this.currentStock,

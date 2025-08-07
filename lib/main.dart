@@ -2,6 +2,7 @@ import 'package:floo_aid_rewrite/core/routes/routes_genarator.dart';
 import 'package:floo_aid_rewrite/core/theme/theme.dart';
 import 'package:floo_aid_rewrite/features/auth/presenataion/bloc/auth_bloc.dart';
 import 'package:floo_aid_rewrite/features/auth/presenataion/pages/login_screen.dart';
+import 'package:floo_aid_rewrite/features/collection_points/presentation/bloc/drop_off_points_bloc.dart';
 import 'package:floo_aid_rewrite/features/home/presentation/bloc/navigation_bloc.dart';
 import 'package:floo_aid_rewrite/injection.container.dart' as di;
 import 'package:flutter/material.dart';
@@ -20,7 +21,7 @@ void main() async{
       providers: [
         BlocProvider(create: (_) => di.sl<AuthBloc>()),
         BlocProvider(create: (_) => di.sl<NavigationBloc>()),
-        // BlocProvider(create: (_) => di.sl<PickUpLocationBloc>()),
+        BlocProvider(create: (_) => di.sl<DropOffPointsBloc>()),
       ],
       child: const MyApp(),
     ));

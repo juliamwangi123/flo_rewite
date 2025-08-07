@@ -1,72 +1,70 @@
 import 'package:equatable/equatable.dart';
+import 'package:floo_aid_rewrite/features/collection_points/domain/entity/drop_off_cordinates_entity.dart';
+import 'package:floo_aid_rewrite/features/collection_points/domain/entity/stock_level_entity.dart';
 
 class DropOffPointsEntity extends Equatable {
-  final String title;
+  final String name;
   final String address;
-  final String distance;
-  final double rating;
+  final DropOffCordinatesEntity cordinates;
   final String availabilityStatus;
   final String urgencyLevel;
-  final int currentStock;
-  final int maxCapacity;
-  final double stockPercentage;
+  final StockLevelEntity stockLevel;
   final String iconType;
   final String updatedTime;
+  final bool isActive;
+  // final OperatingHoursEntity? operatingHours;
 
   const DropOffPointsEntity({
-    required this.title,
+    required this.name,
     required this.address,
-    required this.distance,
-    required this.rating,
     required this.availabilityStatus,
     required this.urgencyLevel,
-    required this.currentStock,
-    required this.maxCapacity,
-    required this.stockPercentage,
     required this.iconType,
     required this.updatedTime,
+    required this.cordinates,
+    required this.stockLevel,
+    required this.isActive,
+    //  this.operatingHours,
   });
 
   DropOffPointsEntity copyWith({
-    String? title,
+    String? name,
     String? address,
-    String? distance,
-    double? rating,
     String? availabilityStatus,
     String? urgencyLevel,
-    int? currentStock,
-    int? maxCapacity,
-    double? stockPercentage,
     String? iconType,
     String? updatedTime,
+    DropOffCordinatesEntity? cordinates,
+    StockLevelEntity? stockLevel,
+    bool? isActive,
+    // OperatingHoursEntity? operatingHours,
   }) {
     return DropOffPointsEntity(
-      title: title ?? this.title,
+      name: name ?? this.name,
       address: address ?? this.address,
-      distance: distance ?? this.distance,
-      rating: rating ?? this.rating,
       availabilityStatus: availabilityStatus ?? this.availabilityStatus,
       urgencyLevel: urgencyLevel ?? this.urgencyLevel,
-      currentStock: currentStock ?? this.currentStock,
-      maxCapacity: maxCapacity ?? this.maxCapacity,
-      stockPercentage: stockPercentage ?? this.stockPercentage,
       iconType: iconType ?? this.iconType,
       updatedTime: updatedTime ?? this.updatedTime,
+      cordinates: cordinates ?? this.cordinates,
+      stockLevel: stockLevel ?? this.stockLevel,
+      isActive: isActive ?? this.isActive,
+      // operatingHours: operatingHours ?? this.operatingHours,
+
     );
   }
 
   @override
   List<Object?> get props => [
-        title,
+        name,
         address,
-        distance,
-        rating,
         availabilityStatus,
         urgencyLevel,
-        currentStock,
-        maxCapacity,
-        stockPercentage,
         iconType,
         updatedTime,
+        cordinates,
+        stockLevel,
+        isActive,
+        // operatingHours,
       ];
 }
