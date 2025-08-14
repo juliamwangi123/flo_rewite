@@ -12,6 +12,7 @@ class DropOffPointsBloc extends Bloc<DropOffPointsEvent, DropOffPointsState> {
   final DropOffPointUsecase dropOffPointUsecase;  
   DropOffPointsBloc(this.dropOffPointUsecase) : super(const DropOffPointsState()) {
     on<FetchDropOffPointsEvent>(_onFetchDropOffPoints);
+    on<GetNearbyDropOffLocationLengthEvent>(onGetNearbyDropOffLocationLength);
 
   }
   void _onFetchDropOffPoints(FetchDropOffPointsEvent event, Emitter<DropOffPointsState> emit) async {
@@ -23,5 +24,8 @@ class DropOffPointsBloc extends Bloc<DropOffPointsEvent, DropOffPointsState> {
           errorMessage: (failure as ServerFailure).message)),
       (points) => emit(state.copyWith(isLoading: false, dropOffPoints: points, errorMessage: null)),
     );
+  }
+  void onGetNearbyDropOffLocationLength(GetNearbyDropOffLocationLengthEvent event, Emitter<DropOffPointsState> emit) {
+    emit(state.copyWith(nearbyLocationLength: event.nearbyLocationLength));
   }
 }

@@ -10,6 +10,7 @@ import 'package:floo_aid_rewrite/features/collection_points/presentation/widgets
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class NearbyDropOffPoints extends StatefulWidget {
@@ -23,13 +24,21 @@ class _NerbyDropOffPointsState extends State<NearbyDropOffPoints> {
   Position? _currentPosition; 
   bool showAllDropOffPoints = false;  
   List<DropOffPointsEntity> points = [];
+  SharedPreferences? prefs;
 
   @override
   void initState() {
     super.initState();
      context.read<DropOffPointsBloc>().add(const FetchDropOffPointsEvent());
     _fetchDeviceLocation();
+    _sharedPreffrenceInstance();
   }
+
+
+Future<void> _sharedPreffrenceInstance()async{
+  prefs = await SharedPreferences.getInstance();
+
+}
 
    Future<void> _fetchDeviceLocation() async {
     final location = await LocationService.getLocationWithPlacemark();
@@ -125,6 +134,10 @@ Future<void> openMapsWithPlaceName({
                       return distance < 6; 
 
                   }).toList();
+                context.read<DropOffPointsBloc>().add(GetNearbyDropOffLocationLengthEvent(nearbyLocationLength: nerbyDropOffPoints.length));
+                if (prefs != null) {
+                   prefs!.setInt('nearbyLocationLength', nerbyDropOffPoints.length);
+                 }
                 points = showAllDropOffPoints ? allDropOffPoints :  nerbyDropOffPoints;
 
             return  ListView.builder(
