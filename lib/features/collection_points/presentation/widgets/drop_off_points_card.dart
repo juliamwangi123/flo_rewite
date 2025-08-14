@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 class DropOffPointsCard extends StatelessWidget {
   final String title;
   final String address;
-  final String distance;
+  final double distance;
   final String availabilityStatus;
   final String urgencyLevel;
   final int currentStock;
@@ -144,7 +144,7 @@ class DropOffPointsCard extends StatelessWidget {
               ),
               verySmallHorizontalSizedBox,
               Text(
-                distance,
+                 distance.toStringAsFixed(2),
                 style: normalSize14Text(AppColors.lightGray),
               ),
               smallVerticalSizedBox,

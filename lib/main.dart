@@ -13,10 +13,6 @@ void main() async{
    try {
     // Initialize dependency injection (which initializes Firebase first)
     await di.init();
-    
- 
-    
-
     runApp(MultiBlocProvider(
       providers: [
         BlocProvider(create: (_) => di.sl<AuthBloc>()),

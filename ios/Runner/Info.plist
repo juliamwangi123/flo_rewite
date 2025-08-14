@@ -62,5 +62,18 @@
     </array>
   </dict>
 </array>
+<key>UIBackgroundModes</key>
+<array>
+  <string>location</string>
+</array>
+<key>NSLocationWhenInUseUsageDescription</key>
+<string>This app needs access to your location to provide relevant services while you are using it.</string>
+<key>NSLocationAlwaysUsageDescription</key>
+<string>Your app needs continuous access to your location to enable [specific background feature, e.g., geofencing, location tracking].</string>
+<key>LSApplicationQueriesSchemes</key>
+<array>
+    <string>googlechromes</string>
+    <string>comgooglemaps</string>
+</array>
 </dict>
 </plist>
