@@ -3,23 +3,23 @@
 import 'package:floo_aid_rewrite/core/theme/text_theme.dart';
 import 'package:floo_aid_rewrite/core/theme/theme.dart';
 import 'package:floo_aid_rewrite/core/widgets/spaces.dart';
+import 'package:floo_aid_rewrite/features/auth/presenataion/bloc/auth_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class WelcomeSection extends StatelessWidget {
   const WelcomeSection({super.key});
 
   @override
   Widget build(BuildContext context) {
-    
-  const String userName = 'Julia';
-   const bool hasScheduledPickup = true;
+    const bool hasScheduledPickup = true;
     const String nextPickupDate = 'Tomorrow, 2:00 PM';
-   String getGreeting() {
-    final hour = DateTime.now().hour;
-    if (hour < 12) return 'Good Morning';
-    if (hour < 17) return 'Good Afternoon';
-    return 'Good Evening';
-  }
+    String getGreeting() {
+      final hour = DateTime.now().hour;
+      if (hour < 12) return 'Good Morning';
+      if (hour < 17) return 'Good Afternoon';
+      return 'Good Evening';
+    }
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
@@ -44,16 +44,27 @@ class WelcomeSection extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            '${getGreeting()}, $userName! 💜',
-            style: boldSize22Text(AppColors.whiteColor),
+          BlocBuilder<AuthBloc, AuthState>(
+            builder: (context, state) {
+              final userName =
+                  state.user?.email
+                      .split('@')
+                      .first
+                      .replaceAll(RegExp(r'[0-9]'), '')
+                      .split(RegExp(r'[._-]'))
+                      .first;
+              return Text(
+                '${getGreeting()}, $userName 💜',
+                style: boldSize20Text(AppColors.whiteColor),
+              );
+            },
           ),
-         verySmallVerticalSizedBox,
+          verySmallVerticalSizedBox,
           Text(
             'Ready to make a difference today?',
             style: normalSize14Text(AppColors.whiteColor.withOpacity(0.9)),
           ),
-          
+
           if (hasScheduledPickup) ...[
             mediumVerticalSizedBox,
             Container(
@@ -83,7 +94,10 @@ class WelcomeSection extends StatelessWidget {
                   GestureDetector(
                     onTap: () {},
                     child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 12,
+                        vertical: 6,
+                      ),
                       decoration: BoxDecoration(
                         color: AppColors.whiteColor.withOpacity(0.2),
                         borderRadius: BorderRadius.circular(12),
@@ -102,5 +116,4 @@ class WelcomeSection extends StatelessWidget {
       ),
     );
   }
-
 }
