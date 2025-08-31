@@ -24,6 +24,7 @@ Route<dynamic> generateRoutes(RouteSettings settings) {
     case AppRoutes.homePage:
       return MaterialPageRoute<HomePage>(
           builder: (_) => const HomePage());
+   
     default:
       return MaterialPageRoute<RegestrationScreen>(
         builder: (_) => const RegestrationScreen(),

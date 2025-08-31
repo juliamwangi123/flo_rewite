@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 class DropOffPointsCard extends StatelessWidget {
   final String title;
   final String address;
-  final String distance;
+  final double distance;
   final String availabilityStatus;
   final String urgencyLevel;
   final int currentStock;
@@ -144,7 +144,7 @@ class DropOffPointsCard extends StatelessWidget {
               ),
               verySmallHorizontalSizedBox,
               Text(
-                distance,
+                 '${distance.toStringAsFixed(2)} km away',
                 style: normalSize14Text(AppColors.lightGray),
               ),
               smallVerticalSizedBox,
@@ -193,12 +193,14 @@ class DropOffPointsCard extends StatelessWidget {
               Expanded(
                 child: ElevatedButton(
                   onPressed: onSchedulePickup,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.aquaTeal,
-                    foregroundColor: Colors.white,
-                    padding: const EdgeInsets.symmetric(vertical: 12),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(AppColors.aquaTeal),
+                    foregroundColor: MaterialStateProperty.all(Colors.white),
+                    padding: MaterialStateProperty.all(const EdgeInsets.symmetric(vertical: 12)),
+                    shape: MaterialStateProperty.all(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
                     ),
                   ),
                   child: const Text(

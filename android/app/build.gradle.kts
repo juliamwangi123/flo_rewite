@@ -7,7 +7,7 @@ plugins {
 
 android {
     namespace = "com.example.floo_aid_rewrite"
-    compileSdk = flutter.compileSdkVersion
+    compileSdk = 35
     ndkVersion = flutter.ndkVersion
 
     compileOptions {

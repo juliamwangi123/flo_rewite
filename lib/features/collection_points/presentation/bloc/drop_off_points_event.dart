@@ -13,3 +13,11 @@ class FetchDropOffPointsEvent extends DropOffPointsEvent {
   @override
   List<Object> get props => [];
 }
+
+class GetNearbyDropOffLocationLengthEvent extends DropOffPointsEvent {
+  final int nearbyLocationLength;
+  const GetNearbyDropOffLocationLengthEvent({required this.nearbyLocationLength});
+
+  @override
+  List<Object> get props => [nearbyLocationLength];
+}
