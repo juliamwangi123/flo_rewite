@@ -56,13 +56,10 @@ class _DashboardAppbarState extends State<DashboardAppbar> {
                   child: Stack(
                     children: [
                       Icon(
-                        hasNotifications
-                            ? Icons.notifications
-                            : Icons.notifications_outlined,
-                        size: 20,
-                        color: hasNotifications
-                            ? AppColors.floaidPink
-                            : AppColors.deepNavy.withOpacity(0.7),
+                            Icons.notifications_outlined,
+                        size: 24,
+                        color: 
+                            AppColors.deepNavy.withOpacity(0.7),
                       ),
                       if (hasNotifications)
                         Positioned(
