@@ -107,7 +107,7 @@ Future<void> openMapsWithPlaceName({
                 });
               },
               child: Text(
-                !showAllDropOffPoints ? 'View All' : 'Show Nearby', 
+                showAllDropOffPoints ? 'View All' : 'Show Nearby', 
                 style: veryBoldSize14Text(AppColors.floaidPurple))),
           ],
         ),
@@ -138,7 +138,7 @@ Future<void> openMapsWithPlaceName({
                 if (prefs != null) {
                    prefs!.setInt('nearbyLocationLength', nerbyDropOffPoints.length);
                  }
-                points = showAllDropOffPoints ? allDropOffPoints :  nerbyDropOffPoints;
+                points = !showAllDropOffPoints ? allDropOffPoints :  nerbyDropOffPoints;
 
             return  ListView.builder(
                 shrinkWrap: true,
