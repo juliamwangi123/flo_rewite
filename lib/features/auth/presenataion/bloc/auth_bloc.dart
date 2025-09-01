@@ -4,6 +4,7 @@ import 'package:floo_aid_rewrite/core/data_types/auth_params.dart';
 import 'package:floo_aid_rewrite/core/data_types/no_params.dart';
 import 'package:floo_aid_rewrite/core/errors/failures.dart';
 import 'package:floo_aid_rewrite/features/auth/domain/entities/auth_entity.dart';
+import 'package:floo_aid_rewrite/features/auth/domain/usecase/get_current_user_usecase.dart';
 import 'package:floo_aid_rewrite/features/auth/domain/usecase/sign_in_with_email_password_usecase.dart';
 import 'package:floo_aid_rewrite/features/auth/domain/usecase/sign_out_usecase.dart';
 import 'package:floo_aid_rewrite/features/auth/domain/usecase/sign_up_with_email_password_usecase.dart';
@@ -17,17 +18,20 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final SignInWithEmailAndPasswordUsecase signInUseCase;
   final SignUpWithGoogleUsecase signInWithGoogleUsecase;
   final SignOutUsecase signOutUserUsecase;
+  final GetCurrentUserUseCase getCurrentUserUsecase;
 
   AuthBloc(
     this.registerUseCase,
     this.signInUseCase,
     this.signInWithGoogleUsecase,
     this.signOutUserUsecase,
+    this.getCurrentUserUsecase
     ) : super( const AuthState()) {
     on<SignUpwithEmailandPsswordEvent>(_onSignUpWithEmailAndPassword);
     on<SignInwithEmailandPasswordEvent>(_onSignInWithEmailAndPassword);
     on<SignInwithGoogleEvent>(_onSignInWithGoogle);
     on<SignOutUserEvent>(_onSignOutUser);
+    on<CheckCurrentUserEvent>(_onGetCurrentUser);
   }
 
    void _onSignUpWithEmailAndPassword(SignUpwithEmailandPsswordEvent event, Emitter<AuthState> emit) async {
@@ -37,7 +41,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     (failure) => emit(state.copyWith(
         isLoading: false,
         errorMessage: (failure as ServerFailure).message)),
-    (user) => emit(state.copyWith(isLoading: false, user: user, errorMessage: null)),
+    (user) => emit(state.copyWith(isLoading: false, user: user, errorMessage: null, isUserLoggedIn: true)),
   );
 }
 
@@ -48,7 +52,7 @@ void _onSignInWithEmailAndPassword(SignInwithEmailandPasswordEvent event, Emitte
     (failure) => emit(state.copyWith(
         isLoading: false,
         errorMessage: (failure as ServerFailure).message)),
-    (user) => emit(state.copyWith(isLoading: false, user: user, errorMessage: null)),
+    (user) => emit(state.copyWith(isLoading: false, user: user, errorMessage: null, isUserLoggedIn: true)),
   );
 }
 
@@ -57,22 +61,33 @@ void _onSignInWithEmailAndPassword(SignInwithEmailandPasswordEvent event, Emitte
     final failureOrRegisterUser = await signInWithGoogleUsecase(NoParams());
     failureOrRegisterUser.fold(
         (failure) => emit(state.copyWith(
-            isLoading: false,
+            isGoogleLoading: false,
             errorMessage: (failure as ServerFailure).message)),
-        (user) => emit(state.copyWith(isLoading: false, user: user, errorMessage: null)));
+        (user) => emit(state.copyWith(isGoogleLoading: false, user: user, errorMessage: null, isUserLoggedIn: true)));
 
   }
 
     void _onSignOutUser(SignOutUserEvent event, Emitter<AuthState> emit) async {
     emit(state.copyWith(isLoading: true, errorMessage: null));
-    final failureOrRegisterUser = await signOutUserUsecase(NoParams());
-    failureOrRegisterUser.fold(
+    final failureOrSignOutUser = await signOutUserUsecase(NoParams());
+    failureOrSignOutUser.fold(
         (failure) => emit(state.copyWith(
             isLoading: false,
             errorMessage: (failure as ServerFailure).message)),
-        (user) => emit(state.copyWith(isLoading: false, user: user, errorMessage: null)));
+        (user) => emit(state.copyWith(isLoading: false, user: null, errorMessage: null, isUserLoggedIn: false)));
 
   }
 
+void _onGetCurrentUser(CheckCurrentUserEvent event , Emitter<AuthState> emit) async {
+  emit(state.copyWith(isLoading: true, errorMessage: null));
+  final  failureOrIsLoggedIn = await getCurrentUserUsecase(NoParams());
+   failureOrIsLoggedIn.fold(
+    (failure) => emit(state.copyWith(
+        isLoading: false,
+        errorMessage: (failure as ServerFailure).message)),
+    (isLoggedIn) => emit(state.copyWith(isLoading: false, isUserLoggedIn: isLoggedIn, errorMessage: null)),
+  );
   
 }
+}
+

@@ -6,6 +6,9 @@ class AuthModel extends AuthEntity {
     required super.email,
     required super.isEmailVerified,
     required super.isNewUser,
+    super.displayName,
+    super.photoURL,
+    super.phoneNumber,
   });
 
   factory AuthModel.fromJson(Map<String, dynamic> json) {
@@ -14,6 +17,9 @@ class AuthModel extends AuthEntity {
       email: json['email'],
       isEmailVerified: json['isEmailVerified'],
       isNewUser: json['isNewUser'],
+      displayName: json['displayName'],
+      photoURL: json['photoURL'],
+      phoneNumber: json['phoneNumber'],
     );
   }
 
@@ -22,7 +28,10 @@ class AuthModel extends AuthEntity {
       'uuid': uuid,
       'email': email,
       'isEmailVerified': isEmailVerified,
-      'isNewUser': isNewUser
+      'isNewUser': isNewUser,
+      'displayName': displayName,
+      'photoURL': photoURL,
+      'phoneNumber': phoneNumber,
     };
   }
 }

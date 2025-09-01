@@ -9,6 +9,7 @@ abstract class AuthRemoteDataSource {
   Future<AuthModel> signUpUserWithEmailAndPassword(AuthParams params);
   Future<AuthModel> signInUserWithEmailAndPassword(AuthParams params);
   Future<AuthModel> signInUserWithGoogle();
+  Future<bool> getCurrentUser();
   Future<void> signOutUser();
   
 }
@@ -72,6 +73,9 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource{
         email: user.email!,
         isEmailVerified: user.emailVerified,
         isNewUser: userCredential.additionalUserInfo!.isNewUser,
+        displayName: user.displayName,
+        photoURL: user.photoURL,
+        phoneNumber: user.phoneNumber,
       );
     } on FirebaseAuthException catch (e) {
       throw ServerException(mapFirebaseAuthError(e.code, e.message));
@@ -113,5 +117,16 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource{
     }
   
   }
+  
+  @override
+Future<bool> getCurrentUser() async {
+  try {
+    final User? user = firebaseAuth.currentUser;
+    return user != null;
+  } catch (e) {
+    throw Exception('Failed to get current user: $e');
+  }
+}
+  
 
 }

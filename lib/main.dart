@@ -1,7 +1,7 @@
 import 'package:floo_aid_rewrite/core/routes/routes_genarator.dart';
 import 'package:floo_aid_rewrite/core/theme/theme.dart';
 import 'package:floo_aid_rewrite/features/auth/presenataion/bloc/auth_bloc.dart';
-import 'package:floo_aid_rewrite/features/auth/presenataion/pages/login_screen.dart';
+import 'package:floo_aid_rewrite/features/auth/presenataion/pages/auth_wrapper.dart';
 import 'package:floo_aid_rewrite/features/collection_points/presentation/bloc/drop_off_points_bloc.dart';
 import 'package:floo_aid_rewrite/features/home/presentation/bloc/navigation_bloc.dart';
 import 'package:floo_aid_rewrite/injection.container.dart' as di;
@@ -11,7 +11,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 void main() async{
    WidgetsFlutterBinding.ensureInitialized();  
    try {
-    // Initialize dependency injection (which initializes Firebase first)
     await di.init();
     runApp(MultiBlocProvider(
       providers: [
@@ -33,10 +32,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'FloAid',
        debugShowCheckedModeBanner: false,
       theme: AppTheme.getAppTheme(),
-      home: const LoginScreen(),
+      home: const AuthWrapper(),
       onGenerateRoute:generateRoutes ,
     );
   }

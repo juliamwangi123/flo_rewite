@@ -46,15 +46,13 @@ class WelcomeSection extends StatelessWidget {
         children: [
           BlocBuilder<AuthBloc, AuthState>(
             builder: (context, state) {
-              final userName =
-                  state.user?.email
-                      .split('@')
-                      .first
-                      .replaceAll(RegExp(r'[0-9]'), '')
-                      .split(RegExp(r'[._-]'))
-                      .first;
+              final userName = state.user?.displayName?.split(' ').first ?? '';
+              final capitalizedUserName =
+                  userName.isNotEmpty
+                      ? '${userName[0].toUpperCase()}${userName.substring(1)}'
+                      : '';
               return Text(
-                '${getGreeting()}, $userName 💜',
+                '${getGreeting()}, $capitalizedUserName. 💜',
                 style: boldSize20Text(AppColors.whiteColor),
               );
             },
