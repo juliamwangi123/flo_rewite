@@ -73,6 +73,9 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource{
         email: user.email!,
         isEmailVerified: user.emailVerified,
         isNewUser: userCredential.additionalUserInfo!.isNewUser,
+        displayName: user.displayName,
+        photoURL: user.photoURL,
+        phoneNumber: user.phoneNumber,
       );
     } on FirebaseAuthException catch (e) {
       throw ServerException(mapFirebaseAuthError(e.code, e.message));
