@@ -9,6 +9,7 @@ abstract class AuthRemoteDataSource {
   Future<AuthModel> signUpUserWithEmailAndPassword(AuthParams params);
   Future<AuthModel> signInUserWithEmailAndPassword(AuthParams params);
   Future<AuthModel> signInUserWithGoogle();
+  Future<bool> getCurrentUser();
   Future<void> signOutUser();
   
 }
@@ -113,5 +114,16 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource{
     }
   
   }
+  
+  @override
+Future<bool> getCurrentUser() async {
+  try {
+    final User? user = firebaseAuth.currentUser;
+    return user != null;
+  } catch (e) {
+    throw Exception('Failed to get current user: $e');
+  }
+}
+  
 
 }
