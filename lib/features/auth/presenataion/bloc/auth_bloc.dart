@@ -69,12 +69,12 @@ void _onSignInWithEmailAndPassword(SignInwithEmailandPasswordEvent event, Emitte
 
     void _onSignOutUser(SignOutUserEvent event, Emitter<AuthState> emit) async {
     emit(state.copyWith(isLoading: true, errorMessage: null));
-    final failureOrRegisterUser = await signOutUserUsecase(NoParams());
-    failureOrRegisterUser.fold(
+    final failureOrSignOutUser = await signOutUserUsecase(NoParams());
+    failureOrSignOutUser.fold(
         (failure) => emit(state.copyWith(
             isLoading: false,
             errorMessage: (failure as ServerFailure).message)),
-        (user) => emit(state.copyWith(isLoading: false, user: user, errorMessage: null, isUserLoggedIn: false)));
+        (user) => emit(state.copyWith(isLoading: false, user: null, errorMessage: null, isUserLoggedIn: false)));
 
   }
 
