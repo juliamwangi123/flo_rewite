@@ -77,7 +77,6 @@ class PersonalDetailsItemWidget extends StatelessWidget {
         smallVerticalSizedBox,
         CustomTextField(
           controller: controller,
-        
           hintText: hintText,
           isRequired: true,
           borderColor: AppColors.lightGray.withValues(alpha: 0.3),

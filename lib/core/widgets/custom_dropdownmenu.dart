@@ -48,6 +48,7 @@ class _FloAidCustomDropDownState<T> extends State<FloAidCustomDropDownMenu<T>> {
           ),
       child: DropdownButton<T>(
         isExpanded: true,
+        focusColor: AppColors.empowermentTeal,
         underline: const SizedBox(),
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4), 
         alignment: Alignment.centerLeft,
