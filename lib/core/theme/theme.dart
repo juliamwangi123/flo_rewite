@@ -93,7 +93,9 @@ class AppColors {
   static const Color steelBlue = Color(0xFF99A4AC);
   static const Color aquaTeal = Color(0xFF52B4B0);
   static const Color mediumGrey = Color(0xFF4B5563);
-static const Color veryLightGray = Color(0xFFF3F4F6);
+  static const Color veryLightGray = Color(0xFFF3F4F6);
+  static const Color hintTextColor = Color(0xFFB3B3B3);
+
   
 
   // --- Gradients ---
