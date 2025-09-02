@@ -4,16 +4,18 @@ import 'package:floo_aid_rewrite/core/widgets/spaces.dart';
 import 'package:flutter/material.dart';
 
 class StepIndicator extends StatelessWidget {
-  const StepIndicator({super.key});
+  final int currentPage;
+
+  const StepIndicator({super.key, required this.currentPage});
 
   @override
   Widget build(BuildContext context) {
     return  Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-       const StepIndicatorItem(
-          backgroundColor: AppColors.floaidPurple,
-          isActive: true,
+       StepIndicatorItem(
+          backgroundColor:  AppColors.floaidPurple,
+          isActive: currentPage == 0,
           pageNumber: 1,
         ),
         verySmallHorizontalSizedBox,
@@ -23,9 +25,9 @@ class StepIndicator extends StatelessWidget {
           color: AppColors.lightGray,
         ),
         verySmallHorizontalSizedBox,
-       const StepIndicatorItem(
+       StepIndicatorItem(
           backgroundColor: AppColors.floaidPurple,
-          isActive: false,
+          isActive: currentPage == 1,
           pageNumber: 2,
         )
       ],
@@ -49,7 +51,7 @@ final int pageNumber;
       height: 35,
       width: 35,
       decoration: BoxDecoration(
-        color: isActive ? backgroundColor : AppColors.lightGray,
+        color: isActive ? backgroundColor : AppColors.paleGray,
         shape: BoxShape.circle,
       ),
       child: Center(
