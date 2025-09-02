@@ -56,7 +56,7 @@ class _FloAidCustomDropDownState<T> extends State<FloAidCustomDropDownMenu<T>> {
         icon: const Icon(Icons.expand_more, ),
         elevation: 16,
         style: normalSize16Text(AppColors.deepNavy),
-        hint: widget.hintText != null ? Text(widget.hintText!) : null,
+        hint: widget.hintText != null ? Text(widget.hintText!, style: normalSize15Text(AppColors.hintTextColor),) : null,
         onChanged: (T? value) {
           if (value != null) {
             setState(() {
