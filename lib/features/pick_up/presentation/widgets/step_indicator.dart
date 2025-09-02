@@ -15,14 +15,14 @@ class StepIndicator extends StatelessWidget {
       children: [
        StepIndicatorItem(
           backgroundColor:  AppColors.floaidPurple,
-          isActive: currentPage == 0,
+          isActive: currentPage == 0 || currentPage == 1,
           pageNumber: 1,
         ),
         verySmallHorizontalSizedBox,
        Container(
           height: 2,
           width: 40,
-          color: AppColors.lightGray,
+          color: currentPage == 0  ? AppColors.lightGray: AppColors.floaidPurple,
         ),
         verySmallHorizontalSizedBox,
        StepIndicatorItem(
