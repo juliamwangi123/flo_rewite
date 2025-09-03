@@ -1,0 +1,39 @@
+import 'package:equatable/equatable.dart';
+
+class SchedulePickupEntity extends Equatable{
+  final String fullName;
+  final String phoneNumber;
+  final String donationType;
+  final String address;
+  final String landmark;
+  final String? accessInstructions;
+  final String typeOfDonation;
+  final String pickupDate;
+  final String pickupTime;
+
+  const SchedulePickupEntity({
+    required this.fullName,
+    required this.phoneNumber,
+    required this.donationType,
+    required this.address,
+    required this.landmark,
+    this.accessInstructions,
+    required this.typeOfDonation,
+    required this.pickupDate,
+    required this.pickupTime,
+  });
+
+  @override
+  List<Object?> get props => [
+        fullName,
+        phoneNumber,
+        donationType,
+        address,
+        landmark,
+        accessInstructions,
+        typeOfDonation,
+        pickupDate,
+        pickupTime,
+      ];
+}
+ 
