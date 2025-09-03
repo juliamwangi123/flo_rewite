@@ -17,6 +17,11 @@ import 'package:floo_aid_rewrite/features/collection_points/data/repository/drop
 import 'package:floo_aid_rewrite/features/collection_points/domain/usecase/drop_off_point_usecase.dart';
 import 'package:floo_aid_rewrite/features/collection_points/presentation/bloc/drop_off_points_bloc.dart';
 import 'package:floo_aid_rewrite/features/home/presentation/bloc/navigation_bloc.dart';
+import 'package:floo_aid_rewrite/features/pick_up/data/datasource/schedule_pickup_datasource.dart';
+import 'package:floo_aid_rewrite/features/pick_up/data/repository/schedule_pickup_impl_repository.dart';
+import 'package:floo_aid_rewrite/features/pick_up/domain/repository/schedule_pickup_repository.dart';
+import 'package:floo_aid_rewrite/features/pick_up/domain/usecase/schedule_pickup_usecase.dart';
+import 'package:floo_aid_rewrite/features/pick_up/presentation/bloc/schedule_pickup_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -97,5 +102,21 @@ sl.registerLazySingleton(
   );
 
 
+// schedule pick up
+sl.registerLazySingleton<SchedulePickUpDataSource>(
+    () => SchedulePickUpDataSourceImpl(firebaseDatabase: sl<FirebaseDatabase>()),
+  );
+  sl.registerLazySingleton<SchedulePickupRepository>(
+    () => SchedulePickupImplRepository(schedulePickUpDataSource: sl<SchedulePickUpDataSource>()),
+  );
+  
+sl.registerLazySingleton(
+    () => SchedulePickupUsecase(schedulePickupRepository: sl<SchedulePickupRepository>()),
+  );
+
+  // BLoC
+  sl.registerFactory(
+    () => SchedulePickupBloc(sl<SchedulePickupUsecase>()),
+  );         
 
 }
