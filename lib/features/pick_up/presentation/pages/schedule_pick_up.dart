@@ -37,13 +37,13 @@ class _SchedulePickUpState extends State<SchedulePickUp> {
     '1-2',
     '2-3',
     '3-4',
-    
     '4-5',
     '5-6',
   ];
 
-  int currentStep = 1;
+  int currentStep = 0;
   bool isButtonAcive = false;
+  String? selectedTimeSlot;
   String? donationTypeValue;
 
   bool get isButtonActive {
@@ -79,10 +79,7 @@ class _SchedulePickUpState extends State<SchedulePickUp> {
                         if (currentStep == 0)
                           Column(
                             children: [
-                              PersonalDetails(                         
-                                donationTypes: donationTypes,
-
-                              ),
+                              PersonalDetails(donationTypes: donationTypes),
                               mediumVerticalSizedBox,
                               PickUpLocationDetails(
                                 addressController: addressController,
@@ -98,12 +95,31 @@ class _SchedulePickUpState extends State<SchedulePickUp> {
                             children: [
                               DonationDetails(
                                 items: donationItems,
-                                dropDownValue:donationTypeValue,
-                                onChanged: (value){ 
+                                dropDownValue: donationTypeValue,
+                                onChanged: (value) {
                                   donationTypeValue = value;
-                                }),
+                                  context.read<SchedulePickupBloc>().add(
+                                    UpdateFormFieldEvent(
+                                      field: 'typeOfDonation',
+                                      value: value,
+                                    ),
+                                  );
+                                },
+                              ),
                               mediumVerticalSizedBox,
-                              SchedulePickupWidget(items: timeSlots),
+                              SchedulePickupWidget(
+                                items: timeSlots,
+                                dropDownValue: selectedTimeSlot,
+                                onChanged: (value) {
+                                  selectedTimeSlot = value;
+                                  context.read<SchedulePickupBloc>().add(
+                                    UpdateFormFieldEvent(
+                                      field: 'pickupTime',
+                                      value: value,
+                                    ),
+                                  );
+                                },
+                              ),
                             ],
                           ),
                         mediumVerticalSizedBox,
@@ -130,45 +146,53 @@ class _SchedulePickUpState extends State<SchedulePickUp> {
                                     currentStep == 0
                                         ? 'Continue'
                                         : 'Schedule Pickup',
-                                isButtonActive: (
-                                  currentStep == 0 && 
-                                  state.currentForm.fullName.isNotEmpty && 
-                                  state.currentForm.phoneNumber.isNotEmpty && 
-                                  state.currentForm.address.isNotEmpty &&
-                                  state.currentForm.donationType.isNotEmpty
-                                  && state.currentForm.landmark.isNotEmpty),
-                                  // || 
-                                  // (currentStep == 1 && 
-                                  // state.currentForm.typeOfDonation.isNotEmpty &&
-                                  //  state.currentForm.pickupDate.isNotEmpty && 
-                                  //  state.currentForm.pickupTime.isNotEmpty),
+                                isButtonActive:
+                                    (currentStep == 0 &&
+                                        state.currentForm.fullName.isNotEmpty &&
+                                        state
+                                            .currentForm
+                                            .phoneNumber
+                                            .isNotEmpty &&
+                                        state.currentForm.address.isNotEmpty &&
+                                        state
+                                            .currentForm
+                                            .donationType
+                                            .isNotEmpty &&
+                                        state.currentForm.landmark.isNotEmpty),
+                                // ||
+                                // (currentStep == 1 &&
+                                // state.currentForm.typeOfDonation.isNotEmpty &&
+                                //  state.currentForm.pickupDate.isNotEmpty &&
+                                //  state.currentForm.pickupTime.isNotEmpty),
                                 handleSubmitButton: () {
                                   if (currentStep == 0) {
                                     setState(() {
                                       currentStep += 1;
                                     });
-                                    debugPrint('current full name is ${state.currentForm.fullName}');
+                                    debugPrint(
+                                      'current full name is ${state.currentForm.fullName}',
+                                    );
                                   } else {
-                                   
-                                      context.read<SchedulePickupBloc>().add(
-                  SchedulePickupRequestEvent(
-                    schedulePickupParams: SchedulePickupParams(
-                      fullName: fullNameController.text,
-                      phoneNumber: phoneNumberController.text,
-                      address: addressController.text,
-                      landmark: landmarkController.text,
-                      accessInstructions: accessInstructionsController.text,
-                      donationType: donationTypeValue!,
-                      typeOfDonation: donationTypeValue!,
-                      pickupDate: '2024-07-20',
-                      pickupTime: '9-10',
-
-                    )
-                    
-                    
-                  ),
-                );
-                                    
+                                    context.read<SchedulePickupBloc>().add(
+                                      SchedulePickupRequestEvent(
+                                        schedulePickupParams:
+                                            SchedulePickupParams(
+                                              fullName: fullNameController.text,
+                                              phoneNumber:
+                                                  phoneNumberController.text,
+                                              address: addressController.text,
+                                              landmark: landmarkController.text,
+                                              accessInstructions:
+                                                  accessInstructionsController
+                                                      .text,
+                                              donationType: donationTypeValue!,
+                                              typeOfDonation:
+                                                  donationTypeValue!,
+                                              pickupDate: '2024-07-20',
+                                              pickupTime: '9-10',
+                                            ),
+                                      ),
+                                    );
                                   }
                                 },
                               ),

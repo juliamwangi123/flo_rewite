@@ -9,10 +9,13 @@ import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 class SchedulePickupWidget extends StatelessWidget {
   final String? dropDownValue;
   final List<String> items;
+  final ValueChanged<String>? onChanged;
+
   const SchedulePickupWidget({
     super.key,
     this.dropDownValue,
     required this.items,
+    this.onChanged,
   });
 
   @override
@@ -47,7 +50,7 @@ class SchedulePickupWidget extends StatelessWidget {
                       width: 300,
                       height: 350,
                       color: AppColors.whiteColor,
-                      
+
                       child: SfDateRangePicker(
                         backgroundColor: AppColors.whiteColor,
                         enablePastDates: false,
@@ -66,25 +69,22 @@ class SchedulePickupWidget extends StatelessWidget {
               );
             },
             child: Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 10,
-                vertical: 16,
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 16),
               decoration: BoxDecoration(
                 border: Border.all(
                   color: AppColors.lightGray.withValues(alpha: 0.3),
                 ),
                 borderRadius: BorderRadius.circular(10),
               ),
-              child:  Row(
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
                     'dd/mm/yyyy',
-                    style:normalSize15Text(AppColors.hintTextColor),
+                    style: normalSize15Text(AppColors.hintTextColor),
                   ),
-                 const Icon(
-                    Icons.calendar_month_rounded ,
+                  const Icon(
+                    Icons.calendar_month_rounded,
                     color: AppColors.lightGrayishGreen,
                     size: 20,
                   ),
@@ -111,6 +111,7 @@ class SchedulePickupWidget extends StatelessWidget {
             dropDownValue: dropDownValue,
             hintText: 'Select time slot',
             items: items,
+            onChanged: onChanged,
           ),
         ],
       ),

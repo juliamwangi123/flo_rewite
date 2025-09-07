@@ -9,8 +9,13 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 class DonationDetails extends StatelessWidget {
   final String? dropDownValue;
   final List<String> items;
-   final ValueChanged<String>? onChanged;
-  const DonationDetails({super.key,  this.dropDownValue, required this.items, this.onChanged});
+  final ValueChanged<String>? onChanged;
+  const DonationDetails({
+    super.key,
+    this.dropDownValue,
+    required this.items,
+    this.onChanged,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -20,26 +25,29 @@ class DonationDetails extends StatelessWidget {
         title: 'Donation Details',
         children: [
           mediumVerticalSizedBox,
-           Row(
-          children: [
-             const Icon(FontAwesomeIcons.cube, color: AppColors.floaidPurple, size: 15, weight: 100),
-              smallHorizontalSizedBox, 
-            Text('What are you donating*', style: boldSize15Text(AppColors.deepNavy)),
-          ],
-        ),
-         smallVerticalSizedBox,
-        FloAidCustomDropDownMenu(
-            dropDownValue:dropDownValue,
+          Row(
+            children: [
+              const Icon(
+                FontAwesomeIcons.cube,
+                color: AppColors.floaidPurple,
+                size: 15,
+                weight: 100,
+              ),
+              smallHorizontalSizedBox,
+              Text(
+                'What are you donating*',
+                style: boldSize15Text(AppColors.deepNavy),
+              ),
+            ],
+          ),
+          smallVerticalSizedBox,
+          FloAidCustomDropDownMenu(
+            dropDownValue: dropDownValue,
             hintText: 'Select donation type',
-            items:  items,
-            onChanged: onChanged
-
-            )
-          
-      
-          
+            items: items,
+            onChanged: onChanged,
+          ),
         ],
-        
       ),
     );
   }
