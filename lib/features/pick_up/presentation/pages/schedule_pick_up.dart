@@ -169,9 +169,7 @@ class _SchedulePickUpState extends State<SchedulePickUp> {
                                     setState(() {
                                       currentStep += 1;
                                     });
-                                    debugPrint(
-                                      'current full name is ${state.currentForm.fullName}',
-                                    );
+                                   
                                   } else {
                                     context.read<SchedulePickupBloc>().add(
                                       SchedulePickupRequestEvent(
