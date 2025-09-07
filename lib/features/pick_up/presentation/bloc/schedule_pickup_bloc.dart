@@ -14,6 +14,49 @@ class SchedulePickupBloc
   SchedulePickupBloc(this.schedulePickupUsecase)
     : super(const SchedulePickupState()) {
     on<SchedulePickupRequestEvent>(_onSchedulePickup);
+    on<UpdateFormFieldEvent>(_onUpdateFormField);
+  }
+
+  void _onUpdateFormField(
+    UpdateFormFieldEvent event,
+    Emitter<SchedulePickupState> emit,
+  ) {
+    final currentForm = state.currentForm;
+    SchedulePickupEntity updatedForm;
+    
+    switch (event.field) {
+      case 'fullName':
+        updatedForm = currentForm.copyWith(fullName: event.value);
+        break;
+      case 'phoneNumber':
+        updatedForm = currentForm.copyWith(phoneNumber: event.value);
+        break;
+      case 'address':
+        updatedForm = currentForm.copyWith(address: event.value);
+        break;
+      case 'landmark':
+        updatedForm = currentForm.copyWith(landmark: event.value);
+        break;
+      case 'accessInstructions':
+        updatedForm = currentForm.copyWith(accessInstructions: event.value);
+        break;
+      case 'donationType':
+        updatedForm = currentForm.copyWith(
+          donationType: event.value,
+          typeOfDonation: event.value, // Assuming these are the same
+        );
+        break;
+      case 'pickupTime':
+        updatedForm = currentForm.copyWith(pickupTime: event.value);
+        break;
+      case 'pickupDate':
+        updatedForm = currentForm.copyWith(pickupDate: event.value);
+        break;
+      default:
+        return; // Unknown field, don't emit
+    }
+    
+    emit(state.copyWith(currentForm: updatedForm));
   }
 
   void _onSchedulePickup(

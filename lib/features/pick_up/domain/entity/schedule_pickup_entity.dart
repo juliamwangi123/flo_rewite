@@ -23,6 +23,30 @@ class SchedulePickupEntity extends Equatable{
     required this.pickupTime,
   });
 
+  SchedulePickupEntity copyWith({
+    String? fullName,
+    String? phoneNumber,
+    String? donationType,
+    String? address,
+    String? landmark,
+    String? accessInstructions,
+    String? typeOfDonation,
+    String? pickupDate,
+    String? pickupTime,
+  }) {
+    return SchedulePickupEntity(
+      fullName: fullName ?? this.fullName,
+      phoneNumber: phoneNumber ?? this.phoneNumber,
+      donationType: donationType ?? this.donationType,
+      address: address ?? this.address,
+      landmark: landmark ?? this.landmark,
+      accessInstructions: accessInstructions ?? this.accessInstructions,
+      typeOfDonation: typeOfDonation ?? this.typeOfDonation,
+      pickupDate: pickupDate ?? this.pickupDate,
+      pickupTime: pickupTime ?? this.pickupTime,
+    );
+  }
+
   @override
   List<Object?> get props => [
         fullName,

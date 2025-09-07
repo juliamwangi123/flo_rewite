@@ -7,6 +7,16 @@ abstract class SchedulePickupEvent extends Equatable {
   List<Object> get props => [];
 }
 
+class UpdateFormFieldEvent extends SchedulePickupEvent {
+  final String field;
+  final String value;
+  
+  const UpdateFormFieldEvent({required this.field, required this.value});
+  
+  @override
+  List<Object> get props => [field, value];
+}
+
 class SchedulePickupRequestEvent extends SchedulePickupEvent {
   final SchedulePickupParams schedulePickupParams;
 

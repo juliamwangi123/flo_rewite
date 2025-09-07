@@ -9,7 +9,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 class DonationDetails extends StatelessWidget {
   final String? dropDownValue;
   final List<String> items;
-  const DonationDetails({super.key,  this.dropDownValue, required this.items});
+   final ValueChanged<String>? onChanged;
+  const DonationDetails({super.key,  this.dropDownValue, required this.items, this.onChanged});
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +31,9 @@ class DonationDetails extends StatelessWidget {
         FloAidCustomDropDownMenu(
             dropDownValue:dropDownValue,
             hintText: 'Select donation type',
-            items:  items 
+            items:  items,
+            onChanged: onChanged
+
             )
           
       

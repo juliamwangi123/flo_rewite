@@ -9,7 +9,7 @@ class SchedulePickupParams{
   final String pickupDate;
   final String pickupTime;
 
-SchedulePickupParams({
+const SchedulePickupParams({
     required this.fullName,
     required this.phoneNumber,
     required this.donationType,

@@ -2,45 +2,56 @@ import 'package:floo_aid_rewrite/core/theme/text_theme.dart';
 import 'package:floo_aid_rewrite/core/theme/theme.dart';
 import 'package:floo_aid_rewrite/core/widgets/custom_text_field.dart';
 import 'package:floo_aid_rewrite/core/widgets/spaces.dart';
+import 'package:floo_aid_rewrite/features/pick_up/presentation/bloc/schedule_pickup_bloc.dart';
 import 'package:floo_aid_rewrite/features/pick_up/presentation/widgets/multi_form_skeleton.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class PersonalDetails extends StatelessWidget {
-  final TextEditingController  fullNameController;
-  final TextEditingController  phoneNumberController;
   final List<String> donationTypes;
 
-  const PersonalDetails({
-    super.key, 
-    required this.fullNameController, 
-    required this.phoneNumberController, 
-    required this.donationTypes
-    });
+  const PersonalDetails({super.key, required this.donationTypes});
 
   @override
   Widget build(BuildContext context) {
-    return MultiFormSkeleton(
-      title: 'Personal Details',
-      children: [
-        mediumVerticalSizedBox,
-        PersonalDetailsItemWidget(
-          controller: fullNameController,
-          label: 'Full Name',
-          hintText: 'Enter your full name',
-          icon: Icons.person_outline,
-        ),
-        mediumVerticalSizedBox,
-         PersonalDetailsItemWidget(
-          controller: phoneNumberController,
-          label: 'Phone Number',
-          hintText: '0712 345 678',
-          icon: Icons.phone_outlined,
-        ),
-        mediumVerticalSizedBox,
-        DonationType(
-          donationTypes: donationTypes,
-        ),
-      ],
+    return BlocConsumer<SchedulePickupBloc, SchedulePickupState>(
+      listener: (context, state) {},
+      builder: (context, state) {
+        return MultiFormSkeleton(
+          title: 'Personal Details',
+          children: [
+            mediumVerticalSizedBox,
+            PersonalDetailsItemWidget(
+              initialValue: state.currentForm.fullName,
+              label: 'Full Name',
+              hintText: 'Enter your full name',
+              icon: Icons.person_outline,
+              onchanged: (value) {
+                context.read<SchedulePickupBloc>().add(
+                  UpdateFormFieldEvent(field: 'fullName', value: value),
+                );
+              },
+            ),
+            mediumVerticalSizedBox,
+            PersonalDetailsItemWidget(
+              initialValue: state.currentForm.phoneNumber,
+              label: 'Phone Number',
+              hintText: '0712 345 678',
+              icon: Icons.phone_outlined,
+              onchanged: (value) {
+                context.read<SchedulePickupBloc>().add(
+                  UpdateFormFieldEvent(field: 'phoneNumber', value: value),
+                );
+              },
+            ),
+            mediumVerticalSizedBox,
+            DonationType(
+              donationTypes: donationTypes,
+              userSelectedType: state.currentForm.donationType,
+            ),
+          ],
+        );
+      },
     );
   }
 }
@@ -50,7 +61,8 @@ class PersonalDetailsItemWidget extends StatelessWidget {
   final String hintText;
   final IconData? icon;
   final int? maxLines;
-  final TextEditingController controller;  
+  final Function(dynamic)? onchanged;
+  final String? initialValue;
 
   const PersonalDetailsItemWidget({
     super.key,
@@ -58,7 +70,8 @@ class PersonalDetailsItemWidget extends StatelessWidget {
     required this.hintText,
     this.icon,
     this.maxLines = 1,
-    required this.controller,
+    this.onchanged,
+    this.initialValue,
   });
 
   @override
@@ -76,7 +89,7 @@ class PersonalDetailsItemWidget extends StatelessWidget {
         ),
         smallVerticalSizedBox,
         CustomTextField(
-          controller: controller,
+          initialValue: initialValue,
           hintText: hintText,
           isRequired: true,
           borderColor: AppColors.lightGray.withValues(alpha: 0.3),
@@ -86,13 +99,13 @@ class PersonalDetailsItemWidget extends StatelessWidget {
             vertical: 13,
           ),
           maxLines: maxLines,
+          onChanged: onchanged,
           validator: (value) {
             if (value == null || value.isEmpty) {
               return 'This field is required';
             }
             return null;
           },
-
         ),
       ],
     );
@@ -145,9 +158,14 @@ class DonationTypeSelectorItem extends StatelessWidget {
 }
 
 class DonationType extends StatefulWidget {
-  final List<String> donationTypes ;
+  final List<String> donationTypes;
+  final String userSelectedType;
 
-  const DonationType({super.key, required this.donationTypes});
+  const DonationType({
+    super.key,
+    required this.donationTypes,
+    required this.userSelectedType,
+  });
 
   @override
   State<DonationType> createState() => _DonationTypeState();
@@ -158,47 +176,76 @@ class _DonationTypeState extends State<DonationType> {
 
   @override
   void initState() {
-    selectedType = widget.donationTypes[0];
+    selectedType = widget.userSelectedType;
+    
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        verySmallHorizontalSizedBox,
-        Text('Donation Type *', style: boldSize15Text(AppColors.deepNavy)),
-        smallVerticalSizedBox,
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return BlocConsumer<SchedulePickupBloc, SchedulePickupState>(
+      listener: (context, state) {},
+      builder: (context, state) {
+        selectedType =  state.currentForm.donationType;
+     context.read<SchedulePickupBloc>().add(
+                      UpdateFormFieldEvent(
+                        field: 'donationType',
+                        value: selectedType
+                      ),
+                    );
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            DonationTypeSelectorItem(
-              buttonLabel: 'Individual',
-              isActive: selectedType == widget.donationTypes[0],
-              backgroundColor: AppColors.lavendarColor.withValues(alpha: 0.3),
-              onTap: () {
-                setState(() {
-                  selectedType = widget.donationTypes[0];
-                });
-              },
-            ),
+            verySmallHorizontalSizedBox,
+            Text('Donation Type *', style: boldSize15Text(AppColors.deepNavy)),
+            smallVerticalSizedBox,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                DonationTypeSelectorItem(
+                  buttonLabel: 'Individual',
+                  isActive: selectedType == widget.donationTypes[0],
+                  backgroundColor: AppColors.lavendarColor.withValues(
+                    alpha: 0.3,
+                  ),
+                  onTap: () {
+                    setState(() {
+                      selectedType = widget.donationTypes[0];
+                    });
+                    context.read<SchedulePickupBloc>().add(
+                      UpdateFormFieldEvent(
+                        field: 'donationType',
+                        value: widget.donationTypes[0],
+                      ),
+                    );
+                  },
+                ),
 
-            DonationTypeSelectorItem(
-              buttonLabel: 'Organization',
-              isActive: selectedType ==  widget.donationTypes[1],
-              backgroundColor: AppColors.lavendarColor.withValues(alpha: 0.3),
-              onTap: () {
-                setState(() {
-                  selectedType = widget.donationTypes[1];
-                });
-              },
-            ),
+                DonationTypeSelectorItem(
+                  buttonLabel: 'Organization',
+                  isActive: selectedType == widget.donationTypes[1],
+                  backgroundColor: AppColors.lavendarColor.withValues(
+                    alpha: 0.3,
+                  ),
+                  onTap: () {
+                    setState(() {
+                      selectedType = widget.donationTypes[1];
+                    });
+                    context.read<SchedulePickupBloc>().add(
+                      UpdateFormFieldEvent(
+                        field: 'donationType',
+                        value: widget.donationTypes[1],
+                      ),
+                    );
+                  },
+                ),
 
-            mediumVerticalSizedBox,
+                mediumVerticalSizedBox,
+              ],
+            ),
           ],
-        ),
-      ],
+        );
+      },
     );
   }
 }
