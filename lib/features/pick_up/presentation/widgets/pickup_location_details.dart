@@ -6,15 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class PickUpLocationDetails extends StatelessWidget {
-  final TextEditingController addressController;
-  final TextEditingController landmarkController;
-  final TextEditingController accessInstructionsController;
+  
 
   const PickUpLocationDetails({
     super.key,
-    required this.addressController,
-    required this.landmarkController,
-    required this.accessInstructionsController,
+    
   });
 
   @override

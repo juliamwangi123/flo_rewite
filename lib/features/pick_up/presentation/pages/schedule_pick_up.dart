@@ -19,11 +19,6 @@ class SchedulePickUp extends StatefulWidget {
 
 class _SchedulePickUpState extends State<SchedulePickUp> {
   final _formKey = GlobalKey<FormState>();
-  TextEditingController fullNameController = TextEditingController();
-  TextEditingController phoneNumberController = TextEditingController();
-  TextEditingController addressController = TextEditingController();
-  TextEditingController landmarkController = TextEditingController();
-  TextEditingController accessInstructionsController = TextEditingController();
   List<String> donationTypes = ['Individual', 'Organization'];
   final List<String> donationItems = [
     'Boxes Of Pads (atleast  min 3 boxes)',
@@ -46,12 +41,7 @@ class _SchedulePickUpState extends State<SchedulePickUp> {
   String? selectedTimeSlot;
   String? donationTypeValue;
 
-  bool get isButtonActive {
-    return fullNameController.text.isNotEmpty &&
-        phoneNumberController.text.isNotEmpty &&
-        addressController.text.isNotEmpty &&
-        landmarkController.text.isNotEmpty;
-  }
+ 
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +59,6 @@ class _SchedulePickUpState extends State<SchedulePickUp> {
             child: SingleChildScrollView(
               child: BlocConsumer<SchedulePickupBloc, SchedulePickupState>(
                 listener: (context, state) {
-                  // TODO: implement listener
                 },
                 builder: (context, state) {
                   return Form(
@@ -81,11 +70,7 @@ class _SchedulePickUpState extends State<SchedulePickUp> {
                             children: [
                               PersonalDetails(donationTypes: donationTypes),
                               mediumVerticalSizedBox,
-                              PickUpLocationDetails(
-                                addressController: addressController,
-                                landmarkController: landmarkController,
-                                accessInstructionsController:
-                                    accessInstructionsController,
+                             const PickUpLocationDetails(
                               ),
                               mediumVerticalSizedBox,
                             ],
@@ -158,12 +143,11 @@ class _SchedulePickUpState extends State<SchedulePickUp> {
                                             .currentForm
                                             .donationType
                                             .isNotEmpty &&
-                                        state.currentForm.landmark.isNotEmpty),
-                                // ||
-                                // (currentStep == 1 &&
-                                // state.currentForm.typeOfDonation.isNotEmpty &&
-                                //  state.currentForm.pickupDate.isNotEmpty &&
-                                //  state.currentForm.pickupTime.isNotEmpty),
+                                        state.currentForm.landmark.isNotEmpty)||
+                                (currentStep == 1 &&
+                                state.currentForm.typeOfDonation.isNotEmpty &&
+                                 state.currentForm.pickupDate.isNotEmpty &&
+                                 state.currentForm.pickupTime.isNotEmpty),
                                 handleSubmitButton: () {
                                   if (currentStep == 0) {
                                     setState(() {
@@ -175,19 +159,15 @@ class _SchedulePickUpState extends State<SchedulePickUp> {
                                       SchedulePickupRequestEvent(
                                         schedulePickupParams:
                                             SchedulePickupParams(
-                                              fullName: fullNameController.text,
-                                              phoneNumber:
-                                                  phoneNumberController.text,
-                                              address: addressController.text,
-                                              landmark: landmarkController.text,
-                                              accessInstructions:
-                                                  accessInstructionsController
-                                                      .text,
-                                              donationType: donationTypeValue!,
-                                              typeOfDonation:
-                                                  donationTypeValue!,
-                                              pickupDate: '2024-07-20',
-                                              pickupTime: '9-10',
+                                              fullName: state.currentForm.fullName,
+                                              phoneNumber:state.currentForm.phoneNumber,
+                                              address: state.currentForm.address,
+                                              landmark: state.currentForm.landmark,
+                                              accessInstructions:state.currentForm.accessInstructions,    
+                                              donationType: state.currentForm.donationType,
+                                              typeOfDonation: state.currentForm.typeOfDonation,      
+                                              pickupDate: state.currentForm.pickupDate,
+                                              pickupTime: state.currentForm.pickupTime,
                                             ),
                                       ),
                                     );

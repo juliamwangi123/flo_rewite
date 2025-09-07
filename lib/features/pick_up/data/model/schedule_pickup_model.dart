@@ -15,15 +15,15 @@ class SchedulePickupModel extends SchedulePickupEntity{
 
   factory SchedulePickupModel.fromJson(Map<String, dynamic> json) {
     return SchedulePickupModel(
-      fullName: json['fullName'],
-      phoneNumber: json['phoneNumber'],
-      donationType: json['donationType'],
-      address: json['address'],
-      landmark: json['landmark'],
-      accessInstructions: json['accessInstructions'],
-      typeOfDonation: json['typeOfDonation'],
-      pickupDate: json['pickupDate'],
-      pickupTime: json['pickupTime'],
+      fullName: json['fullName'] ?? '',
+      phoneNumber: json['phoneNumber'] ?? '',
+      donationType: json['donationType'] ?? '',
+      address: json['address'] ?? '',
+      landmark: json['landmark'] ?? '',
+      accessInstructions: json['accessInstructions'] ?? '',
+      typeOfDonation: json['typeOfDonation'] ?? '',
+      pickupDate: json['pickupDate'] ?? '',
+      pickupTime: json['pickupTime'] ?? '',
     );
   }
 
