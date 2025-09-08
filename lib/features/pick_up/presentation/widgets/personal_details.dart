@@ -23,7 +23,11 @@ class PersonalDetails extends StatelessWidget {
           children: [
             mediumVerticalSizedBox,
             PersonalDetailsItemWidget(
-              initialValue: state.currentForm.fullName.split(RegExp(r'\s+')).join(' ').trim(),
+              initialValue:
+                  state.currentForm.fullName
+                      .split(RegExp(r'\s+'))
+                      .join(' ')
+                      .trim(),
               label: 'Full Name',
               hintText: 'Enter your full name',
               icon: Icons.person_outline,
@@ -44,7 +48,8 @@ class PersonalDetails extends StatelessWidget {
                 context.read<SchedulePickupBloc>().add(
                   UpdateFormFieldEvent(
                     field: 'phoneNumber',
-                    value: '(${state.currentForm.countryCode?.dialCode ?? 'KE'}) $value',
+                    value:
+                        '(${state.currentForm.countryCode?.dialCode ?? 'KE'}) $value',
                   ),
                 );
               },
@@ -52,7 +57,10 @@ class PersonalDetails extends StatelessWidget {
             mediumVerticalSizedBox,
             DonationType(
               donationTypes: donationTypes,
-              userSelectedType: state.currentForm.donationType,
+              userSelectedType:
+                  (state.currentForm.donationType.isEmpty)
+                      ? donationTypes[0]
+                      : state.currentForm.donationType,
             ),
           ],
         );
@@ -137,14 +145,16 @@ class PersonalDetailsItemWidget extends StatelessWidget {
                             value: CountryCode(
                               code: countryCode.code ?? 'KE',
                               dialCode: countryCode.dialCode ?? '+254',
-                              name: countryCode.name ?? 'Kenya',  
-                            )
+                              name: countryCode.name ?? 'Kenya',
+                            ),
                           ),
                         );
                       },
-                      initialSelection: (state.currentForm.countryCode?.dialCode?.isEmpty ?? true)
-                          ? 'KE'
-                          : state.currentForm.countryCode?.dialCode,
+                      initialSelection:
+                          (state.currentForm.countryCode?.dialCode?.isEmpty ??
+                                  true)
+                              ? 'KE'
+                              : state.currentForm.countryCode?.dialCode,
                       showCountryOnly: false,
                       showOnlyCountryWhenClosed: false,
                       alignLeft: false,
@@ -231,9 +241,10 @@ class DonationTypeSelectorItem extends StatelessWidget {
           color: isActive ? backgroundColor : AppColors.lightBackground,
           borderRadius: BorderRadius.circular(12),
           border: Border.all(
-            color: isActive
-                ? AppColors.floaidPurple.withValues(alpha: 0.6)
-                : Colors.grey[300]!,
+            color:
+                isActive
+                    ? AppColors.floaidPurple.withValues(alpha: 0.6)
+                    : Colors.grey[300]!,
             width: 2,
           ),
         ),
@@ -265,11 +276,8 @@ class DonationType extends StatefulWidget {
 }
 
 class _DonationTypeState extends State<DonationType> {
-  late String selectedType;
-
   @override
   void initState() {
-    selectedType = widget.userSelectedType;
     super.initState();
   }
 
@@ -278,7 +286,16 @@ class _DonationTypeState extends State<DonationType> {
     return BlocConsumer<SchedulePickupBloc, SchedulePickupState>(
       listener: (context, state) {},
       builder: (context, state) {
-        selectedType = state.currentForm.donationType;
+        late String selectedType;
+        selectedType = widget.userSelectedType;
+        if (state.currentForm.donationType.isEmpty) {
+          context.read<SchedulePickupBloc>().add(
+            UpdateFormFieldEvent(
+              field: 'donationType',
+              value: widget.donationTypes[0],
+            ),
+          );
+        }
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

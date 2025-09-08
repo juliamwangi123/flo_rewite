@@ -69,7 +69,9 @@ class _SchedulePickUpState extends State<SchedulePickUp> {
                         if (currentStep == 0)
                           Column(
                             children: [
-                              PersonalDetails(donationTypes: donationTypes),
+                              PersonalDetails(
+                                donationTypes: donationTypes
+                                ),
                               mediumVerticalSizedBox,
                              const PickUpLocationDetails(
                               ),
