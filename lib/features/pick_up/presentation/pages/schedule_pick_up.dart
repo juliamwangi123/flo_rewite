@@ -63,6 +63,7 @@ class _SchedulePickUpState extends State<SchedulePickUp> {
                 builder: (context, state) {
                   return Form(
                     key: _formKey,
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
                     child: Column(
                       children: [
                         if (currentStep == 0)
@@ -155,6 +156,7 @@ class _SchedulePickUpState extends State<SchedulePickUp> {
                                     });
                                    
                                   } else {
+                                    if(_formKey.currentState!.validate()){
                                     context.read<SchedulePickupBloc>().add(
                                       SchedulePickupRequestEvent(
                                         schedulePickupParams:
@@ -171,6 +173,12 @@ class _SchedulePickUpState extends State<SchedulePickUp> {
                                             ),
                                       ),
                                     );
+                                    _formKey.currentState!.reset();
+                                    setState(() {
+                                      currentStep = 0;
+                                    });
+
+                                    }
                                   }
                                 },
                               ),

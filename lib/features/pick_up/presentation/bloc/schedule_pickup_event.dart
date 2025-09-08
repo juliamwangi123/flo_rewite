@@ -9,7 +9,7 @@ abstract class SchedulePickupEvent extends Equatable {
 
 class UpdateFormFieldEvent extends SchedulePickupEvent {
   final String field;
-  final String value;
+  final dynamic value;
   
   const UpdateFormFieldEvent({required this.field, required this.value});
   

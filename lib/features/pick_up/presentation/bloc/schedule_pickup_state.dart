@@ -6,22 +6,28 @@ class SchedulePickupState extends Equatable {
   final SchedulePickupEntity? scheduledPickup;
   final SchedulePickupEntity currentForm;
 
-const SchedulePickupState({
+SchedulePickupState({
     this.isLoading = false, 
     this.errorMessage = '', 
     this.scheduledPickup,
-    this.currentForm = const SchedulePickupEntity(
-      fullName: '',
-      phoneNumber: '',
-      address: '',
-      landmark: '',
-      accessInstructions: '',
-      donationType: '',
-      typeOfDonation: '',
-      pickupDate: '',
-      pickupTime: '',
-    ),
-  });
+    SchedulePickupEntity? currentForm,
+  }) : currentForm = currentForm ??
+        SchedulePickupEntity(
+          fullName: '',
+          phoneNumber: '',
+          address: '',
+          landmark: '',
+          accessInstructions: '',
+          donationType: '',
+          typeOfDonation: '',
+          pickupDate: '',
+          pickupTime: '',
+          countryCode: CountryCode(
+            code: '', 
+            dialCode: '', 
+            name: ''
+          ),
+        );
 
   SchedulePickupState copyWith({
     bool? isLoading, 

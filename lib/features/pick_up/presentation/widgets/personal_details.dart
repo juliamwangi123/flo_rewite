@@ -1,3 +1,4 @@
+import 'package:country_code_picker/country_code_picker.dart';
 import 'package:floo_aid_rewrite/core/theme/text_theme.dart';
 import 'package:floo_aid_rewrite/core/theme/theme.dart';
 import 'package:floo_aid_rewrite/core/widgets/custom_text_field.dart';
@@ -22,7 +23,7 @@ class PersonalDetails extends StatelessWidget {
           children: [
             mediumVerticalSizedBox,
             PersonalDetailsItemWidget(
-              initialValue: state.currentForm.fullName,
+              initialValue: state.currentForm.fullName.split(RegExp(r'\s+')).join(' ').trim(),
               label: 'Full Name',
               hintText: 'Enter your full name',
               icon: Icons.person_outline,
@@ -38,9 +39,13 @@ class PersonalDetails extends StatelessWidget {
               label: 'Phone Number',
               hintText: '0712 345 678',
               icon: Icons.phone_outlined,
+              isPhoneNumber: true,
               onchanged: (value) {
                 context.read<SchedulePickupBloc>().add(
-                  UpdateFormFieldEvent(field: 'phoneNumber', value: value),
+                  UpdateFormFieldEvent(
+                    field: 'phoneNumber',
+                    value: '(${state.currentForm.countryCode?.dialCode ?? 'KE'}) $value',
+                  ),
                 );
               },
             ),
@@ -63,6 +68,8 @@ class PersonalDetailsItemWidget extends StatelessWidget {
   final int? maxLines;
   final Function(dynamic)? onchanged;
   final String? initialValue;
+  final bool isPhoneNumber;
+  final int? countryCode;
 
   const PersonalDetailsItemWidget({
     super.key,
@@ -72,7 +79,24 @@ class PersonalDetailsItemWidget extends StatelessWidget {
     this.maxLines = 1,
     this.onchanged,
     this.initialValue,
+    this.isPhoneNumber = false,
+    this.countryCode,
   });
+
+  bool isValidPhoneNumber(String phone) {
+    final cleanPhone = phone.replaceAll(RegExp(r'[\s\-\(\)]'), '');
+    final RegExp phoneRegExp = RegExp(r'^\+?([0-9]{1,3})?[-. ]?([0-9]{6,12})$');
+
+    if (!phoneRegExp.hasMatch(cleanPhone)) {
+      return false;
+    }
+
+    if (cleanPhone.length < 8 || cleanPhone.length > 15) {
+      return false;
+    }
+
+    return true;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -88,25 +112,95 @@ class PersonalDetailsItemWidget extends StatelessWidget {
           ],
         ),
         smallVerticalSizedBox,
-        CustomTextField(
-          initialValue: initialValue,
-          hintText: hintText,
-          isRequired: true,
-          borderColor: AppColors.lightGray.withValues(alpha: 0.3),
-          borderRadius: const BorderRadius.all(Radius.circular(10)),
-          contentPadding: const EdgeInsets.symmetric(
-            horizontal: 16,
-            vertical: 13,
+        if (isPhoneNumber)
+          Container(
+            margin: const EdgeInsets.only(left: 10),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(
+                color: AppColors.lightGray.withValues(alpha: 0.3),
+                width: 2,
+              ),
+            ),
+            child: Row(
+              children: [
+                BlocConsumer<SchedulePickupBloc, SchedulePickupState>(
+                  listener: (context, state) {
+                    // TODO: implement listener
+                  },
+                  builder: (context, state) {
+                    return CountryCodePicker(
+                      onChanged: (CountryCode countryCode) {
+                        context.read<SchedulePickupBloc>().add(
+                          UpdateFormFieldEvent(
+                            field: 'countryCode',
+                            value: CountryCode(
+                              code: countryCode.code ?? 'KE',
+                              dialCode: countryCode.dialCode ?? '+254',
+                              name: countryCode.name ?? 'Kenya',  
+                            )
+                          ),
+                        );
+                      },
+                      initialSelection: (state.currentForm.countryCode?.dialCode?.isEmpty ?? true)
+                          ? 'KE'
+                          : state.currentForm.countryCode?.dialCode,
+                      showCountryOnly: false,
+                      showOnlyCountryWhenClosed: false,
+                      alignLeft: false,
+                    );
+                  },
+                ),
+                Expanded(
+                  child: CustomTextField(
+                    initialValue: initialValue,
+                    keyboardType: TextInputType.phone,
+                    hintText: hintText,
+                    isRequired: true,
+                    borderColor: Colors.transparent,
+                    focusedBorderColor: Colors.transparent,
+                    borderRadius: const BorderRadius.all(Radius.circular(10)),
+                    contentPadding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 13,
+                    ),
+                    maxLines: maxLines,
+                    onChanged: onchanged,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'This field is required';
+                      }
+                      if (!isValidPhoneNumber(value)) {
+                        return 'Please enter a valid phone number';
+                      }
+                      return null;
+                    },
+                  ),
+                ),
+              ],
+            ),
+          )
+        else
+          CustomTextField(
+            initialValue: initialValue,
+            keyboardType: TextInputType.text,
+            hintText: hintText,
+            isRequired: true,
+            borderColor: AppColors.lightGray.withValues(alpha: 0.3),
+            borderRadius: const BorderRadius.all(Radius.circular(10)),
+            contentPadding: const EdgeInsets.symmetric(
+              horizontal: 16,
+              vertical: 13,
+            ),
+            maxLines: maxLines,
+            onChanged: onchanged,
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'This field is required';
+              }
+              return null;
+            },
           ),
-          maxLines: maxLines,
-          onChanged: onchanged,
-          validator: (value) {
-            if (value == null || value.isEmpty) {
-              return 'This field is required';
-            }
-            return null;
-          },
-        ),
       ],
     );
   }
@@ -137,10 +231,9 @@ class DonationTypeSelectorItem extends StatelessWidget {
           color: isActive ? backgroundColor : AppColors.lightBackground,
           borderRadius: BorderRadius.circular(12),
           border: Border.all(
-            color:
-                isActive
-                    ? AppColors.floaidPurple.withValues(alpha: 0.6)
-                    : Colors.grey[300]!,
+            color: isActive
+                ? AppColors.floaidPurple.withValues(alpha: 0.6)
+                : Colors.grey[300]!,
             width: 2,
           ),
         ),
@@ -177,7 +270,6 @@ class _DonationTypeState extends State<DonationType> {
   @override
   void initState() {
     selectedType = widget.userSelectedType;
-    
     super.initState();
   }
 
@@ -186,13 +278,7 @@ class _DonationTypeState extends State<DonationType> {
     return BlocConsumer<SchedulePickupBloc, SchedulePickupState>(
       listener: (context, state) {},
       builder: (context, state) {
-        selectedType =  state.currentForm.donationType;
-     context.read<SchedulePickupBloc>().add(
-                      UpdateFormFieldEvent(
-                        field: 'donationType',
-                        value: selectedType
-                      ),
-                    );
+        selectedType = state.currentForm.donationType;
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -220,7 +306,6 @@ class _DonationTypeState extends State<DonationType> {
                     );
                   },
                 ),
-
                 DonationTypeSelectorItem(
                   buttonLabel: 'Organization',
                   isActive: selectedType == widget.donationTypes[1],
@@ -239,10 +324,9 @@ class _DonationTypeState extends State<DonationType> {
                     );
                   },
                 ),
-
-                mediumVerticalSizedBox,
               ],
             ),
+            mediumVerticalSizedBox,
           ],
         );
       },
