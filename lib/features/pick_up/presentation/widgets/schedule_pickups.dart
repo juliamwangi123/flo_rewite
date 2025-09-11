@@ -37,7 +37,14 @@ class SchedulePickupWidget extends StatelessWidget {
                 weight: 100,
               ),
               smallHorizontalSizedBox,
-              Text('Pickup Date*', style: boldSize15Text(AppColors.deepNavy)),
+              Row(
+                children: [
+                  Text('Pickup Date*', style: boldSize15Text(AppColors.deepNavy)),
+                  verySmallHorizontalSizedBox,
+                  Text('(It should be atleast 24hr notice )', style: normalSize11Text(AppColors.deepNavy)),
+
+                ],
+              ),
             ],
           ),
           smallVerticalSizedBox,
@@ -55,13 +62,12 @@ class SchedulePickupWidget extends StatelessWidget {
                       child: SfDateRangePicker(
                         backgroundColor: AppColors.whiteColor,
                         enablePastDates: false,
+                        minDate: DateTime.now().add( const Duration(days: 1)),
                         onSelectionChanged: (
                           DateRangePickerSelectionChangedArgs args,
                         ) {
                           final selectedDate =
                               (args.value as DateTime).toString().split(' ')[0];
-
-                          // Emit the selected date to state
                           context.read<SchedulePickupBloc>().add(
                             UpdateFormFieldEvent(
                               field: 'pickupDate',
@@ -71,7 +77,7 @@ class SchedulePickupWidget extends StatelessWidget {
 
                           Navigator.of(
                             context,
-                          ).pop(); // Close dialog after selection
+                          ).pop(); 
                         },
                       ),
                     ),
