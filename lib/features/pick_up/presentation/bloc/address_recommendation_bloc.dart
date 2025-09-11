@@ -2,7 +2,6 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:floo_aid_rewrite/core/errors/failures.dart';
 import 'package:floo_aid_rewrite/features/pick_up/data/datasource/address_service.dart';
-import 'package:flutter/material.dart';
 
 part 'address_recommendation_event.dart';
 part 'address_recommendation_state.dart';
