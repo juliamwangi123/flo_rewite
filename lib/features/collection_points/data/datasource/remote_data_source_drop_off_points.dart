@@ -1,7 +1,6 @@
 import 'package:floo_aid_rewrite/core/errors/failures.dart';
 import 'package:floo_aid_rewrite/features/collection_points/data/models/drop_off_points_model.dart';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:flutter/material.dart';
 
 abstract class RemoteDataSourceDropOffPoints {
   Future<List<DropOffPointsModel>> getNearbyDropOffPoints();
@@ -30,7 +29,6 @@ class RemoteDataSourceDropOffPointsImpl implements RemoteDataSourceDropOffPoints
         return [];
       }
     } catch (e) {
-      debugPrint('🔥 Error fetching drop-off  remote data source points: ${e.toString()}');
       throw ServerFailure('Unexpected error: ${e.toString()}');
     }
   }

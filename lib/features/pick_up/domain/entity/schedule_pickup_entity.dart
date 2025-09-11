@@ -1,3 +1,4 @@
+import 'package:country_code_picker/country_code_picker.dart';
 import 'package:equatable/equatable.dart';
 
 class SchedulePickupEntity extends Equatable{
@@ -10,6 +11,7 @@ class SchedulePickupEntity extends Equatable{
   final String typeOfDonation;
   final String pickupDate;
   final String pickupTime;
+  final CountryCode? countryCode;
 
   const SchedulePickupEntity({
     required this.fullName,
@@ -21,6 +23,7 @@ class SchedulePickupEntity extends Equatable{
     required this.typeOfDonation,
     required this.pickupDate,
     required this.pickupTime,
+    this.countryCode,
   });
 
   SchedulePickupEntity copyWith({
@@ -33,6 +36,7 @@ class SchedulePickupEntity extends Equatable{
     String? typeOfDonation,
     String? pickupDate,
     String? pickupTime,
+    CountryCode? countryCode,
   }) {
     return SchedulePickupEntity(
       fullName: fullName ?? this.fullName,
@@ -44,6 +48,7 @@ class SchedulePickupEntity extends Equatable{
       typeOfDonation: typeOfDonation ?? this.typeOfDonation,
       pickupDate: pickupDate ?? this.pickupDate,
       pickupTime: pickupTime ?? this.pickupTime,
+      countryCode: countryCode ?? this.countryCode,
     );
   }
 
@@ -58,6 +63,7 @@ class SchedulePickupEntity extends Equatable{
         typeOfDonation,
         pickupDate,
         pickupTime,
+        countryCode,
       ];
 }
  

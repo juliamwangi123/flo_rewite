@@ -66,7 +66,6 @@ class LoginScreen extends StatelessWidget {
               }
             },
              onGoogleSignIn: () {
-              debugPrint('Google Sign In Button Pressed');
               context.read<AuthBloc>().add(const SignInwithGoogleEvent());
             },
           ),

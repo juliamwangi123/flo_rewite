@@ -11,6 +11,7 @@ class SchedulePickupModel extends SchedulePickupEntity{
     required super.typeOfDonation,
     required super.pickupDate,
     required super.pickupTime,
+    super.countryCode,
   });
 
   factory SchedulePickupModel.fromJson(Map<String, dynamic> json) {
@@ -24,6 +25,7 @@ class SchedulePickupModel extends SchedulePickupEntity{
       typeOfDonation: json['typeOfDonation'] ?? '',
       pickupDate: json['pickupDate'] ?? '',
       pickupTime: json['pickupTime'] ?? '',
+      countryCode: json['countryCode'],
     );
   }
 
@@ -38,6 +40,7 @@ class SchedulePickupModel extends SchedulePickupEntity{
       'typeOfDonation': typeOfDonation,
       'pickupDate': pickupDate,
       'pickupTime': pickupTime,
+      'countryCode': countryCode,
     };
   }
 }

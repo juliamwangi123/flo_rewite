@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:floo_aid_rewrite/core/data_types/schedule_pickup_params.dart';
 import 'package:floo_aid_rewrite/features/pick_up/data/model/schedule_pickup_model.dart';
-import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 abstract class SchedulePickUpDataSource {
@@ -55,22 +54,18 @@ class SchedulePickUpDataSourceImpl implements SchedulePickUpDataSource {
           final actualData = jsonDecode(getResponse.body);
           
           if (actualData == null) {
-            debugPrint('No data found at the generated key, creating model from params');
             return SchedulePickupModel.fromJson(requestData);
           }
           
           return SchedulePickupModel.fromJson(actualData);
         } else {
-          debugPrint('Failed to fetch created data. Status code: ${getResponse.statusCode}');
           return SchedulePickupModel.fromJson(requestData);
         }
 
       } else {
-        debugPrint('Failed to schedule pickup. Status code: ${response.statusCode}');
         throw Exception('Failed to schedule pickup. Status code: ${response.statusCode}');
       }
     } catch (e) {
-      debugPrint('Failed to schedule pickup in remote data source: $e');
       throw Exception('Failed to schedule pickup: $e');
     }
   }

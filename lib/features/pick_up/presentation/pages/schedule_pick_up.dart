@@ -1,5 +1,8 @@
 import 'package:floo_aid_rewrite/core/data_types/schedule_pickup_params.dart';
+import 'package:floo_aid_rewrite/core/routes/routes.dart';
+import 'package:floo_aid_rewrite/core/theme/theme.dart';
 import 'package:floo_aid_rewrite/core/widgets/custom_floaid_button.dart';
+import 'package:floo_aid_rewrite/core/widgets/custom_snackbar.dart';
 import 'package:floo_aid_rewrite/core/widgets/spaces.dart';
 import 'package:floo_aid_rewrite/features/pick_up/presentation/bloc/schedule_pickup_bloc.dart';
 import 'package:floo_aid_rewrite/features/pick_up/presentation/widgets/donation_details.dart';
@@ -59,16 +62,29 @@ class _SchedulePickUpState extends State<SchedulePickUp> {
             child: SingleChildScrollView(
               child: BlocConsumer<SchedulePickupBloc, SchedulePickupState>(
                 listener: (context, state) {
+                    if (state.scheduledPickup != null) {
+                      //TODO: route user to the success paage 
+          Navigator.pushReplacementNamed(context, AppRoutes.homePage);
+          showCustomSnackBar(
+            context,
+            'Successfully logged in!',
+            AppColors.successGreen,
+            AppColors.offWhite
+          );
+        }  
                 },
                 builder: (context, state) {
                   return Form(
                     key: _formKey,
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
                     child: Column(
                       children: [
                         if (currentStep == 0)
                           Column(
                             children: [
-                              PersonalDetails(donationTypes: donationTypes),
+                              PersonalDetails(
+                                donationTypes: donationTypes
+                                ),
                               mediumVerticalSizedBox,
                              const PickUpLocationDetails(
                               ),
@@ -155,6 +171,7 @@ class _SchedulePickUpState extends State<SchedulePickUp> {
                                     });
                                    
                                   } else {
+                                    if(_formKey.currentState!.validate()){
                                     context.read<SchedulePickupBloc>().add(
                                       SchedulePickupRequestEvent(
                                         schedulePickupParams:
@@ -171,6 +188,10 @@ class _SchedulePickUpState extends State<SchedulePickUp> {
                                             ),
                                       ),
                                     );
+                                    _formKey.currentState!.reset();
+                                    
+
+                                    }
                                   }
                                 },
                               ),

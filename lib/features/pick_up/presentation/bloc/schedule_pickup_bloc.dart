@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:country_code_picker/country_code_picker.dart';
 import 'package:equatable/equatable.dart';
 import 'package:floo_aid_rewrite/core/data_types/schedule_pickup_params.dart';
 import 'package:floo_aid_rewrite/core/errors/failures.dart';
@@ -12,7 +13,7 @@ class SchedulePickupBloc
     extends Bloc<SchedulePickupEvent, SchedulePickupState> {
   final SchedulePickupUsecase schedulePickupUsecase;
   SchedulePickupBloc(this.schedulePickupUsecase)
-    : super(const SchedulePickupState()) {
+    : super( SchedulePickupState()) {
     on<SchedulePickupRequestEvent>(_onSchedulePickup);
     on<UpdateFormFieldEvent>(_onUpdateFormField);
   }
@@ -43,7 +44,7 @@ class SchedulePickupBloc
       case 'donationType':
         updatedForm = currentForm.copyWith(
           donationType: event.value,
-          typeOfDonation: event.value, // Assuming these are the same
+          typeOfDonation: event.value, 
         );
         break;
       case 'pickupTime':
@@ -51,9 +52,15 @@ class SchedulePickupBloc
         break;
       case 'pickupDate':
         updatedForm = currentForm.copyWith(pickupDate: event.value);
+      case 'countryCode':
+        updatedForm = currentForm.copyWith(countryCode: CountryCode(
+          code: (event.value as CountryCode).code ?? 'KE',
+          dialCode: (event.value as CountryCode).dialCode ?? '+254',
+          name: (event.value as CountryCode).name ?? 'Kenya',
+        )); 
         break;
       default:
-        return; // Unknown field, don't emit
+        return; 
     }
     
     emit(state.copyWith(currentForm: updatedForm));
