@@ -30,7 +30,6 @@ class RemoteDataSourceDropOffPointsImpl implements RemoteDataSourceDropOffPoints
         return [];
       }
     } catch (e) {
-      debugPrint('🔥 Error fetching drop-off  remote data source points: ${e.toString()}');
       throw ServerFailure('Unexpected error: ${e.toString()}');
     }
   }

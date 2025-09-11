@@ -27,10 +27,8 @@ class AddressServiceImpl implements AddressService {
             .map((item) => item['properties']['name'] ?? item['properties']['street'] ?? 'Unknown')
             .toList();
             
-        debugPrint('Fetched $suggestions suggestions');
         return Right(suggestions);
       } else {
-        debugPrint('Failed to fetch suggestions: ${response.statusCode}');
         return Left(
           ServerFailure(
              'Failed with status code: ${response.statusCode}',

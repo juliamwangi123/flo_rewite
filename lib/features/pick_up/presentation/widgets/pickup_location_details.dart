@@ -166,6 +166,7 @@ class _PickUpLocationDetailsState extends State<PickUpLocationDetails> {
               smallVerticalSizedBox,
               PersonalDetailsItemWidget(
                 initialValue: scheduleState.currentForm.accessInstructions ?? '',
+                isRequired: false,
                 label: 'Access Instructions',
                 hintText: 'Gate code, security info, best time to call..',
                 maxLines: 3,

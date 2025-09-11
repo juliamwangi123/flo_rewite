@@ -48,8 +48,7 @@ class PersonalDetails extends StatelessWidget {
                 context.read<SchedulePickupBloc>().add(
                   UpdateFormFieldEvent(
                     field: 'phoneNumber',
-                    value:
-                        '(${state.currentForm.countryCode?.dialCode ?? 'KE'}) $value',
+                    value: value,
                   ),
                 );
               },
@@ -78,6 +77,7 @@ class PersonalDetailsItemWidget extends StatelessWidget {
   final String? initialValue;
   final bool isPhoneNumber;
   final int? countryCode;
+  final bool? isRequired;
 
   const PersonalDetailsItemWidget({
     super.key,
@@ -89,6 +89,7 @@ class PersonalDetailsItemWidget extends StatelessWidget {
     this.initialValue,
     this.isPhoneNumber = false,
     this.countryCode,
+    this.isRequired = true
   });
 
   bool isValidPhoneNumber(String phone) {
@@ -150,11 +151,7 @@ class PersonalDetailsItemWidget extends StatelessWidget {
                           ),
                         );
                       },
-                      initialSelection:
-                          (state.currentForm.countryCode?.dialCode?.isEmpty ??
-                                  true)
-                              ? 'KE'
-                              : state.currentForm.countryCode?.dialCode,
+                      initialSelection: state.currentForm.countryCode?.code ?? 'KE',
                       showCountryOnly: false,
                       showOnlyCountryWhenClosed: false,
                       alignLeft: false,
@@ -166,7 +163,7 @@ class PersonalDetailsItemWidget extends StatelessWidget {
                     initialValue: initialValue,
                     keyboardType: TextInputType.phone,
                     hintText: hintText,
-                    isRequired: true,
+                    isRequired: isRequired,
                     borderColor: Colors.transparent,
                     focusedBorderColor: Colors.transparent,
                     borderRadius: const BorderRadius.all(Radius.circular(10)),
@@ -195,7 +192,7 @@ class PersonalDetailsItemWidget extends StatelessWidget {
             initialValue: initialValue,
             keyboardType: TextInputType.text,
             hintText: hintText,
-            isRequired: true,
+            isRequired: isRequired,
             borderColor: AppColors.lightGray.withValues(alpha: 0.3),
             borderRadius: const BorderRadius.all(Radius.circular(10)),
             contentPadding: const EdgeInsets.symmetric(
@@ -206,7 +203,11 @@ class PersonalDetailsItemWidget extends StatelessWidget {
             onChanged: onchanged,
             validator: (value) {
               if (value == null || value.isEmpty) {
-                return 'This field is required';
+                if (isRequired == true) {
+                return 'This field is required';}
+                else {
+                  return null;
+                } 
               }
               return null;
             },

@@ -21,7 +21,6 @@ class AdressRecommendationBloc extends Bloc<AdressRecommendationEvent, AdressRec
     emit(state.copyWith(isLoading: true, ));
     
     final result = await addressService.getAddressSuggestions(event.query);
-    debugPrint('Address suggestions result in bloc: $result');
     
     result.fold(
       (failure) => emit(state.copyWith(
