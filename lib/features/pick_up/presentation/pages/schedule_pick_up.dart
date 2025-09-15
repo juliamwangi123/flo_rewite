@@ -61,9 +61,7 @@ class _SchedulePickUpState extends State<SchedulePickUp> {
             child: SingleChildScrollView(
               child: BlocConsumer<SchedulePickupBloc, SchedulePickupState>(
                 listener: (context, state) {
-                    if (state.scheduledPickup != null) {
-                 
-                   
+                    if (state.scheduledPickup != null) { 
                   //TODO: route user to the success paage 
                      Navigator.pushNamed(context, AppRoutes.scheduleSuccessScreen);
                  }  

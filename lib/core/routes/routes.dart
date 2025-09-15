@@ -9,4 +9,5 @@ class AppRoutes {
   static const String allDropOffPoints = '/allDropOffPoints';
   static const String dashboardScreen = '/dashboardScreen';
   static const String scheduleSuccessScreen = '/scheduleSuccessScreen';
+  static const String resetPasswordScreen = '/resetPasswordScreen';
 }
