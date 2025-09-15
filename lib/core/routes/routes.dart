@@ -8,4 +8,5 @@ class AppRoutes {
   static const String dropOffDetails = '/dropOffDetails';
   static const String allDropOffPoints = '/allDropOffPoints';
   static const String dashboardScreen = '/dashboardScreen';
+  static const String scheduleSuccessScreen = '/scheduleSuccessScreen';
 }

@@ -1,8 +1,6 @@
 import 'package:floo_aid_rewrite/core/data_types/schedule_pickup_params.dart';
 import 'package:floo_aid_rewrite/core/routes/routes.dart';
-import 'package:floo_aid_rewrite/core/theme/theme.dart';
 import 'package:floo_aid_rewrite/core/widgets/custom_floaid_button.dart';
-import 'package:floo_aid_rewrite/core/widgets/custom_snackbar.dart';
 import 'package:floo_aid_rewrite/core/widgets/spaces.dart';
 import 'package:floo_aid_rewrite/features/pick_up/presentation/bloc/schedule_pickup_bloc.dart';
 import 'package:floo_aid_rewrite/features/pick_up/presentation/widgets/donation_details.dart';
@@ -43,7 +41,8 @@ class _SchedulePickUpState extends State<SchedulePickUp> {
   bool isButtonAcive = false;
   String? selectedTimeSlot;
   String? donationTypeValue;
-
+  bool? isGradient;
+  bool? isLoading;
  
 
   @override
@@ -63,15 +62,14 @@ class _SchedulePickUpState extends State<SchedulePickUp> {
               child: BlocConsumer<SchedulePickupBloc, SchedulePickupState>(
                 listener: (context, state) {
                     if (state.scheduledPickup != null) {
-                      //TODO: route user to the success paage 
-          Navigator.pushReplacementNamed(context, AppRoutes.homePage);
-          showCustomSnackBar(
-            context,
-            'Successfully logged in!',
-            AppColors.successGreen,
-            AppColors.offWhite
-          );
-        }  
+                 
+                   
+                  //TODO: route user to the success paage 
+                     Navigator.pushNamed(context, AppRoutes.scheduleSuccessScreen);
+                 }  
+                 if(state.isLoading == true){
+                  isLoading = state.isLoading;
+                 }
                 },
                 builder: (context, state) {
                   return Form(
@@ -131,6 +129,8 @@ class _SchedulePickUpState extends State<SchedulePickUp> {
                               Expanded(
                                 child: CustomFloAidButton(
                                   buttonText: 'Back',
+                                  isGradient: true,
+                                  buttonColor:Colors.transparent,
                                   isButtonActive: true,
                                   handleSubmitButton: () {
                                     setState(() {
@@ -143,10 +143,13 @@ class _SchedulePickUpState extends State<SchedulePickUp> {
                             ],
                             Expanded(
                               child: CustomFloAidButton(
+                                isLoading: isLoading ?? false,
                                 buttonText:
                                     currentStep == 0
                                         ? 'Continue'
                                         : 'Schedule Pickup',
+                                isGradient: true,
+                                buttonColor: Colors.red,
                                 isButtonActive:
                                     (currentStep == 0 &&
                                         state.currentForm.fullName.isNotEmpty &&
@@ -189,8 +192,9 @@ class _SchedulePickUpState extends State<SchedulePickUp> {
                                       ),
                                     );
                                     _formKey.currentState!.reset();
+                                    setState(() {                               
+                                    });
                                     
-
                                     }
                                   }
                                 },

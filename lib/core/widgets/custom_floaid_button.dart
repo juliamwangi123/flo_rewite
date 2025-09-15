@@ -6,13 +6,18 @@ class CustomFloAidButton extends StatelessWidget {
   final void Function() handleSubmitButton;
   final bool? isLoading;
   final String buttonText;
+  final bool isGradient;
+  final Color buttonColor;
 
   const CustomFloAidButton({
     super.key, 
     required this.isButtonActive, 
     required this.handleSubmitButton,  
     this.isLoading = false, 
-    required this.buttonText});
+    required this.buttonText,
+    required this.isGradient,
+   required this.buttonColor 
+    });
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +26,7 @@ class CustomFloAidButton extends StatelessWidget {
       width: double.infinity,
       height: 56,
       decoration: BoxDecoration(
-        gradient: isButtonActive
+        gradient: isButtonActive && isGradient == true
             ? const LinearGradient(
                 colors: [AppColors.floaidPink, AppColors.floaidPurple],
                 begin: Alignment.centerLeft,

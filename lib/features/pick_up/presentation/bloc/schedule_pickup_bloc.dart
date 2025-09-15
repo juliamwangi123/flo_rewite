@@ -16,6 +16,7 @@ class SchedulePickupBloc
     : super( SchedulePickupState()) {
     on<SchedulePickupRequestEvent>(_onSchedulePickup);
     on<UpdateFormFieldEvent>(_onUpdateFormField);
+    on<ScheduleFormResetEvent>(_onFormReset);
   }
 
   void _onUpdateFormField(
@@ -96,5 +97,34 @@ class SchedulePickupBloc
         ),
       ),
     );
+  }
+
+  void _onFormReset(ScheduleFormResetEvent event, Emitter<SchedulePickupState> emit) {
+    emit(
+      state.copyWith(
+        currentForm: SchedulePickupEntity(
+          fullName: '',
+          phoneNumber: '',
+          address: '',
+          landmark: '',
+          accessInstructions: '',
+          donationType: '',
+          typeOfDonation: '',
+          pickupDate: '',
+          pickupTime: '',
+          countryCode: CountryCode(
+            code: '', 
+            dialCode: '', 
+            name: ''
+          ),
+        ),
+        isLoading: false,
+        errorMessage: null,
+        scheduledPickup: null,
+      ),
+    );
+
+ 
+
   }
 }
