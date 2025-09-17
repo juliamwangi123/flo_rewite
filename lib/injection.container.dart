@@ -7,6 +7,7 @@ import 'package:floo_aid_rewrite/features/auth/data/datasource/remote_datasource
 import 'package:floo_aid_rewrite/features/auth/data/repository/auth_impl_respository.dart';
 import 'package:floo_aid_rewrite/features/auth/domain/repository/auth_repository.dart';
 import 'package:floo_aid_rewrite/features/auth/domain/usecase/get_current_user_usecase.dart';
+import 'package:floo_aid_rewrite/features/auth/domain/usecase/password_reset_usecase.dart';
 import 'package:floo_aid_rewrite/features/auth/domain/usecase/sign_in_with_email_password_usecase.dart';
 import 'package:floo_aid_rewrite/features/auth/domain/usecase/sign_out_usecase.dart';
 import 'package:floo_aid_rewrite/features/auth/domain/usecase/sign_up_with_email_password_usecase.dart';
@@ -50,6 +51,8 @@ Future<void> init() async {
   sl.registerLazySingleton<AuthRemoteDataSource>(() => AuthRemoteDataSourceImpl(
         firebaseAuth: sl<FirebaseAuth>(),
         googleSignIn: sl<GoogleSignIn>(),
+        firebaseDatabase: sl<FirebaseDatabase>()
+
       ));
 
   // Authentication Repository
@@ -73,6 +76,9 @@ Future<void> init() async {
 sl.registerLazySingleton(
     () => GetCurrentUserUseCase(authRepository: sl<AuthRepository>()));
 
+sl.registerLazySingleton(
+    () => PasswordResetUseCase(authRepository: sl<AuthRepository>()));
+
   // BLoCs
   sl.registerFactory(() => AuthBloc(
         sl<SignUpWithEmailPasswordUsecase>(),
@@ -80,6 +86,8 @@ sl.registerLazySingleton(
         sl<SignUpWithGoogleUsecase>(),
         sl<SignOutUsecase>(),
         sl<GetCurrentUserUseCase>(),
+        sl<PasswordResetUseCase>()
+
       ));
 
   sl.registerFactory(NavigationBloc.new);

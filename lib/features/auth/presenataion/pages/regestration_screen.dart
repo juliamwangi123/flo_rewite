@@ -58,6 +58,7 @@ class RegestrationScreen extends StatelessWidget {
             authHeaderTitle: 'Join FloAid',
             authHeaderSubtitle: 'Make a differnce in women\'s lives',
             isLoginScreen: false,
+            isErrorMessage: state.errorMessage!,
             handleSubmitButton: () {
               if (emailController.text.isNotEmpty &&
                   passwordController.text.isNotEmpty &&

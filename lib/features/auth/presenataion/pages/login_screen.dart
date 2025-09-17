@@ -52,6 +52,7 @@ class LoginScreen extends StatelessWidget {
             emailController: emailController,
             passwordController: passwordController,
             isLoginScreen: true,
+            isErrorMessage: state.errorMessage!,
             handleSubmitButton: () {
               if (emailController.text.isNotEmpty &&
                   passwordController.text.isNotEmpty) {

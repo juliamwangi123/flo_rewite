@@ -44,3 +44,12 @@ class CheckCurrentUserEvent  extends AuthEvent {
   @override
   List<Object> get props => [];
 }
+
+class PasswordResetEvent extends  AuthEvent{
+  final String email;
+ const  PasswordResetEvent({ required this.email});
+
+  @override
+  List<Object> get props => [email];
+
+}
