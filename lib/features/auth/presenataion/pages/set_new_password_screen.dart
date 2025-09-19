@@ -107,6 +107,12 @@ class _SetNewPasswordScreenState extends State<SetNewPasswordScreen> {
                         );
                   },
                 ),
+                 if(state.errorMessage != null)...[
+                  smallVerticalSizedBox,
+                  Text(state.errorMessage!,
+                        style:  boldSize13Text(AppColors.errorRed),
+                  )
+                 ]
               ],
             );
           },
