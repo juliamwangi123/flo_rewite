@@ -8,6 +8,7 @@ import 'package:floo_aid_rewrite/features/auth/data/repository/auth_impl_resposi
 import 'package:floo_aid_rewrite/features/auth/domain/repository/auth_repository.dart';
 import 'package:floo_aid_rewrite/features/auth/domain/usecase/get_current_user_usecase.dart';
 import 'package:floo_aid_rewrite/features/auth/domain/usecase/password_reset_usecase.dart';
+import 'package:floo_aid_rewrite/features/auth/domain/usecase/set_new_password_usecase.dart';
 import 'package:floo_aid_rewrite/features/auth/domain/usecase/sign_in_with_email_password_usecase.dart';
 import 'package:floo_aid_rewrite/features/auth/domain/usecase/sign_out_usecase.dart';
 import 'package:floo_aid_rewrite/features/auth/domain/usecase/sign_up_with_email_password_usecase.dart';
@@ -78,6 +79,8 @@ sl.registerLazySingleton(
 
 sl.registerLazySingleton(
     () => PasswordResetUseCase(authRepository: sl<AuthRepository>()));
+sl.registerLazySingleton(
+    () => SetNewPasswordUseCase(authRepository: sl<AuthRepository>()));
 
   // BLoCs
   sl.registerFactory(() => AuthBloc(
@@ -86,7 +89,8 @@ sl.registerLazySingleton(
         sl<SignUpWithGoogleUsecase>(),
         sl<SignOutUsecase>(),
         sl<GetCurrentUserUseCase>(),
-        sl<PasswordResetUseCase>()
+        sl<PasswordResetUseCase>(),
+        sl<SetNewPasswordUseCase>()
 
       ));
 

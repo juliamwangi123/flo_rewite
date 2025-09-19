@@ -1,9 +1,9 @@
-
 import 'package:floo_aid_rewrite/core/routes/routes.dart';
 import 'package:floo_aid_rewrite/features/auth/presenataion/pages/email_verification.dart';
 import 'package:floo_aid_rewrite/features/auth/presenataion/pages/login_screen.dart';
 import 'package:floo_aid_rewrite/features/auth/presenataion/pages/regestration_screen.dart';
 import 'package:floo_aid_rewrite/features/auth/presenataion/pages/forgot_password_screen.dart';
+import 'package:floo_aid_rewrite/features/auth/presenataion/pages/set_new_password_screen.dart';
 import 'package:floo_aid_rewrite/features/dashboard/presentation/pages/dashboard.dart';
 import 'package:floo_aid_rewrite/features/home/presentation/pages/home.dart';
 import 'package:floo_aid_rewrite/features/pick_up/presentation/widgets/confiramtion_schedule_screen.dart';
@@ -33,6 +33,11 @@ Route<dynamic> generateRoutes(RouteSettings settings) {
       return MaterialPageRoute<ResetPasswordScreen>(
         builder: (_) => const ResetPasswordScreen(),
       ); 
+      case AppRoutes.newPasswordScreen:
+  final String? oobCode = settings.arguments as String?; 
+  return MaterialPageRoute<SetNewPasswordScreen>(
+    builder: (_) => SetNewPasswordScreen(oobCode: oobCode),
+  );
     default:
       return MaterialPageRoute<RegestrationScreen>(
         builder: (_) => const RegestrationScreen(),

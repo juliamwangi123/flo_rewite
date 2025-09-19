@@ -7,6 +7,7 @@ part of 'auth_bloc.dart';
   final bool? isGoogleLoading;
   final bool? isUserLoggedIn;
   final bool? isPasswordReset;
+  final bool? isNewPasswordSet;
 
   const AuthState({
     this.isLoading = false,
@@ -14,23 +15,26 @@ part of 'auth_bloc.dart';
     this.errorMessage = '',
     this.isGoogleLoading = false,
     this.isUserLoggedIn = false,
-    this.isPasswordReset = false
+    this.isPasswordReset = false,
+    this.isNewPasswordSet
   });
   
-  AuthState copyWith({bool? isLoading, String? errorMessage, AuthEntity? user, bool? isGoogleLoading, bool? isUserLoggedIn, bool? isPasswordReset }) {
+  AuthState copyWith({bool? isLoading, String? errorMessage, AuthEntity? user, bool? isGoogleLoading, bool? isUserLoggedIn, bool? isPasswordReset, bool? isNewPasswordSet}) {
     return AuthState(
       isLoading: isLoading ?? this.isLoading,
       errorMessage: errorMessage ?? this.errorMessage,
       user: user ?? this.user,
       isGoogleLoading: isGoogleLoading ?? this.isGoogleLoading,
       isUserLoggedIn: isUserLoggedIn ?? this.isUserLoggedIn,
-      isPasswordReset: isPasswordReset ?? this.isPasswordReset
+      isPasswordReset: isPasswordReset ?? this.isPasswordReset,
+      isNewPasswordSet: isNewPasswordSet ?? this.isNewPasswordSet
+
     );
 
   }
   
   @override
-  List<Object?> get props => [isLoading, errorMessage, user, isGoogleLoading, isUserLoggedIn, isPasswordReset];
+  List<Object?> get props => [isLoading, errorMessage, user, isGoogleLoading, isUserLoggedIn, isPasswordReset, isNewPasswordSet];
 }
 
 

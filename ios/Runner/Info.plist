@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" 
+  "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>CADisableMinimumFrameDurationOnPhone</key>
-	<true/>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
-	<key>CFBundleDisplayName</key>
-	<string>Floo Aid Rewrite</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -15,20 +12,14 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>floo_aid_rewrite</string>
+	<string>floaid</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>$(FLUTTER_BUILD_NAME)</string>
-	<key>CFBundleSignature</key>
-	<string>????</string>
+	<string>1.0.0</string>
 	<key>CFBundleVersion</key>
-	<string>$(FLUTTER_BUILD_NUMBER)</string>
+	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
-	<true/>
-	<key>NSAppTransportSecurity</key>
-	<dict/>
-	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
@@ -47,33 +38,23 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>CLIENT_ID</key>
-<string>326074345757-9p76e9lpb5n6mt3a5b1qioe45p8g28n6.apps.googleusercontent.com</string>
-<key>GIDClientID</key>
-<string>326074345757-9p76e9lpb5n6mt3a5b1qioe45p8g28n6.apps.googleusercontent.com</string>
-<key>CFBundleURLTypes</key>
-<array>
-  <dict>
-    <key>CFBundleTypeRole</key>
-    <string>Editor</string>
-    <key>CFBundleURLSchemes</key>
-    <array>
-      <string>com.googleusercontent.apps.326074345757-9p76e9lpb5n6mt3a5b1qioe45p8g28n6</string>
-    </array>
-  </dict>
-</array>
-<key>UIBackgroundModes</key>
-<array>
-  <string>location</string>
-</array>
-<key>NSLocationWhenInUseUsageDescription</key>
-<string>This app needs access to your location to provide relevant services while you are using it.</string>
-<key>NSLocationAlwaysUsageDescription</key>
-<string>Your app needs continuous access to your location to enable [specific background feature, e.g., geofencing, location tracking].</string>
-<key>LSApplicationQueriesSchemes</key>
-<array>
-    <string>googlechromes</string>
-    <string>comgooglemaps</string>
-</array>
+
+	<!-- 👇 Custom URL scheme registration -->
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>com.floaid.app</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>floaid</string>
+			</array>
+		</dict>
+	</array>
+
+	<key>CADisableMinimumFrameDurationOnPhone</key>
+	<true/>
+	<key>UIApplicationSupportsIndirectInputEvents</key>
+	<true/>
 </dict>
 </plist>

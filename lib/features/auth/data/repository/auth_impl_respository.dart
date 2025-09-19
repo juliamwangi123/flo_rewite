@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:floo_aid_rewrite/core/data_types/auth_params.dart';
+import 'package:floo_aid_rewrite/core/data_types/password_reset_params.dart';
 import 'package:floo_aid_rewrite/core/errors/exception.dart';
 import 'package:floo_aid_rewrite/core/errors/failures.dart';
 import 'package:floo_aid_rewrite/features/auth/data/datasource/remote_datasource.dart';
@@ -67,6 +68,17 @@ class AuthRepositoryImpl implements AuthRepository{
       final result = await authRemoteDataSource.passwordReset(userEmail);
       return Right(result);
     } on ServerException catch (e) {
+      return Left(ServerFailure(e.message));
+    }
+    
+  }
+  
+  @override
+  Future<Either<Failure, void>> confirmPasswordReset(PasswordReserParams params) async{
+    try {
+      final results = await authRemoteDataSource.confirmPasswordReset(params);
+      return Right(results);
+    }on ServerException catch (e) {
       return Left(ServerFailure(e.message));
     }
     

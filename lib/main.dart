@@ -1,4 +1,5 @@
 import 'package:floo_aid_rewrite/core/routes/routes_genarator.dart';
+import 'package:floo_aid_rewrite/core/services/deep_link_service.dart';
 import 'package:floo_aid_rewrite/core/theme/theme.dart';
 import 'package:floo_aid_rewrite/features/auth/presenataion/bloc/auth_bloc.dart';
 import 'package:floo_aid_rewrite/features/auth/presenataion/pages/auth_wrapper.dart';
@@ -10,25 +11,33 @@ import 'package:floo_aid_rewrite/injection.container.dart' as di;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-void main() async{
-   WidgetsFlutterBinding.ensureInitialized();  
-   try {
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  try {
     await di.init();
-    runApp(MultiBlocProvider(
-      providers: [
-        BlocProvider(create: (_) => di.sl<AuthBloc>()),
-        BlocProvider(create: (_) => di.sl<NavigationBloc>()),
-        BlocProvider(create: (_) => di.sl<DropOffPointsBloc>()),
-        BlocProvider(create: (_) => di.sl<SchedulePickupBloc>()),
-        BlocProvider(create: (_) => di.sl<AdressRecommendationBloc>()),
-      ],
-      child: const MyApp(),
-    ));
+    await DeepLinkService.initialize();
+
+    runApp(
+      MultiBlocProvider(
+        providers: [
+          BlocProvider(create: (_) => di.sl<AuthBloc>()),
+          BlocProvider(create: (_) => di.sl<NavigationBloc>()),
+          BlocProvider(create: (_) => di.sl<DropOffPointsBloc>()),
+          BlocProvider(create: (_) => di.sl<SchedulePickupBloc>()),
+          BlocProvider(create: (_) => di.sl<AdressRecommendationBloc>()),
+        ],
+        child: const MyApp(),
+      ),
+    );
+
   } catch (e) {
     throw Exception('Failed to initialize app: $e');
-
   }
 }
+
+
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -37,13 +46,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'FloAid',
-       debugShowCheckedModeBanner: false,
+      debugShowCheckedModeBanner: false,
       theme: AppTheme.getAppTheme(),
+       navigatorKey: DeepLinkService.navigatorKey, 
       home: const AuthWrapper(),
-      onGenerateRoute:generateRoutes ,
+      onGenerateRoute: generateRoutes,
     );
   }
 }
-
-
-

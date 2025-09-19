@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:floo_aid_rewrite/core/data_types/auth_params.dart';
+import 'package:floo_aid_rewrite/core/data_types/password_reset_params.dart';
 import 'package:floo_aid_rewrite/core/errors/exception.dart';
 import 'package:floo_aid_rewrite/core/errors/firebase_error_mapper.dart';
 import 'package:floo_aid_rewrite/features/auth/data/models/auth_model.dart';
@@ -17,6 +18,7 @@ abstract class AuthRemoteDataSource {
   Future<bool> getCurrentUser();
   Future<void> signOutUser();
   Future<void> passwordReset(String email);
+  Future<void> confirmPasswordReset(PasswordReserParams params);
 }
 
 class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
@@ -218,5 +220,18 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     } catch (e) {
       throw ServerException('Failed to reset password: $e');
     }
+  }
+  
+  @override
+  Future<void> confirmPasswordReset(PasswordReserParams params) async{
+    try {
+        await firebaseAuth.confirmPasswordReset(code: params.code, newPassword:params.newPassword);
+
+    } catch (e) {
+    throw ServerException('Failed to reset new  password: $e');
+
+      
+    }
+   
   }
 }
