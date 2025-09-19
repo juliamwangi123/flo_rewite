@@ -10,12 +10,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SetNewPasswordScreen extends StatefulWidget {
-  final String? oobCode; 
+  final String? oobCode;
 
-  const SetNewPasswordScreen({
-    super.key,
-     this.oobCode,
-  });
+  const SetNewPasswordScreen({super.key, this.oobCode});
 
   @override
   State<SetNewPasswordScreen> createState() => _SetNewPasswordScreenState();
@@ -23,7 +20,8 @@ class SetNewPasswordScreen extends StatefulWidget {
 
 class _SetNewPasswordScreenState extends State<SetNewPasswordScreen> {
   final TextEditingController newPasswordController = TextEditingController();
-  final TextEditingController confirmPasswordController = TextEditingController();
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
 
   bool? isLoading = false;
 
@@ -64,10 +62,8 @@ class _SetNewPasswordScreenState extends State<SetNewPasswordScreen> {
                 AppColors.offWhite,
               );
 
-              Navigator.of(context).popUntil((route) => route.isFirst); 
+              Navigator.of(context).popUntil((route) => route.isFirst);
             }
-
-            
           },
           builder: (context, state) {
             return Column(
@@ -100,19 +96,22 @@ class _SetNewPasswordScreenState extends State<SetNewPasswordScreen> {
                   buttonColor: AppColors.floaidPurple,
                   handleSubmitButton: () {
                     context.read<AuthBloc>().add(
-                          ConfirmPasswordResetEvent(
-                            passwordReserParams: PasswordReserParams(code: widget.oobCode!, newPassword: newPasswordController.text,),
-                            
-                          ),
-                        );
+                      ConfirmPasswordResetEvent(
+                        passwordReserParams: PasswordReserParams(
+                          code: widget.oobCode!,
+                          newPassword: newPasswordController.text,
+                        ),
+                      ),
+                    );
                   },
                 ),
-                 if(state.errorMessage != null)...[
+                if (state.errorMessage != null) ...[
                   smallVerticalSizedBox,
-                  Text(state.errorMessage!,
-                        style:  boldSize13Text(AppColors.errorRed),
-                  )
-                 ]
+                  Text(
+                    state.errorMessage!,
+                    style: boldSize13Text(AppColors.errorRed),
+                  ),
+                ],
               ],
             );
           },
