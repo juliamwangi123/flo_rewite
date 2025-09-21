@@ -25,3 +25,5 @@ class SchedulePickupRequestEvent extends SchedulePickupEvent {
   @override
   List<Object> get props => [schedulePickupParams];
 }
+
+class ScheduleFormResetEvent extends SchedulePickupEvent {}

@@ -2,6 +2,7 @@
 
 import 'package:dartz/dartz.dart';
 import 'package:floo_aid_rewrite/core/data_types/auth_params.dart';
+import 'package:floo_aid_rewrite/core/data_types/password_reset_params.dart';
 import 'package:floo_aid_rewrite/core/errors/failures.dart';
 import 'package:floo_aid_rewrite/features/auth/domain/entities/auth_entity.dart';
 
@@ -11,4 +12,6 @@ abstract class AuthRepository {
   Future<Either<Failure, AuthEntity>> signInUserWithGoogle();
   Future<Either<Failure, bool>> getCurrentUser();
   Future<Either<Failure, void>> signOutUser();
+  Future<Either<Failure, void>> passwordReset(String userEmail);
+  Future<Either<Failure, void>> confirmPasswordReset(PasswordReserParams params);
 }

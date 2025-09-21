@@ -38,7 +38,7 @@ class RegestrationScreen extends StatelessWidget {
          else if ( 
             state.errorMessage != null && 
             state.errorMessage!.isNotEmpty && 
-            state.isLoading == false) {
+            state.isLoading == false && state.isLoginScreen == true) {
           showCustomSnackBar(
             context,
             state.errorMessage!,
@@ -58,6 +58,8 @@ class RegestrationScreen extends StatelessWidget {
             authHeaderTitle: 'Join FloAid',
             authHeaderSubtitle: 'Make a differnce in women\'s lives',
             isLoginScreen: false,
+            isAuthScreen: state.isLoginScreen,
+            isErrorMessage: state.errorMessage!,
             handleSubmitButton: () {
               if (emailController.text.isNotEmpty &&
                   passwordController.text.isNotEmpty &&

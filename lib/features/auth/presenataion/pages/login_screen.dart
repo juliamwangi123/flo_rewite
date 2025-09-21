@@ -32,13 +32,13 @@ class LoginScreen extends StatelessWidget {
           else if ( 
             state.errorMessage != null && 
             state.errorMessage!.isNotEmpty && 
-            state.isLoading == false) {
+            state.isLoading == false && state.isLoginScreen == true) {
           showCustomSnackBar(
             context,
             state.errorMessage!,
             AppColors.errorRed,
             AppColors.offWhite,
-            duration: const Duration(seconds: 5),
+            duration: const Duration(seconds: 2),
           );
         }    
       },
@@ -52,6 +52,8 @@ class LoginScreen extends StatelessWidget {
             emailController: emailController,
             passwordController: passwordController,
             isLoginScreen: true,
+            isErrorMessage: state.errorMessage ?? '',
+            isAuthScreen: state.isLoginScreen,
             handleSubmitButton: () {
               if (emailController.text.isNotEmpty &&
                   passwordController.text.isNotEmpty) {

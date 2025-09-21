@@ -2,9 +2,12 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:floo_aid_rewrite/core/data_types/auth_params.dart';
 import 'package:floo_aid_rewrite/core/data_types/no_params.dart';
+import 'package:floo_aid_rewrite/core/data_types/password_reset_params.dart';
 import 'package:floo_aid_rewrite/core/errors/failures.dart';
 import 'package:floo_aid_rewrite/features/auth/domain/entities/auth_entity.dart';
 import 'package:floo_aid_rewrite/features/auth/domain/usecase/get_current_user_usecase.dart';
+import 'package:floo_aid_rewrite/features/auth/domain/usecase/password_reset_usecase.dart';
+import 'package:floo_aid_rewrite/features/auth/domain/usecase/set_new_password_usecase.dart';
 import 'package:floo_aid_rewrite/features/auth/domain/usecase/sign_in_with_email_password_usecase.dart';
 import 'package:floo_aid_rewrite/features/auth/domain/usecase/sign_out_usecase.dart';
 import 'package:floo_aid_rewrite/features/auth/domain/usecase/sign_up_with_email_password_usecase.dart';
@@ -19,19 +22,26 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final SignUpWithGoogleUsecase signInWithGoogleUsecase;
   final SignOutUsecase signOutUserUsecase;
   final GetCurrentUserUseCase getCurrentUserUsecase;
+  final PasswordResetUseCase passwordResetUseCase;
+  final SetNewPasswordUseCase setNewPasswordUseCase;
 
   AuthBloc(
     this.registerUseCase,
     this.signInUseCase,
     this.signInWithGoogleUsecase,
     this.signOutUserUsecase,
-    this.getCurrentUserUsecase
+    this.getCurrentUserUsecase,
+    this.passwordResetUseCase,
+    this.setNewPasswordUseCase
+    
     ) : super( const AuthState()) {
     on<SignUpwithEmailandPsswordEvent>(_onSignUpWithEmailAndPassword);
     on<SignInwithEmailandPasswordEvent>(_onSignInWithEmailAndPassword);
     on<SignInwithGoogleEvent>(_onSignInWithGoogle);
     on<SignOutUserEvent>(_onSignOutUser);
     on<CheckCurrentUserEvent>(_onGetCurrentUser);
+    on<PasswordResetEvent> (_onPasswordReset);
+    on<ConfirmPasswordResetEvent> (_onConfirmPassword);
   }
 
    void _onSignUpWithEmailAndPassword(SignUpwithEmailandPsswordEvent event, Emitter<AuthState> emit) async {
@@ -51,6 +61,7 @@ void _onSignInWithEmailAndPassword(SignInwithEmailandPasswordEvent event, Emitte
   failureOrRegisterUser.fold(
     (failure) => emit(state.copyWith(
         isLoading: false,
+        isLoginScreen: true,
         errorMessage: (failure as ServerFailure).message)),
     (user) => emit(state.copyWith(isLoading: false, user: user, errorMessage: null, isUserLoggedIn: true)),
   );
@@ -86,8 +97,37 @@ void _onGetCurrentUser(CheckCurrentUserEvent event , Emitter<AuthState> emit) as
         isLoading: false,
         errorMessage: (failure as ServerFailure).message)),
     (isLoggedIn) => emit(state.copyWith(isLoading: false, isUserLoggedIn: isLoggedIn, errorMessage: null)),
+  );  
+}
+
+void _onPasswordReset(PasswordResetEvent event, Emitter<AuthState> emit) async{
+emit(state.copyWith(isLoading: true, errorMessage: null, isPasswordReset: false, isErrorMessage: false));
+final  failureOrPasswordReset =  await passwordResetUseCase(event.email);
+failureOrPasswordReset.fold(
+   (failure) => emit(state.copyWith(
+        isLoading: false,
+        isErrorMessage: true,
+        errorMessage: (failure as ServerFailure).message),
+        ),
+    (passwordReset) => emit(state.copyWith(isLoading: false, isUserLoggedIn: false, errorMessage: null, isPasswordReset: true, isErrorMessage:false )),
+
   );
-  
+
+}
+
+void _onConfirmPassword(ConfirmPasswordResetEvent event,Emitter<AuthState> emit ) async {
+  emit(state.copyWith(isLoading: true, errorMessage: null, isPasswordReset: false, isErrorMessage: false));
+final  failureOrPasswordReset =  await setNewPasswordUseCase(event.passwordReserParams);
+failureOrPasswordReset.fold(
+   (failure) => emit(state.copyWith(
+        isLoading: false,
+        isErrorMessage: true,
+        errorMessage: (failure as ServerFailure).message)),
+    (passwordReset) => emit(state.copyWith(isLoading: false, isUserLoggedIn: false, errorMessage: null, isNewPasswordSet:true, isErrorMessage:false )),
+
+  );
+
+
 }
 }
 
