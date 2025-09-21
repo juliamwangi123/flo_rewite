@@ -21,6 +21,7 @@ class AuthScreen extends StatefulWidget {
   final bool? isGoogleLoading;
   final VoidCallback? onGoogleSignIn;
   final String isErrorMessage;
+  final bool? isAuthScreen;
 
   const AuthScreen({
     super.key,
@@ -34,7 +35,8 @@ class AuthScreen extends StatefulWidget {
     this.onGoogleSignIn,
     this.isLoading = false,
     this.isGoogleLoading = false,
-    required this.isErrorMessage
+    required this.isErrorMessage,
+    this.isAuthScreen = false
   });
 
   @override
@@ -146,7 +148,7 @@ class _AuthScreenState extends State<AuthScreen> {
                           handleSubmitButton: widget.handleSubmitButton,
                           
                         ),
-                        if(widget.isErrorMessage.isNotEmpty)...[
+                        if(widget.isErrorMessage.isNotEmpty && widget.isAuthScreen == true)...[
                           smallVerticalSizedBox,
                           Text(widget.isErrorMessage, style: normalSize12Text(AppColors.errorRed),)
 

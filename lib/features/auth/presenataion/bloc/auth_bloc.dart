@@ -61,6 +61,7 @@ void _onSignInWithEmailAndPassword(SignInwithEmailandPasswordEvent event, Emitte
   failureOrRegisterUser.fold(
     (failure) => emit(state.copyWith(
         isLoading: false,
+        isLoginScreen: true,
         errorMessage: (failure as ServerFailure).message)),
     (user) => emit(state.copyWith(isLoading: false, user: user, errorMessage: null, isUserLoggedIn: true)),
   );
@@ -100,26 +101,29 @@ void _onGetCurrentUser(CheckCurrentUserEvent event , Emitter<AuthState> emit) as
 }
 
 void _onPasswordReset(PasswordResetEvent event, Emitter<AuthState> emit) async{
-emit(state.copyWith(isLoading: true));
+emit(state.copyWith(isLoading: true, errorMessage: null, isPasswordReset: false, isErrorMessage: false));
 final  failureOrPasswordReset =  await passwordResetUseCase(event.email);
 failureOrPasswordReset.fold(
    (failure) => emit(state.copyWith(
         isLoading: false,
-        errorMessage: (failure as ServerFailure).message)),
-    (passwordReset) => emit(state.copyWith(isLoading: false, isUserLoggedIn: false, errorMessage: null, isPasswordReset: true )),
+        isErrorMessage: true,
+        errorMessage: (failure as ServerFailure).message),
+        ),
+    (passwordReset) => emit(state.copyWith(isLoading: false, isUserLoggedIn: false, errorMessage: null, isPasswordReset: true, isErrorMessage:false )),
 
   );
 
 }
 
 void _onConfirmPassword(ConfirmPasswordResetEvent event,Emitter<AuthState> emit ) async {
-  emit(state.copyWith(isLoading: true));
+  emit(state.copyWith(isLoading: true, errorMessage: null, isPasswordReset: false, isErrorMessage: false));
 final  failureOrPasswordReset =  await setNewPasswordUseCase(event.passwordReserParams);
 failureOrPasswordReset.fold(
    (failure) => emit(state.copyWith(
         isLoading: false,
+        isErrorMessage: true,
         errorMessage: (failure as ServerFailure).message)),
-    (passwordReset) => emit(state.copyWith(isLoading: false, isUserLoggedIn: false, errorMessage: null, isNewPasswordSet:true)),
+    (passwordReset) => emit(state.copyWith(isLoading: false, isUserLoggedIn: false, errorMessage: null, isNewPasswordSet:true, isErrorMessage:false )),
 
   );
 

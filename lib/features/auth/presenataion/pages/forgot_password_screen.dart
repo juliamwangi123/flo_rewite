@@ -74,12 +74,13 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
               isLoading = false;
             }
 
-            if (state.isPasswordReset == true) {
+            if (state.isPasswordReset == true && state.isErrorMessage == false) {
               showCustomSnackBar(
                 context,
                 'We’ve sent you a password reset link. Please check your email: ${emailController.text}',
                 AppColors.successGreen,
                 AppColors.offWhite,
+                duration: const Duration(seconds: 1)
               );
 
               startCooldown(); 
@@ -135,9 +136,11 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                     style: normalSize12Text(AppColors.deepNavy),
                   ),
                 ],
-                if (state.errorMessage != null) ...[
-                  smallHorizontalSizedBox,
-                  Text(state.errorMessage!),
+                if (state.errorMessage != null && state.isErrorMessage == true) ...[
+                  smallVerticalSizedBox,
+                  Text(state.errorMessage!,
+                  style: boldSize13Text(AppColors.errorRed),
+                  ),
                 ]
               ],
             );

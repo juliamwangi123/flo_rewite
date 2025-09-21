@@ -22,6 +22,7 @@ class _SetNewPasswordScreenState extends State<SetNewPasswordScreen> {
   final TextEditingController newPasswordController = TextEditingController();
   final TextEditingController confirmPasswordController =
       TextEditingController();
+  bool obscureText = true;
 
   bool? isLoading = false;
 
@@ -77,14 +78,42 @@ class _SetNewPasswordScreenState extends State<SetNewPasswordScreen> {
                 CustomTextField(
                   hintText: 'New Password',
                   controller: newPasswordController,
-                  obscureText: true,
+                  obscureText: obscureText,
+                  suffixIcon: IconButton(
+                    onPressed: () {
+                      setState(() {
+                        obscureText = !obscureText;
+                      });
+                    },
+                    icon: Icon(
+                      obscureText
+                          ? Icons.visibility_outlined
+                          : Icons.visibility_off_outlined,
+                      color: AppColors.floaidPink,
+                      size: 20,
+                    ),
+                  ),
                   onChanged: (_) => setState(() {}),
                 ),
                 mediumVerticalSizedBox,
                 CustomTextField(
                   hintText: 'Confirm Password',
                   controller: confirmPasswordController,
-                  obscureText: true,
+                  obscureText: obscureText,
+                  suffixIcon: IconButton(
+                    onPressed: () {
+                      setState(() {
+                        obscureText = !obscureText;
+                      });
+                    },
+                    icon: Icon(
+                      obscureText
+                          ? Icons.visibility_outlined
+                          : Icons.visibility_off_outlined,
+                      color: AppColors.floaidPink,
+                      size: 20,
+                    ),
+                  ),
                   onChanged: (_) => setState(() {}),
                 ),
                 mediumVerticalSizedBox,
@@ -105,7 +134,7 @@ class _SetNewPasswordScreenState extends State<SetNewPasswordScreen> {
                     );
                   },
                 ),
-                if (state.errorMessage != null) ...[
+                if (state.errorMessage != null && state.isErrorMessage == true ) ...[
                   smallVerticalSizedBox,
                   Text(
                     state.errorMessage!,
