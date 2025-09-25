@@ -43,54 +43,10 @@ class SuccessScheduleBottomSheet extends StatelessWidget {
   Widget _buildConformtionScreenButton(context) {
     return Material(
       child: BlocConsumer<SchedulePickupBloc, SchedulePickupState>(
-        listener: (context, state) {
-        },
+        listener: (context, state) {},
         builder: (context, state) {
           return Column(
             children: [
-              InkWell(
-                  onTap: () {
-                    context.read<SchedulePickupBloc>().add(
-                      ScheduleFormResetEvent(),
-                    );
-
-                    context.read<NavigationBloc>().add(
-                      const ChangeCurrentEvent(currentIndex: 0),
-                    );
-                    // Navigator.pushReplacementNamed(context, AppRoutes.homePage);
-                  },
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(vertical: 16),
-                    decoration: const BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [
-                          AppColors.floaidPink,
-                          AppColors.floaidPurple,
-                        ],
-                        begin: Alignment.centerLeft,
-                        end: Alignment.centerRight,
-                      ),
-                      borderRadius: BorderRadius.all(Radius.circular(16)),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Icon(
-                          Icons.home,
-                          color: AppColors.whiteColor,
-                          size: 16,
-                        ),
-                        smallHorizontalSizedBox,
-                        Text(
-                          'Go back home',
-                          style: boldSize15Text(AppColors.whiteColor),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-
-              smallVerticalSizedBox,
               InkWell(
                 onTap: () {
                   Add2Calendar.addEvent2Cal(
@@ -129,6 +85,45 @@ class SuccessScheduleBottomSheet extends StatelessWidget {
                       smallHorizontalSizedBox,
                       Text(
                         'Add to Calendar',
+                        style: boldSize15Text(AppColors.whiteColor),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              smallVerticalSizedBox,
+              InkWell(
+                onTap: () {
+                  context.read<SchedulePickupBloc>().add(
+                    ScheduleFormResetEvent(),
+                  );
+
+                  context.read<NavigationBloc>().add(
+                    const ChangeCurrentEvent(currentIndex: 0),
+                  );
+                  // Navigator.pushReplacementNamed(context, AppRoutes.homePage);
+                },
+                child: Container(
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  decoration: const BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [AppColors.floaidPink, AppColors.floaidPurple],
+                      begin: Alignment.centerLeft,
+                      end: Alignment.centerRight,
+                    ),
+                    borderRadius: BorderRadius.all(Radius.circular(16)),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Icon(
+                        Icons.home,
+                        color: AppColors.whiteColor,
+                        size: 16,
+                      ),
+                      smallHorizontalSizedBox,
+                      Text(
+                        'Go back home',
                         style: boldSize15Text(AppColors.whiteColor),
                       ),
                     ],
