@@ -1,3 +1,4 @@
+import 'package:add_2_calendar/add_2_calendar.dart';
 import 'package:floo_aid_rewrite/core/theme/text_theme.dart';
 import 'package:floo_aid_rewrite/core/theme/theme.dart';
 import 'package:floo_aid_rewrite/core/widgets/spaces.dart';
@@ -14,29 +15,26 @@ class SuccessScheduleBottomSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      child: SingleChildScrollView(
-        child: Container(
-          height: MediaQuery.of(context).size.height,
-          padding: const EdgeInsets.all(20.0),
-          decoration: const BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(20.0),
-              topRight: Radius.circular(20.0),
-            ),
+      child: Container(
+        height: MediaQuery.of(context).size.height,
+        padding: const EdgeInsets.all(20.0),
+        decoration: const BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(20.0),
+            topRight: Radius.circular(20.0),
           ),
-          child: Column(
-            // mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              largeVerticalSizedBox,
-              const ConfirmationCheckerSection(),
-              mediumVerticalSizedBox,
-              const ConfirmationPickupDetails(),
-              mediumVerticalSizedBox,
-              _buildConformtionScreenButton(context),
-            ],
-          ),
+        ),
+        child: ListView(
+          // mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            largeVerticalSizedBox,
+            const ConfirmationCheckerSection(),
+            mediumVerticalSizedBox,
+            const ConfirmationPickupDetails(),
+            mediumVerticalSizedBox,
+            _buildConformtionScreenButton(context),
+          ],
         ),
       ),
     );
@@ -44,48 +42,65 @@ class SuccessScheduleBottomSheet extends StatelessWidget {
 
   Widget _buildConformtionScreenButton(context) {
     return Material(
-      child: Column(
-        children: [
-          InkWell(
-            onTap: () {},
-            child: Container(
-              padding: const EdgeInsets.symmetric(vertical: 16),
-              decoration: const BoxDecoration(
-                color: AppColors.blueGray,
-                borderRadius: BorderRadius.all(Radius.circular(16)),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Icon(
-                    Icons.calendar_month,
-                    color: AppColors.whiteColor,
-                    size: 16,
-                  ),
-                  smallHorizontalSizedBox,
-                  Text(
-                    'Add to Calendar',
-                    style: boldSize15Text(AppColors.whiteColor),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          smallVerticalSizedBox,
-          BlocConsumer<SchedulePickupBloc, SchedulePickupState>(
-            listener: (context, state) {
-              // TODO: implement listener
-             
-            },
-            builder: (context, state) {
-              return InkWell(
+      child: BlocConsumer<SchedulePickupBloc, SchedulePickupState>(
+        listener: (context, state) {},
+        builder: (context, state) {
+          return Column(
+            children: [
+              InkWell(
                 onTap: () {
-                   context.read<SchedulePickupBloc>().add(
+                  Add2Calendar.addEvent2Cal(
+                    Event(
+                      title: 'FloAid Donation',
+                      description: 'Donation pick by FloAid Team',
+                      location: state.currentForm.address,
+                      startDate: DateTime.parse(state.currentForm.pickupDate),
+                      endDate: DateTime.parse(
+                        state.currentForm.pickupDate,
+                      ).add(const Duration(minutes: 30)),
+                      iosParams: const IOSParams(
+                        reminder: Duration(minutes: 40),
+                        // url: 'http://example.com',
+                      ),
+                      androidParams: const AndroidParams(
+                        // emailInvites: ['test@example.com'],
+                      ),
+                    ),
+                  );
+                },
+                child: Container(
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  decoration: const BoxDecoration(
+                    color: AppColors.blueGray,
+                    borderRadius: BorderRadius.all(Radius.circular(16)),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Icon(
+                        Icons.calendar_month,
+                        color: AppColors.whiteColor,
+                        size: 16,
+                      ),
+                      smallHorizontalSizedBox,
+                      Text(
+                        'Add to Calendar',
+                        style: boldSize15Text(AppColors.whiteColor),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              smallVerticalSizedBox,
+              InkWell(
+                onTap: () {
+                  context.read<SchedulePickupBloc>().add(
                     ScheduleFormResetEvent(),
                   );
-                 
-                       context.read<NavigationBloc>().add(
-                    const ChangeCurrentEvent(currentIndex: 0),); 
+
+                  context.read<NavigationBloc>().add(
+                    const ChangeCurrentEvent(currentIndex: 0),
+                  );
                   // Navigator.pushReplacementNamed(context, AppRoutes.homePage);
                 },
                 child: Container(
@@ -114,10 +129,10 @@ class SuccessScheduleBottomSheet extends StatelessWidget {
                     ],
                   ),
                 ),
-              );
-            },
-          ),
-        ],
+              ),
+            ],
+          );
+        },
       ),
     );
   }
