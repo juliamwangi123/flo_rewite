@@ -27,3 +27,5 @@ class SchedulePickupRequestEvent extends SchedulePickupEvent {
 }
 
 class ScheduleFormResetEvent extends SchedulePickupEvent {}
+
+class ClearSuccessStateEvent extends SchedulePickupEvent {}

@@ -17,6 +17,7 @@ class SchedulePickupBloc
     on<SchedulePickupRequestEvent>(_onSchedulePickup);
     on<UpdateFormFieldEvent>(_onUpdateFormField);
     on<ScheduleFormResetEvent>(_onFormReset);
+    on<ClearSuccessStateEvent>(_onClearSuccessState); 
   }
 
   void _onUpdateFormField(
@@ -123,8 +124,15 @@ class SchedulePickupBloc
         scheduledPickup: null,
       ),
     );
+  }
 
- 
-
+  void _onClearSuccessState(ClearSuccessStateEvent event, Emitter<SchedulePickupState> emit) {
+    emit(
+      state.copyWith(
+        scheduledPickup: null,
+        errorMessage: null,
+        isLoading: false,
+      ),
+    );
   }
 }

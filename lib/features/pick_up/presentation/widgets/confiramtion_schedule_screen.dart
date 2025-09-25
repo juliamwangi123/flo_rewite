@@ -1,4 +1,5 @@
 import 'package:add_2_calendar/add_2_calendar.dart';
+import 'package:floo_aid_rewrite/core/routes/routes.dart';
 import 'package:floo_aid_rewrite/core/theme/text_theme.dart';
 import 'package:floo_aid_rewrite/core/theme/theme.dart';
 import 'package:floo_aid_rewrite/core/widgets/spaces.dart';
@@ -43,7 +44,9 @@ class SuccessScheduleBottomSheet extends StatelessWidget {
   Widget _buildConformtionScreenButton(context) {
     return Material(
       child: BlocConsumer<SchedulePickupBloc, SchedulePickupState>(
-        listener: (context, state) {},
+        listener: (context, state) {
+
+        },
         builder: (context, state) {
           return Column(
             children: [
@@ -94,14 +97,17 @@ class SuccessScheduleBottomSheet extends StatelessWidget {
               smallVerticalSizedBox,
               InkWell(
                 onTap: () {
-                  context.read<SchedulePickupBloc>().add(
-                    ScheduleFormResetEvent(),
-                  );
+                 context.read<SchedulePickupBloc>().add(ScheduleFormResetEvent());
+                 context.read<SchedulePickupBloc>().add(ClearSuccessStateEvent());
+                Navigator.pushNamedAndRemoveUntil(
+                  context,
+                  AppRoutes.homePage,
+                  (route) => false, 
+                );         
+                context.read<NavigationBloc>().add(
+                  const ChangeCurrentEvent(currentIndex: 0),
+                );
 
-                  context.read<NavigationBloc>().add(
-                    const ChangeCurrentEvent(currentIndex: 0),
-                  );
-                  // Navigator.pushReplacementNamed(context, AppRoutes.homePage);
                 },
                 child: Container(
                   padding: const EdgeInsets.symmetric(vertical: 16),

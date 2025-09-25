@@ -43,6 +43,7 @@ class _SchedulePickUpState extends State<SchedulePickUp> {
   String? donationTypeValue;
   bool? isGradient;
   bool? isLoading;
+  bool hasNavigatedToSuccess = true;
  
 
   @override
@@ -61,9 +62,11 @@ class _SchedulePickUpState extends State<SchedulePickUp> {
             child: SingleChildScrollView(
               child: BlocConsumer<SchedulePickupBloc, SchedulePickupState>(
                 listener: (context, state) {
-                    if (state.scheduledPickup != null) { 
-                  //TODO: route user to the success paage 
-                     Navigator.pushNamed(context, AppRoutes.scheduleSuccessScreen);
+                  if (state.scheduledPickup != null && hasNavigatedToSuccess) { 
+                    Navigator.pushNamed(context, AppRoutes.scheduleSuccessScreen);
+                    setState(() {
+                      hasNavigatedToSuccess = false;
+                    });
                  }  
                  if(state.isLoading == true){
                   isLoading = state.isLoading;
@@ -189,6 +192,7 @@ class _SchedulePickUpState extends State<SchedulePickUp> {
                                             ),
                                       ),
                                     );
+                                    
                                     _formKey.currentState!.reset();
                                     setState(() {                               
                                     });
