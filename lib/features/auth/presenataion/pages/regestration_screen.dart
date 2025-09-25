@@ -59,7 +59,7 @@ class RegestrationScreen extends StatelessWidget {
             authHeaderSubtitle: 'Make a differnce in women\'s lives',
             isLoginScreen: false,
             isAuthScreen: state.isLoginScreen,
-            isErrorMessage: state.errorMessage!,
+            isErrorMessage: state.errorMessage ?? '',
             handleSubmitButton: () {
               if (emailController.text.isNotEmpty &&
                   passwordController.text.isNotEmpty &&

@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "326074345757",
+    "firebase_url": "https://floaid-fd7ad-default-rtdb.firebaseio.com",
+    "project_id": "floaid-fd7ad",
+    "storage_bucket": "floaid-fd7ad.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:326074345757:android:8ba9f73c4eff89d49c19f4",
+        "android_client_info": {
+          "package_name": "com.example.floo_aid_rewrite"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "326074345757-dtoklbed6q8rqoeqvu0aoavk5bmt1333.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4MK5lGfjtFBfQycdaF7ESjhBGQ391nrM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "326074345757-dtoklbed6q8rqoeqvu0aoavk5bmt1333.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "326074345757-9p76e9lpb5n6mt3a5b1qioe45p8g28n6.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.flooAidRewrite"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
