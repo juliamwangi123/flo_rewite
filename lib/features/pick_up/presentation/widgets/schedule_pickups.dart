@@ -62,6 +62,7 @@ class SchedulePickupWidget extends StatelessWidget {
                       child: SfDateRangePicker(
                         backgroundColor: AppColors.whiteColor,
                         enablePastDates: false,
+                        showNavigationArrow: true,
                         minDate: DateTime.now().add( const Duration(days: 1)),
                         onSelectionChanged: (
                           DateRangePickerSelectionChangedArgs args,
