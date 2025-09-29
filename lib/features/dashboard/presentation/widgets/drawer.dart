@@ -54,10 +54,10 @@ class DashboardDrawer extends StatelessWidget {
           ...accountItems.map(
             (item) => BlocConsumer<AuthBloc, AuthState>(
               listener: (context, state) {
-                // if(state.user == null ){
-                //  Navigator.pushReplacementNamed(context, AppRoutes.loginRoute);
+                if(state.user == null ){
+                 Navigator.pushReplacementNamed(context, AppRoutes.loginRoute);
 
-                // }
+                }
               },
               builder: (context, state) {
                 return DrawerItem(

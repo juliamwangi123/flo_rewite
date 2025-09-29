@@ -42,7 +42,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions web = FirebaseOptions(
     apiKey: 'AIzaSyDwveiVyT6h4CpZUEgNc2ThW0kXiPXA6Jg',
-    appId: '1:326074345757:web:fbb6d94bd97414bf9c19f4',
+    appId: '1:326074345757:web:b0657159ff4e04d99c19f4',
     messagingSenderId: '326074345757',
     projectId: 'floaid-fd7ad',
     authDomain: 'floaid-fd7ad.firebaseapp.com',
@@ -61,7 +61,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyChYkc2zkqcTLyntzyPHaCGjYcnQ1lPoNA',
-    appId: '1:326074345757:ios:a1c93a0f93f5860d9c19f4',
+    appId: '1:326074345757:ios:e024974aaabdc4089c19f4',
     messagingSenderId: '326074345757',
     projectId: 'floaid-fd7ad',
     databaseURL: 'https://floaid-fd7ad-default-rtdb.firebaseio.com',
@@ -72,7 +72,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions macos = FirebaseOptions(
     apiKey: 'AIzaSyChYkc2zkqcTLyntzyPHaCGjYcnQ1lPoNA',
-    appId: '1:326074345757:ios:a1c93a0f93f5860d9c19f4',
+    appId: '1:326074345757:ios:e024974aaabdc4089c19f4',
     messagingSenderId: '326074345757',
     projectId: 'floaid-fd7ad',
     databaseURL: 'https://floaid-fd7ad-default-rtdb.firebaseio.com',
@@ -83,7 +83,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions windows = FirebaseOptions(
     apiKey: 'AIzaSyDwveiVyT6h4CpZUEgNc2ThW0kXiPXA6Jg',
-    appId: '1:326074345757:web:b57d33d07e4216319c19f4',
+    appId: '1:326074345757:web:7d5367c111b661109c19f4',
     messagingSenderId: '326074345757',
     projectId: 'floaid-fd7ad',
     authDomain: 'floaid-fd7ad.firebaseapp.com',
