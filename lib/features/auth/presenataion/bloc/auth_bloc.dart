@@ -74,7 +74,12 @@ void _onSignInWithEmailAndPassword(SignInwithEmailandPasswordEvent event, Emitte
         (failure) => emit(state.copyWith(
             isGoogleLoading: false,
             errorMessage: (failure as ServerFailure).message)),
-        (user) => emit(state.copyWith(isGoogleLoading: false, user: user, errorMessage: null, isUserLoggedIn: true)));
+        (user) => emit(
+          state.copyWith(
+            isGoogleLoading: false, 
+            user: user, 
+            errorMessage: null, 
+            isUserLoggedIn: true)));
 
   }
 
@@ -85,7 +90,10 @@ void _onSignInWithEmailAndPassword(SignInwithEmailandPasswordEvent event, Emitte
         (failure) => emit(state.copyWith(
             isLoading: false,
             errorMessage: (failure as ServerFailure).message)),
-        (user) => emit(state.copyWith(isLoading: false, user: null, errorMessage: null, isUserLoggedIn: false)));
+        (user) => emit(state.copyWith(
+          isLoading: false, user: null, 
+          errorMessage: null, 
+          isUserLoggedIn: false)));
 
   }
 
@@ -111,7 +119,7 @@ failureOrPasswordReset.fold(
         ),
     (passwordReset) => emit(state.copyWith(isLoading: false, isUserLoggedIn: false, errorMessage: null, isPasswordReset: true, isErrorMessage:false )),
 
-  );
+  );  
 
 }
 
@@ -123,7 +131,12 @@ failureOrPasswordReset.fold(
         isLoading: false,
         isErrorMessage: true,
         errorMessage: (failure as ServerFailure).message)),
-    (passwordReset) => emit(state.copyWith(isLoading: false, isUserLoggedIn: false, errorMessage: null, isNewPasswordSet:true, isErrorMessage:false )),
+    (passwordReset) => emit(state.copyWith(
+      isLoading: false, 
+      isUserLoggedIn: false, 
+      errorMessage: null, 
+      isNewPasswordSet:true, 
+      isErrorMessage:false )),
 
   );
 

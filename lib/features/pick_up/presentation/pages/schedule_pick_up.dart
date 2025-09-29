@@ -25,24 +25,25 @@ class _SchedulePickUpState extends State<SchedulePickUp> {
     'Boxes Of Pads (atleast  min 3 boxes)',
     'Individual pack (at least  min 20  packs)',
   ];
-  final List<String> timeSlots = [
-    '9-10',
-    '10-11',
-    '11-12',
-    '12-1',
-    '1-2',
-    '2-3',
-    '3-4',
-    '4-5',
-    '5-6',
-  ];
+ final List<String> timeSlots = [
+  '9.00 - 10.00 AM',
+  '10.00 - 11.00 AM',
+  '11.00 AM - 12.00 PM',
+  '12.00 - 1.00 PM',
+  '1.00 - 2.00 PM',
+  '2.00 - 3.00 PM',
+  '3.00 - 4.00 PM',
+  '4.00 - 5.00 PM',
+  '5.00 - 6.00 PM',
+];
 
-  int currentStep = 0;
+  int currentStep = 1;
   bool isButtonAcive = false;
   String? selectedTimeSlot;
   String? donationTypeValue;
   bool? isGradient;
   bool? isLoading;
+  bool hasNavigatedToSuccess = true;
  
 
   @override
@@ -61,9 +62,11 @@ class _SchedulePickUpState extends State<SchedulePickUp> {
             child: SingleChildScrollView(
               child: BlocConsumer<SchedulePickupBloc, SchedulePickupState>(
                 listener: (context, state) {
-                    if (state.scheduledPickup != null) { 
-                  //TODO: route user to the success paage 
-                     Navigator.pushNamed(context, AppRoutes.scheduleSuccessScreen);
+                  if (state.scheduledPickup != null && hasNavigatedToSuccess) { 
+                    Navigator.pushNamed(context, AppRoutes.scheduleSuccessScreen);
+                    setState(() {
+                      hasNavigatedToSuccess = false;
+                    });
                  }  
                  if(state.isLoading == true){
                   isLoading = state.isLoading;
@@ -189,6 +192,7 @@ class _SchedulePickUpState extends State<SchedulePickUp> {
                                             ),
                                       ),
                                     );
+                                    
                                     _formKey.currentState!.reset();
                                     setState(() {                               
                                     });

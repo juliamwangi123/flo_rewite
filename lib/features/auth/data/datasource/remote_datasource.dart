@@ -103,6 +103,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   @override
   Future<AuthModel> signInUserWithGoogle() async {
     try {
+
       final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
 
       if (googleUser == null) {
@@ -116,8 +117,9 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
         idToken: googleAuth.idToken,
       );
 
+
       final UserCredential userCredential = await firebaseAuth.signInWithCredential(credential);
-      
+
       final user = userCredential.user;
       if (user == null) {
         throw const ServerException('Google sign-in failed');
@@ -140,6 +142,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     } on FirebaseAuthException catch (e) {
       throw ServerException(mapFirebaseAuthError(e.code, e.message));
     } catch (e) {
+
       throw ServerException('Failed to sign in with Google: $e');
     }
   }
@@ -228,9 +231,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
         await firebaseAuth.confirmPasswordReset(code: params.code, newPassword:params.newPassword);
 
     } catch (e) {
-    throw ServerException('Failed to reset new  password: $e');
-
-      
+    throw ServerException('Failed to reset new  password: $e');  
     }
    
   }

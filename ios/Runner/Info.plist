@@ -39,7 +39,6 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 
-	<!-- 👇 Custom URL scheme registration -->
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -50,6 +49,14 @@
 				<string>floaid</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.326074345757-9p76e9lpb5n6mt3a5b1qioe45p8g28n6</string>
+			</array>
+		</dict>
 	</array>
 
 	<key>CADisableMinimumFrameDurationOnPhone</key>
@@ -57,8 +64,8 @@
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>NSCalendarsUsageDescription</key>
-   <string>INSERT_REASON_HERE</string>
-   <key>NSContactsUsageDescription</key>
-  <string>INSERT_REASON_HERE</string>
+	<string>INSERT_REASON_HERE</string>
+	<key>NSContactsUsageDescription</key>
+	<string>INSERT_REASON_HERE</string>
 </dict>
 </plist>

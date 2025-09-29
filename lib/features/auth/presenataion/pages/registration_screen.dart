@@ -7,8 +7,8 @@ import 'package:floo_aid_rewrite/features/auth/presenataion/widgets/auth_screen.
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class RegestrationScreen extends StatelessWidget {
-  const RegestrationScreen({super.key});
+class RegistrationScreen extends StatelessWidget {
+  const RegistrationScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -19,22 +19,15 @@ class RegestrationScreen extends StatelessWidget {
 
     return BlocConsumer<AuthBloc, AuthState>(
       listener: (context, state) {
-        if (state.user?.isEmailVerified == false) {
-          Navigator.pushReplacementNamed(context, AppRoutes.emailVerification);
-          showCustomSnackBar(
-            context,
-            'Account successfully created!',
-            AppColors.successGreen,
-            AppColors.offWhite,
-          );
-        }else if(state.user?.isEmailVerified == true) {
+        if (state.user != null && state.isUserLoggedIn == true)  {
           Navigator.pushReplacementNamed(context, AppRoutes.homePage);
           showCustomSnackBar(
             context,
             'Account successfully created!',
             AppColors.successGreen,
             AppColors.offWhite,
-          );}
+          );
+        }
          else if ( 
             state.errorMessage != null && 
             state.errorMessage!.isNotEmpty && 
@@ -52,6 +45,7 @@ class RegestrationScreen extends StatelessWidget {
         return Center(
           child: AuthScreen(
             isLoading: state.isLoading,
+            isGoogleLoading: state.isGoogleLoading,
             emailController: emailController,
             passwordController: passwordController,
             confirmPasswordController: confirmPasswordController,
@@ -59,7 +53,7 @@ class RegestrationScreen extends StatelessWidget {
             authHeaderSubtitle: 'Make a differnce in women\'s lives',
             isLoginScreen: false,
             isAuthScreen: state.isLoginScreen,
-            isErrorMessage: state.errorMessage!,
+            isErrorMessage: state.errorMessage ?? '',
             handleSubmitButton: () {
               if (emailController.text.isNotEmpty &&
                   passwordController.text.isNotEmpty &&
