@@ -14,11 +14,19 @@ class SchedulePickUpScreen extends StatelessWidget {
       color: AppColors.softWhite.withValues(alpha: 0.2),
       child: Column(
         children: [
-         const HeaderSchedulePickup(),
+          const HeaderSchedulePickup(),
           smallVerticalSizedBox,
-         const SchedulePickUpTab(),
-         smallVerticalSizedBox,
-         const SchedulePickCard()
+          Expanded(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  const SchedulePickUpTab(),
+                  smallVerticalSizedBox,
+                  const SchedulePickCard(),
+                ],
+              ),
+            ),
+          ),
         ],
       ),
     );
