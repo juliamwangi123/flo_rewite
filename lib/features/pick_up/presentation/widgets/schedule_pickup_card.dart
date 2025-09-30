@@ -5,10 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class SchedulePickCard extends StatelessWidget {
-
   const SchedulePickCard({super.key});
-  
-  
+
   @override
   Widget build(BuildContext context) {
     bool? ispending;
@@ -32,26 +30,43 @@ class SchedulePickCard extends StatelessWidget {
                 Text('#123456', style: boldSize16Text()),
                 smallHorizontalSizedBox,
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 3,
+                  ),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
-                    color: ispending == true ? AppColors.warningAmber.withValues(alpha: .3) : AppColors.lightGreenish,
-
+                    color:
+                        ispending == true
+                            ? AppColors.warningAmber.withValues(alpha: .3)
+                            : AppColors.lightGreenish,
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Icon( ispending == true  ? Icons.hourglass_bottom: Icons.check, size: 13,
-                        color: ispending == true  ?AppColors.warningAmber :AppColors.darkGreen ,
-                       ),
-                    
-                      Text( ispending == true ? 'Pending' : 'Completed',
-                      style: normalSize11Text(
-                        ispending == true ?AppColors.warningAmber: AppColors.darkGreen, 
-                      )),
+                      Icon(
+                        ispending == true
+                            ? Icons.hourglass_bottom
+                            : Icons.check,
+                        size: 13,
+                        color:
+                            ispending == true
+                                ? AppColors.warningAmber
+                                : AppColors.darkGreen,
+                      ),
+
+                      Text(
+                        ispending == true ? 'Pending' : 'Completed',
+                        style: normalSize11Text(
+                          ispending == true
+                              ? AppColors.warningAmber
+                              : AppColors.darkGreen,
+                        ),
+                      ),
                     ],
-                  )),
+                  ),
+                ),
               ],
             ),
             verySmallVerticalSizedBox,
@@ -60,7 +75,7 @@ class SchedulePickCard extends StatelessWidget {
               style: normalSize11Text(AppColors.lightGray),
             ),
             Row(
-             mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 const Icon(
                   Icons.calendar_today,
@@ -93,7 +108,7 @@ class SchedulePickCard extends StatelessWidget {
                   size: 20,
                   weight: 100,
                 ),
-                Column( 
+                Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
