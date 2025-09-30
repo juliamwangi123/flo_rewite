@@ -20,6 +20,7 @@ class SchedulePickUpDataSourceImpl implements SchedulePickUpDataSource {
 
     try {
       final requestData = {
+        'uId': schedulePickupParams.uId,
         'fullName': schedulePickupParams.fullName,
         'phoneNumber': schedulePickupParams.phoneNumber,
         'donationType': schedulePickupParams.donationType,

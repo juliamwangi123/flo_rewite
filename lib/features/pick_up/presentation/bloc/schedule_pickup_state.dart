@@ -25,7 +25,8 @@ SchedulePickupState({
           countryCode: CountryCode(
             code: '', 
             dialCode: '', 
-            name: ''
+            name: '',
+             
           ),
         );
 

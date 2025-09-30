@@ -1,7 +1,10 @@
 import 'package:floo_aid_rewrite/core/data_types/schedule_pickup_params.dart';
 import 'package:floo_aid_rewrite/core/routes/routes.dart';
+import 'package:floo_aid_rewrite/core/theme/text_theme.dart';
+import 'package:floo_aid_rewrite/core/theme/theme.dart';
 import 'package:floo_aid_rewrite/core/widgets/custom_floaid_button.dart';
 import 'package:floo_aid_rewrite/core/widgets/spaces.dart';
+import 'package:floo_aid_rewrite/features/auth/presenataion/bloc/auth_bloc.dart';
 import 'package:floo_aid_rewrite/features/pick_up/presentation/bloc/schedule_pickup_bloc.dart';
 import 'package:floo_aid_rewrite/features/pick_up/presentation/widgets/donation_details.dart';
 import 'package:floo_aid_rewrite/features/pick_up/presentation/widgets/personal_details.dart';
@@ -48,170 +51,188 @@ class _SchedulePickUpState extends State<SchedulePickUpForm> {
 
   @override
   Widget build(BuildContext context) {
+    final uid =  context.read<AuthBloc>().state.user?.uuid;
+    debugPrint('uid is $uid');
+
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
       },
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          mediumVerticalSizedBox,
-          StepIndicator(currentPage: currentStep),
-          mediumVerticalSizedBox,
-          Expanded(
-            child: SingleChildScrollView(
-              child: BlocConsumer<SchedulePickupBloc, SchedulePickupState>(
-                listener: (context, state) {
-                  if (state.scheduledPickup != null && hasNavigatedToSuccess) { 
-                    Navigator.pushNamed(context, AppRoutes.scheduleSuccessScreen);
-                    setState(() {
-                      hasNavigatedToSuccess = false;
-                    });
-                 }  
-                 if(state.isLoading == true){
-                  isLoading = state.isLoading;
-                 }
-                },
-                builder: (context, state) {
-                  return Form(
-                    key: _formKey,
-                    autovalidateMode: AutovalidateMode.onUserInteraction,
-                    child: Column(
-                      children: [
-                        if (currentStep == 0)
-                          Column(
+      child: Scaffold(
+        backgroundColor: AppColors.whiteColor,
+        appBar: AppBar(
+          title: Text('Schedule Pick up', style: boldSize18Text(),),
+          backgroundColor: AppColors.whiteColor,
+          elevation: 3,
+          surfaceTintColor: Colors.transparent, 
+        ),
+        body: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [   
+                mediumVerticalSizedBox,
+                StepIndicator(currentPage: currentStep),
+                mediumVerticalSizedBox,
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: BlocConsumer<SchedulePickupBloc, SchedulePickupState>(
+                      listener: (context, state) {
+                        if (state.scheduledPickup != null && hasNavigatedToSuccess) { 
+                          Navigator.pushNamed(context, AppRoutes.scheduleSuccessScreen);
+                          setState(() {
+                            hasNavigatedToSuccess = false;
+                          });
+                       }  
+                       if(state.isLoading == true){
+                        isLoading = state.isLoading;
+                       }
+                      },
+                      builder: (context, state) {
+                        return Form(
+                          key: _formKey,
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
+                          child: Column(
                             children: [
-                              PersonalDetails(
-                                donationTypes: donationTypes
+                              if (currentStep == 0)
+                                Column(
+                                  children: [
+                                    PersonalDetails(
+                                      donationTypes: donationTypes
+                                      ),
+                                    mediumVerticalSizedBox,
+                                   const PickUpLocationDetails(
+                                    ),
+                                    mediumVerticalSizedBox,
+                                  ],
+                                )
+                              else
+                                Column(
+                                  children: [
+                                    DonationDetails(
+                                      items: donationItems,
+                                      dropDownValue: donationTypeValue,
+                                      onChanged: (value) {
+                                        donationTypeValue = value;
+                                        context.read<SchedulePickupBloc>().add(
+                                          UpdateFormFieldEvent(
+                                            field: 'typeOfDonation',
+                                            value: value,
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                    mediumVerticalSizedBox,
+                                    SchedulePickupWidget(
+                                      items: timeSlots,
+                                      dropDownValue: selectedTimeSlot,
+                                      onChanged: (value) {
+                                        selectedTimeSlot = value;
+                                        context.read<SchedulePickupBloc>().add(
+                                          UpdateFormFieldEvent(
+                                            field: 'pickupTime',
+                                            value: value,
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  ],
                                 ),
                               mediumVerticalSizedBox,
-                             const PickUpLocationDetails(
-                              ),
-                              mediumVerticalSizedBox,
-                            ],
-                          )
-                        else
-                          Column(
-                            children: [
-                              DonationDetails(
-                                items: donationItems,
-                                dropDownValue: donationTypeValue,
-                                onChanged: (value) {
-                                  donationTypeValue = value;
-                                  context.read<SchedulePickupBloc>().add(
-                                    UpdateFormFieldEvent(
-                                      field: 'typeOfDonation',
-                                      value: value,
+                              if (currentStep == 1) mediumVerticalSizedBox,
+                              Row(
+                                children: [
+                                  if (currentStep > 0) ...[
+                                    Expanded(
+                                      child: CustomFloAidButton(
+                                        buttonText: 'Back',
+                                        isGradient: true,
+                                        buttonColor:Colors.transparent,
+                                        isButtonActive: true,
+                                        handleSubmitButton: () {
+                                          setState(() {
+                                            currentStep -= 1;
+                                          });
+                                        },
+                                      ),
                                     ),
-                                  );
-                                },
-                              ),
-                              mediumVerticalSizedBox,
-                              SchedulePickupWidget(
-                                items: timeSlots,
-                                dropDownValue: selectedTimeSlot,
-                                onChanged: (value) {
-                                  selectedTimeSlot = value;
-                                  context.read<SchedulePickupBloc>().add(
-                                    UpdateFormFieldEvent(
-                                      field: 'pickupTime',
-                                      value: value,
+                                    smallHorizontalSizedBox,
+                                  ],
+                                  Expanded(
+                                    child: CustomFloAidButton(
+                                      isLoading: isLoading ?? false,
+                                      buttonText:
+                                          currentStep == 0
+                                              ? 'Continue'
+                                              : 'Schedule Pickup',
+                                      isGradient: true,
+                                      buttonColor: Colors.red,
+                                      isButtonActive:
+                                          (currentStep == 0 &&
+                                              state.currentForm.fullName.isNotEmpty &&
+                                              state
+                                                  .currentForm
+                                                  .phoneNumber
+                                                  .isNotEmpty &&
+                                              state.currentForm.address.isNotEmpty &&
+                                              state
+                                                  .currentForm
+                                                  .donationType
+                                                  .isNotEmpty &&
+                                              state.currentForm.landmark.isNotEmpty)||
+                                      (currentStep == 1 &&
+                                      state.currentForm.typeOfDonation.isNotEmpty &&
+                                       state.currentForm.pickupDate.isNotEmpty &&
+                                       state.currentForm.pickupTime.isNotEmpty),
+                                      handleSubmitButton: () {
+                                        if (currentStep == 0) {
+                                          setState(() {
+                                            currentStep += 1;
+                                          });
+                                         
+                                        } else {
+                                          if(_formKey.currentState!.validate()){
+                                          context.read<SchedulePickupBloc>().add(
+                                            SchedulePickupRequestEvent(
+                                              schedulePickupParams:
+                                                  SchedulePickupParams(
+                                                    uId: context.read<AuthBloc>().state.user?.uuid ?? '',
+                                                    fullName: state.currentForm.fullName,
+                                                    phoneNumber:state.currentForm.phoneNumber,
+                                                    address: state.currentForm.address,
+                                                    landmark: state.currentForm.landmark,
+                                                    accessInstructions:state.currentForm.accessInstructions,    
+                                                    donationType: state.currentForm.donationType,
+                                                    typeOfDonation: state.currentForm.typeOfDonation,      
+                                                    pickupDate: state.currentForm.pickupDate,
+                                                    pickupTime: state.currentForm.pickupTime,
+                                                  ),
+                                            ),
+                                          );
+                                          
+                                          _formKey.currentState!.reset();
+                                          setState(() {                               
+                                          });
+                                          
+                                          }
+                                        }
+                                      },
                                     ),
-                                  );
-                                },
+                                  ),
+                                ],
                               ),
                             ],
                           ),
-                        mediumVerticalSizedBox,
-                        if (currentStep == 1) mediumVerticalSizedBox,
-                        Row(
-                          children: [
-                            if (currentStep > 0) ...[
-                              Expanded(
-                                child: CustomFloAidButton(
-                                  buttonText: 'Back',
-                                  isGradient: true,
-                                  buttonColor:Colors.transparent,
-                                  isButtonActive: true,
-                                  handleSubmitButton: () {
-                                    setState(() {
-                                      currentStep -= 1;
-                                    });
-                                  },
-                                ),
-                              ),
-                              smallHorizontalSizedBox,
-                            ],
-                            Expanded(
-                              child: CustomFloAidButton(
-                                isLoading: isLoading ?? false,
-                                buttonText:
-                                    currentStep == 0
-                                        ? 'Continue'
-                                        : 'Schedule Pickup',
-                                isGradient: true,
-                                buttonColor: Colors.red,
-                                isButtonActive:
-                                    (currentStep == 0 &&
-                                        state.currentForm.fullName.isNotEmpty &&
-                                        state
-                                            .currentForm
-                                            .phoneNumber
-                                            .isNotEmpty &&
-                                        state.currentForm.address.isNotEmpty &&
-                                        state
-                                            .currentForm
-                                            .donationType
-                                            .isNotEmpty &&
-                                        state.currentForm.landmark.isNotEmpty)||
-                                (currentStep == 1 &&
-                                state.currentForm.typeOfDonation.isNotEmpty &&
-                                 state.currentForm.pickupDate.isNotEmpty &&
-                                 state.currentForm.pickupTime.isNotEmpty),
-                                handleSubmitButton: () {
-                                  if (currentStep == 0) {
-                                    setState(() {
-                                      currentStep += 1;
-                                    });
-                                   
-                                  } else {
-                                    if(_formKey.currentState!.validate()){
-                                    context.read<SchedulePickupBloc>().add(
-                                      SchedulePickupRequestEvent(
-                                        schedulePickupParams:
-                                            SchedulePickupParams(
-                                              fullName: state.currentForm.fullName,
-                                              phoneNumber:state.currentForm.phoneNumber,
-                                              address: state.currentForm.address,
-                                              landmark: state.currentForm.landmark,
-                                              accessInstructions:state.currentForm.accessInstructions,    
-                                              donationType: state.currentForm.donationType,
-                                              typeOfDonation: state.currentForm.typeOfDonation,      
-                                              pickupDate: state.currentForm.pickupDate,
-                                              pickupTime: state.currentForm.pickupTime,
-                                            ),
-                                      ),
-                                    );
-                                    
-                                    _formKey.currentState!.reset();
-                                    setState(() {                               
-                                    });
-                                    
-                                    }
-                                  }
-                                },
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
+                        );
+                      },
                     ),
-                  );
-                },
-              ),
+                  ),
+                ),
+              ],
             ),
           ),
-        ],
+        ),
       ),
     );
   }

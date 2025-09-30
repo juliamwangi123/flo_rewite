@@ -1,3 +1,4 @@
+import 'package:floo_aid_rewrite/core/routes/routes.dart';
 import 'package:floo_aid_rewrite/core/theme/text_theme.dart';
 import 'package:floo_aid_rewrite/core/theme/theme.dart';
 import 'package:floo_aid_rewrite/core/widgets/spaces.dart';
@@ -19,7 +20,7 @@ class HeaderSchedulePickup extends StatelessWidget {
             AppColors.floaidPurple.withValues(alpha: .8),
           ],
         ),
-        // borderRadius: BorderRadius.circular(24),
+        borderRadius: BorderRadius.circular(14),
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -27,9 +28,14 @@ class HeaderSchedulePickup extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('My Pickups', style: veryBoldSize18Text(AppColors.whiteColor)),
+              Text(
+                'My Pickups',
+                style: veryBoldSize18Text(AppColors.whiteColor),
+              ),
               InkWell(
-                onTap: () {},
+                onTap: () {
+                  Navigator.pushNamed(context, AppRoutes.schedulePickForm);
+                },
                 child: Container(
                   decoration: BoxDecoration(
                     color: AppColors.whiteColor.withValues(alpha: .2),
@@ -41,7 +47,7 @@ class HeaderSchedulePickup extends StatelessWidget {
                     vertical: 5,
                   ),
                   child: Text(
-                    'Schedule New',
+                    'Schedule New +',
                     style: normalSize12Text(AppColors.whiteColor),
                   ),
                 ),
@@ -56,51 +62,53 @@ class HeaderSchedulePickup extends StatelessWidget {
               Expanded(
                 // flex:  2,
                 child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 8,
+                  ),
                   // margin:const EdgeInsets.only(right: 20),
                   decoration: BoxDecoration(
-                  color: AppColors.whiteColor.withValues(alpha: .2),
-                  borderRadius: BorderRadius.circular(12)
+                    color: AppColors.whiteColor.withValues(alpha: .2),
+                    borderRadius: BorderRadius.circular(12),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('2',
-                      style: boldSize22Text(AppColors.whiteColor),
+                      Text('2', style: boldSize22Text(AppColors.whiteColor)),
+                      Text(
+                        'Upcoming',
+                        style: boldSize12Text(AppColors.whiteColor),
                       ),
-                      Text('Upcoming',
-                      style: boldSize12Text(AppColors.whiteColor),
-                      )
                     ],
                   ),
-                
                 ),
               ),
               smallHorizontalSizedBox,
               Expanded(
                 // flex:  2,
                 child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),         
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 8,
+                  ),
                   decoration: BoxDecoration(
-                  color: AppColors.whiteColor.withValues(alpha: .2),
-                  borderRadius: BorderRadius.circular(12)
+                    color: AppColors.whiteColor.withValues(alpha: .2),
+                    borderRadius: BorderRadius.circular(12),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('2',
-                      style: boldSize22Text(AppColors.whiteColor),
+                      Text('2', style: boldSize22Text(AppColors.whiteColor)),
+                      Text(
+                        'Completed',
+                        style: boldSize12Text(AppColors.whiteColor),
                       ),
-                      Text('Completed',
-                      style: boldSize12Text(AppColors.whiteColor),
-                      )
                     ],
                   ),
-                
                 ),
-              )
+              ),
             ],
-          )
+          ),
         ],
       ),
     );

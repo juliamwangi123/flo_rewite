@@ -12,6 +12,7 @@ class SchedulePickupEntity extends Equatable{
   final String pickupDate;
   final String pickupTime;
   final CountryCode? countryCode;
+  final String? uId;
 
   const SchedulePickupEntity({
     required this.fullName,
@@ -24,6 +25,7 @@ class SchedulePickupEntity extends Equatable{
     required this.pickupDate,
     required this.pickupTime,
     this.countryCode,
+    this.uId
   });
 
   SchedulePickupEntity copyWith({
@@ -37,6 +39,7 @@ class SchedulePickupEntity extends Equatable{
     String? pickupDate,
     String? pickupTime,
     CountryCode? countryCode,
+    String? uId
   }) {
     return SchedulePickupEntity(
       fullName: fullName ?? this.fullName,
@@ -49,6 +52,7 @@ class SchedulePickupEntity extends Equatable{
       pickupDate: pickupDate ?? this.pickupDate,
       pickupTime: pickupTime ?? this.pickupTime,
       countryCode: countryCode ?? this.countryCode,
+      uId: uId ?? this.uId
     );
   }
 
@@ -64,6 +68,7 @@ class SchedulePickupEntity extends Equatable{
         pickupDate,
         pickupTime,
         countryCode,
+        uId
       ];
 }
  

@@ -122,6 +122,7 @@ class SchedulePickupBloc
         isLoading: false,
         errorMessage: null,
         scheduledPickup: null,
+        
       ),
     );
   }
