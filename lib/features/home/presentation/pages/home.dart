@@ -7,7 +7,7 @@ import 'package:floo_aid_rewrite/features/dashboard/presentation/widgets/drawer.
 import 'package:floo_aid_rewrite/features/donations/presentation/pages/donation.dart';
 import 'package:floo_aid_rewrite/features/home/presentation/bloc/navigation_bloc.dart';
 import 'package:floo_aid_rewrite/features/home/presentation/widget/bottom_nav.dart';
-import 'package:floo_aid_rewrite/features/pick_up/presentation/pages/schedule_pick_up.dart';
+import 'package:floo_aid_rewrite/features/pick_up/presentation/pages/schedule_pick_up_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -45,7 +45,7 @@ class HomePage extends StatelessWidget {
 List<Widget> screens = [
   const DashboardScreen(),
   const CollectionPoints(),
-  const SchedulePickUp(),
+  const SchedulePickUpScreen(),
   const DonationScreen(),
   const CommunityPage(),
 ];

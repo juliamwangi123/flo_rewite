@@ -6,19 +6,19 @@ import 'package:floo_aid_rewrite/features/pick_up/presentation/bloc/schedule_pic
 import 'package:floo_aid_rewrite/features/pick_up/presentation/widgets/donation_details.dart';
 import 'package:floo_aid_rewrite/features/pick_up/presentation/widgets/personal_details.dart';
 import 'package:floo_aid_rewrite/features/pick_up/presentation/widgets/pickup_location_details.dart';
-import 'package:floo_aid_rewrite/features/pick_up/presentation/widgets/schedule_pickups.dart';
 import 'package:floo_aid_rewrite/features/pick_up/presentation/widgets/step_indicator.dart';
+import 'package:floo_aid_rewrite/features/pick_up/presentation/widgets/time_schedule_pickups.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class SchedulePickUp extends StatefulWidget {
-  const SchedulePickUp({super.key});
+class SchedulePickUpForm extends StatefulWidget {
+  const SchedulePickUpForm({super.key});
 
   @override
-  State<SchedulePickUp> createState() => _SchedulePickUpState();
+  State<SchedulePickUpForm> createState() => _SchedulePickUpState();
 }
 
-class _SchedulePickUpState extends State<SchedulePickUp> {
+class _SchedulePickUpState extends State<SchedulePickUpForm> {
   final _formKey = GlobalKey<FormState>();
   List<String> donationTypes = ['Individual', 'Organization'];
   final List<String> donationItems = [
@@ -37,7 +37,7 @@ class _SchedulePickUpState extends State<SchedulePickUp> {
   '5.00 - 6.00 PM',
 ];
 
-  int currentStep = 1;
+  int currentStep = 0;
   bool isButtonAcive = false;
   String? selectedTimeSlot;
   String? donationTypeValue;
