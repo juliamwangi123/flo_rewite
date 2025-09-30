@@ -108,6 +108,7 @@ class SchedulePickCard extends StatelessWidget {
                   size: 20,
                   weight: 100,
                 ),
+                 smallHorizontalSizedBox,
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
