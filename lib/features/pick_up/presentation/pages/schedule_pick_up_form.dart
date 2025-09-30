@@ -7,7 +7,7 @@ import 'package:floo_aid_rewrite/features/pick_up/presentation/widgets/donation_
 import 'package:floo_aid_rewrite/features/pick_up/presentation/widgets/personal_details.dart';
 import 'package:floo_aid_rewrite/features/pick_up/presentation/widgets/pickup_location_details.dart';
 import 'package:floo_aid_rewrite/features/pick_up/presentation/widgets/step_indicator.dart';
-import 'package:floo_aid_rewrite/features/pick_up/presentation/widgets/time_schedule_pickups.dart';
+import 'package:floo_aid_rewrite/features/pick_up/presentation/widgets/schedule_pickup_time.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

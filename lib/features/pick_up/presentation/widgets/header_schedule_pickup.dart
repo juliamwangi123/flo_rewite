@@ -9,7 +9,7 @@ class HeaderSchedulePickup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 23),
       decoration: BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topLeft,
@@ -27,7 +27,7 @@ class HeaderSchedulePickup extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('My Pickups', style: boldSize18Text(AppColors.whiteColor)),
+              Text('My Pickups', style: veryBoldSize18Text(AppColors.whiteColor)),
               InkWell(
                 onTap: () {},
                 child: Container(
