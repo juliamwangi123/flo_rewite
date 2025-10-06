@@ -3,6 +3,7 @@ import 'package:floo_aid_rewrite/features/pick_up/presentation/bloc/get_users_sc
 import 'package:floo_aid_rewrite/features/pick_up/presentation/widgets/schedule_pickup_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 class UserScheduledPickupList extends StatefulWidget {
   const UserScheduledPickupList({super.key});
@@ -24,27 +25,30 @@ class _UserScheduledPickupListState extends State<UserScheduledPickupList> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<
-      GetUsersScheduledPickupsBloc,
-      GetUsersScheduledPickupsState
-    >(
-      builder: (context, state) {
-        return ListView.builder(
-          itemCount: state.scheduledPickup?.length,
-          itemBuilder: (BuildContext context, int index) {
-            final pickups = state.scheduledPickup?[index];
+    return BlocConsumer<GetUsersScheduledPickupsBloc, GetUsersScheduledPickupsState>(
+      listener: (context, state) {
 
-            return SchedulePickCard(
-              scheduleId: '123',
-              scheduleStatus: true,
-              scheduleDate: pickups?.pickupDate ?? '',
-              timeSlot: pickups?.pickupTime ?? '',
-              location: pickups?.address ?? '',
-              landmark: pickups?.landmark ?? '',
-              donation: pickups?.donationType ?? '',
-              typeOfDonation: pickups?.typeOfDonation ?? '',
-            );
-          },
+      },
+      builder: (context, state) {
+        return Skeletonizer(
+          enabled: state.isLoading == true,
+          child: ListView.builder(
+            itemCount: state.scheduledPickup?.length,
+            itemBuilder: (BuildContext context, int index) {
+              final pickups = state.scheduledPickup?[index];
+          
+              return SchedulePickCard(
+                scheduleId: '123',
+                scheduleStatus: true,
+                scheduleDate: pickups?.pickupDate ?? '',
+                timeSlot: pickups?.pickupTime ?? '',
+                location: pickups?.address ?? '',
+                landmark: pickups?.landmark ?? '',
+                donation: pickups?.donationType ?? '',
+                typeOfDonation: pickups?.typeOfDonation ?? '',
+              );
+            },
+          ),
         );
       },
     );
