@@ -181,7 +181,7 @@ class SchedulePickCard extends StatelessWidget {
                 Expanded(
                   child: PickUpActionButton(
                     backgroundColor: AppColors.lightGray,
-                    buttonLabel: 'Edit Label',
+                    buttonLabel: 'Cancel',
                     iconData: Icons.close_rounded,
                     buttonLabelColor: AppColors.deepNavy,
                     isEditButton: false,

@@ -1,3 +1,4 @@
+import 'package:floo_aid_rewrite/core/widgets/spaces.dart';
 import 'package:floo_aid_rewrite/features/auth/presenataion/bloc/auth_bloc.dart';
 import 'package:floo_aid_rewrite/features/pick_up/presentation/bloc/get_users_scheduled_pickups_bloc.dart';
 import 'package:floo_aid_rewrite/features/pick_up/presentation/widgets/schedule_pickup_card.dart';
@@ -17,10 +18,13 @@ class _UserScheduledPickupListState extends State<UserScheduledPickupList> {
   @override
   void initState() {
     super.initState();
-    final uId = context.read<AuthBloc>().state.user?.uuid;
+    WidgetsBinding.instance.addPostFrameCallback((_){
+       final uId = context.read<AuthBloc>().state.user?.uuid;
     context.read<GetUsersScheduledPickupsBloc>().add(
       FetchUserScheduledPickUpsEvent(userId: uId ?? ''),
     );
+    });
+   
   }
 
   @override
@@ -32,11 +36,13 @@ class _UserScheduledPickupListState extends State<UserScheduledPickupList> {
       builder: (context, state) {
         return Skeletonizer(
           enabled: state.isLoading == true,
-          child: ListView.builder(
-            itemCount: state.scheduledPickup?.length,
+          child: ListView.separated(
+            itemCount: state.scheduledPickup?.length ?? 1,
+            separatorBuilder:(context, index) {
+              return mediumVerticalSizedBox;
+            },
             itemBuilder: (BuildContext context, int index) {
               final pickups = state.scheduledPickup?[index];
-          
               return SchedulePickCard(
                 scheduleId: '123',
                 scheduleStatus: true,
