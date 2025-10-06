@@ -20,5 +20,15 @@ class SchedulePickupImplRepository  implements SchedulePickupRepository {
     }
     
   }
+  
+  @override
+  Future<Either<Failure, List<SchedulePickupEntity>>> getUserScheduledPickUps(String userId) async{
+   try {
+     final results = await schedulePickUpDataSource.getUserScheduledPickUps(userId);
+     return Right(results);
+   } catch (e) {
+      return Left(ServerFailure(e.toString()));
+   }
+  }
 
 }

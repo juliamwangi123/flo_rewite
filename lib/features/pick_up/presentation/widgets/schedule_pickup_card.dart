@@ -5,11 +5,28 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class SchedulePickCard extends StatelessWidget {
-  const SchedulePickCard({super.key});
+  final String scheduleId;
+  final bool scheduleStatus;
+  final String scheduleDate;
+  final String timeSlot;
+  final String location;
+  final String landmark;
+  final String donation;
+  final String typeOfDonation;
+
+  const SchedulePickCard({
+    super.key, 
+    required this.scheduleId, 
+    required this.scheduleStatus, 
+    required this.scheduleDate, 
+    required this.timeSlot, 
+    required this.location, 
+    required this.landmark, 
+    required this.donation, 
+    required this.typeOfDonation});
 
   @override
   Widget build(BuildContext context) {
-    bool? ispending;
     return Material(
       elevation: 1,
       color: AppColors.whiteColor,
@@ -27,7 +44,7 @@ class SchedulePickCard extends StatelessWidget {
           children: [
             Row(
               children: [
-                Text('#123456', style: boldSize16Text()),
+                Text(scheduleId, style: boldSize16Text()),
                 smallHorizontalSizedBox,
                 Container(
                   padding: const EdgeInsets.symmetric(
@@ -37,7 +54,7 @@ class SchedulePickCard extends StatelessWidget {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
                     color:
-                        ispending == true
+                        scheduleStatus == true
                             ? AppColors.warningAmber.withValues(alpha: .3)
                             : AppColors.lightGreenish,
                   ),
@@ -46,20 +63,20 @@ class SchedulePickCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Icon(
-                        ispending == true
+                        scheduleStatus == true
                             ? Icons.hourglass_bottom
                             : Icons.check,
                         size: 13,
                         color:
-                            ispending == true
+                            scheduleStatus == true
                                 ? AppColors.warningAmber
                                 : AppColors.darkGreen,
                       ),
 
                       Text(
-                        ispending == true ? 'Pending' : 'Completed',
+                        scheduleStatus == true ? 'Pending' : 'Completed',
                         style: normalSize11Text(
-                          ispending == true
+                          scheduleStatus == true
                               ? AppColors.warningAmber
                               : AppColors.darkGreen,
                         ),
@@ -90,9 +107,9 @@ class SchedulePickCard extends StatelessWidget {
                   children: [
                     smallVerticalSizedBox,
                     verySmallVerticalSizedBox,
-                    Text('2025-09-30', style: boldSize13Text()),
+                    Text(scheduleDate, style: boldSize13Text()),
                     Text(
-                      '11-12 PM',
+                      timeSlot,
                       style: normalSize14Text(AppColors.lightGray),
                     ),
                   ],
@@ -115,8 +132,8 @@ class SchedulePickCard extends StatelessWidget {
                   children: [
                     smallVerticalSizedBox,
                     verySmallVerticalSizedBox,
-                    Text('Nairobi', style: boldSize13Text()),
-                    Text('Karen', style: normalSize14Text(AppColors.lightGray)),
+                    Text(location, style: boldSize13Text()),
+                    Text(landmark, style: normalSize14Text(AppColors.lightGray)),
                   ],
                 ),
               ],
@@ -136,9 +153,9 @@ class SchedulePickCard extends StatelessWidget {
                   children: [
                     smallVerticalSizedBox,
                     verySmallVerticalSizedBox,
-                    Text('Boxes Of pads(13 boxes)', style: boldSize13Text()),
+                    Text(donation, style: boldSize13Text()),
                     Text(
-                      'Individual Donation',
+                      typeOfDonation,
                       style: normalSize14Text(AppColors.lightGray),
                     ),
                   ],
