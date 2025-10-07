@@ -30,5 +30,16 @@ class SchedulePickupImplRepository  implements SchedulePickupRepository {
       return Left(ServerFailure(e.toString()));
    }
   }
+  
+  @override
+  Future<Either<Failure, void>> cancelScheduledPickup(String id) async{
+   try {
+     final resulst = schedulePickUpDataSource.cancelScheduledPickup(id);
+     return Right(resulst);
+   } catch (e) {
+     return Left(ServerFailure(e.toString()));
+   }
+   
+  }
 
 }

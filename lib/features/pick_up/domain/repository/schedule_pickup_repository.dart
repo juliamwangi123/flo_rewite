@@ -6,4 +6,5 @@ import 'package:floo_aid_rewrite/features/pick_up/domain/entity/schedule_pickup_
 abstract class SchedulePickupRepository {
   Future<Either<Failure, SchedulePickupEntity>> schedulePickup(SchedulePickupParams schedulePickupParams);
   Future<Either<Failure, List<SchedulePickupEntity>>>  getUserScheduledPickUps( String userId);
+  Future<Either<Failure, void>> cancelScheduledPickup(String id);
 }
