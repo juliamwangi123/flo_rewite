@@ -9,6 +9,7 @@ import 'package:floo_aid_rewrite/features/pick_up/presentation/bloc/address_reco
 import 'package:floo_aid_rewrite/features/pick_up/presentation/bloc/cancel_scheduled_pickup_bloc.dart';
 import 'package:floo_aid_rewrite/features/pick_up/presentation/bloc/get_users_scheduled_pickups_bloc.dart';
 import 'package:floo_aid_rewrite/features/pick_up/presentation/bloc/schedule_pickup_bloc.dart';
+import 'package:floo_aid_rewrite/features/pick_up/presentation/bloc/update_scheduled_pickup_bloc.dart';
 import 'package:floo_aid_rewrite/injection.container.dart' as di;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -22,7 +23,7 @@ void main() async {
 
     runApp(
       MultiBlocProvider(
-        providers: [
+        providers: [ 
           BlocProvider(create: (_) => di.sl<AuthBloc>()),
           BlocProvider(create: (_) => di.sl<NavigationBloc>()),
           BlocProvider(create: (_) => di.sl<DropOffPointsBloc>()),
@@ -30,6 +31,8 @@ void main() async {
           BlocProvider(create: (_) => di.sl<AdressRecommendationBloc>()),
           BlocProvider(create: (_) => di.sl<GetUsersScheduledPickupsBloc>()),
           BlocProvider(create: (_) => di.sl<CancelScheduledPickupBloc>()),
+          BlocProvider(create: (_) => di.sl<UpdateScheduledPickupBloc>()),
+
 
         ],
         child: const MyApp(),

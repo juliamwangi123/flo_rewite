@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:firebase_database/firebase_database.dart';
 import 'package:floo_aid_rewrite/core/data_types/schedule_pickup_params.dart';
+import 'package:floo_aid_rewrite/core/data_types/update_scheduled_pickups_params.dart';
 import 'package:floo_aid_rewrite/features/pick_up/data/model/schedule_pickup_model.dart';
 import 'package:http/http.dart' as http;
 
@@ -11,6 +12,7 @@ abstract class SchedulePickUpDataSource {
   );
   Future<List<SchedulePickupModel>> getUserScheduledPickUps(String userId);
   Future<void> cancelScheduledPickup(String id);
+  Future<SchedulePickupModel>  updateScheduledPickup(UpdateScheduledPickupParams updateScheduledPickupParams);
 }
 
 class SchedulePickUpDataSourceImpl implements SchedulePickUpDataSource {
@@ -135,4 +137,27 @@ class SchedulePickUpDataSourceImpl implements SchedulePickUpDataSource {
     throw Exception('Failed to delete pickup: $e');
   }
 }
+
+  @override
+  Future<SchedulePickupModel> updateScheduledPickup(UpdateScheduledPickupParams updateScheduledPickupParams) async{
+      final url = Uri.parse('https://floaid-fd7ad-default-rtdb.firebaseio.com/scheduled_pickups/${updateScheduledPickupParams.id}.json'); 
+      try {
+        final response = await http.patch(
+          url,
+          headers: {'Content-Type': 'application/json'},
+          body: jsonEncode({updateScheduledPickupParams.pickupParams})
+          );
+
+          if(response.statusCode == 200){
+            final reponseDecode = jsonDecode(response.body);
+            return SchedulePickupModel.fromJson(reponseDecode);
+          }else{
+            throw Exception('Failed to edit pickup. Status code: ${response.statusCode}');
+
+          }
+      } catch (e) {
+        throw Exception('Failed to delete pickup: $e');
+      }
+
+  }
 }

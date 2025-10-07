@@ -26,10 +26,12 @@ import 'package:floo_aid_rewrite/features/pick_up/domain/repository/schedule_pic
 import 'package:floo_aid_rewrite/features/pick_up/domain/usecase/cancel_scheduled_pickups_usecase.dart';
 import 'package:floo_aid_rewrite/features/pick_up/domain/usecase/get_user_scheduled_pickups.dart';
 import 'package:floo_aid_rewrite/features/pick_up/domain/usecase/schedule_pickup_usecase.dart';
+import 'package:floo_aid_rewrite/features/pick_up/domain/usecase/update_scheduled_pickups_usecase.dart';
 import 'package:floo_aid_rewrite/features/pick_up/presentation/bloc/address_recommendation_bloc.dart';
 import 'package:floo_aid_rewrite/features/pick_up/presentation/bloc/cancel_scheduled_pickup_bloc.dart';
 import 'package:floo_aid_rewrite/features/pick_up/presentation/bloc/get_users_scheduled_pickups_bloc.dart';
 import 'package:floo_aid_rewrite/features/pick_up/presentation/bloc/schedule_pickup_bloc.dart';
+import 'package:floo_aid_rewrite/features/pick_up/presentation/bloc/update_scheduled_pickup_bloc.dart';
 import 'package:floo_aid_rewrite/firebase_options.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -161,5 +163,14 @@ sl.registerLazySingleton(
 
    sl.registerFactory(
     () => CancelScheduledPickupBloc( sl<CancelScheduledPickupsUseCase>()),
-  );       
+  );   
+
+  sl.registerLazySingleton(
+    () => UpdateScheduledPickupUsecase(schedulePickupRepository: sl<SchedulePickupRepository>()),
+  );
+
+   sl.registerFactory(
+    () => UpdateScheduledPickupBloc( sl<UpdateScheduledPickupUsecase>()),
+  );      
+
 }
