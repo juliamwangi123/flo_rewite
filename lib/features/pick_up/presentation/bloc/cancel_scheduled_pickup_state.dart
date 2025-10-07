@@ -7,7 +7,7 @@ class CancelScheduledPickupState extends Equatable {
   const CancelScheduledPickupState({
     this.isLoading = false,
     this.isCancelledSucceffully = false,
-    this.errorMessage = ''
+    this.errorMessage
 
   });
 

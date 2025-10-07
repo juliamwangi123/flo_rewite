@@ -40,7 +40,7 @@ class CancelScheduledPickupBloc
       (suggestions) => emit(
         state.copyWith(
           isLoading: false,
-          errorMessage: '',
+          errorMessage: null,
           isCancelledSucceffully: true,
         ),
       ),

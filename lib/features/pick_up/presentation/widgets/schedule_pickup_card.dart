@@ -13,6 +13,8 @@ class SchedulePickCard extends StatelessWidget {
   final String landmark;
   final String donation;
   final String typeOfDonation;
+  final VoidCallback handleCancelPickUp;
+  final VoidCallback handleEditPickUp;
 
   const SchedulePickCard({
     super.key, 
@@ -23,7 +25,10 @@ class SchedulePickCard extends StatelessWidget {
     required this.location, 
     required this.landmark, 
     required this.donation, 
-    required this.typeOfDonation});
+    required this.typeOfDonation,
+    required this.handleCancelPickUp,
+    required this.handleEditPickUp
+    });
 
   @override
   Widget build(BuildContext context) {
@@ -174,7 +179,7 @@ class SchedulePickCard extends StatelessWidget {
                     iconData: Icons.edit_outlined,
                     buttonLabelColor: AppColors.floaidPink,
                     isEditButton: true,
-                    onTap: () {},
+                    onTap: handleEditPickUp
                   ),
                 ),
                 smallHorizontalSizedBox,
@@ -185,7 +190,7 @@ class SchedulePickCard extends StatelessWidget {
                     iconData: Icons.close_rounded,
                     buttonLabelColor: AppColors.deepNavy,
                     isEditButton: false,
-                    onTap: () {},
+                    onTap: handleCancelPickUp
                   ),
                 ),
               ],
