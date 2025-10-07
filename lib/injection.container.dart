@@ -23,9 +23,11 @@ import 'package:floo_aid_rewrite/features/pick_up/data/datasource/address_servic
 import 'package:floo_aid_rewrite/features/pick_up/data/datasource/schedule_pickup_datasource.dart';
 import 'package:floo_aid_rewrite/features/pick_up/data/repository/schedule_pickup_impl_repository.dart';
 import 'package:floo_aid_rewrite/features/pick_up/domain/repository/schedule_pickup_repository.dart';
+import 'package:floo_aid_rewrite/features/pick_up/domain/usecase/cancel_scheduled_pickups_usecase.dart';
 import 'package:floo_aid_rewrite/features/pick_up/domain/usecase/get_user_scheduled_pickups.dart';
 import 'package:floo_aid_rewrite/features/pick_up/domain/usecase/schedule_pickup_usecase.dart';
 import 'package:floo_aid_rewrite/features/pick_up/presentation/bloc/address_recommendation_bloc.dart';
+import 'package:floo_aid_rewrite/features/pick_up/presentation/bloc/cancel_scheduled_pickup_bloc.dart';
 import 'package:floo_aid_rewrite/features/pick_up/presentation/bloc/get_users_scheduled_pickups_bloc.dart';
 import 'package:floo_aid_rewrite/features/pick_up/presentation/bloc/schedule_pickup_bloc.dart';
 import 'package:floo_aid_rewrite/firebase_options.dart';
@@ -153,4 +155,11 @@ sl.registerLazySingleton(
     () => GetUsersScheduledPickupsBloc(sl<GetUserScheduledPickupsUseCase>()),
   );       
 
+sl.registerLazySingleton(
+    () => CancelScheduledPickupsUseCase(schedulePickupRepository: sl<SchedulePickupRepository>()),
+  );
+
+   sl.registerFactory(
+    () => CancelScheduledPickupBloc( sl<CancelScheduledPickupsUseCase>()),
+  );       
 }

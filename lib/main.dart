@@ -6,6 +6,7 @@ import 'package:floo_aid_rewrite/features/auth/presenataion/pages/auth_wrapper.d
 import 'package:floo_aid_rewrite/features/collection_points/presentation/bloc/drop_off_points_bloc.dart';
 import 'package:floo_aid_rewrite/features/home/presentation/bloc/navigation_bloc.dart';
 import 'package:floo_aid_rewrite/features/pick_up/presentation/bloc/address_recommendation_bloc.dart';
+import 'package:floo_aid_rewrite/features/pick_up/presentation/bloc/cancel_scheduled_pickup_bloc.dart';
 import 'package:floo_aid_rewrite/features/pick_up/presentation/bloc/get_users_scheduled_pickups_bloc.dart';
 import 'package:floo_aid_rewrite/features/pick_up/presentation/bloc/schedule_pickup_bloc.dart';
 import 'package:floo_aid_rewrite/injection.container.dart' as di;
@@ -28,6 +29,8 @@ void main() async {
           BlocProvider(create: (_) => di.sl<SchedulePickupBloc>()),
           BlocProvider(create: (_) => di.sl<AdressRecommendationBloc>()),
           BlocProvider(create: (_) => di.sl<GetUsersScheduledPickupsBloc>()),
+          BlocProvider(create: (_) => di.sl<CancelScheduledPickupBloc>()),
+
         ],
         child: const MyApp(),
       ),
