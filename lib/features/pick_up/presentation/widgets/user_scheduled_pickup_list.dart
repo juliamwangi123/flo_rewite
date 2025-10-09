@@ -1,6 +1,8 @@
 import 'package:floo_aid_rewrite/core/theme/theme.dart';
 import 'package:floo_aid_rewrite/core/widgets/custom_snackbar.dart';
 import 'package:floo_aid_rewrite/core/widgets/floaid_dialoog.dart';
+import 'package:floo_aid_rewrite/features/pick_up/presentation/bloc/schedule_pickup_bloc.dart';
+import 'package:floo_aid_rewrite/features/pick_up/presentation/pages/schedule_pick_up_form.dart';
 import 'package:floo_aid_rewrite/features/pick_up/presentation/widgets/floaid_emptystate.dart';
 import 'package:floo_aid_rewrite/core/widgets/spaces.dart';
 import 'package:floo_aid_rewrite/features/auth/presenataion/bloc/auth_bloc.dart';
@@ -114,7 +116,21 @@ class _UserScheduledPickupListState extends State<UserScheduledPickupList> {
                         },
                       );
                     },
-                    handleEditPickUp: () {},
+                    handleEditPickUp: () {
+                 final pickupToEdit = pickupState.scheduledPickup?[index];
+                    if (pickupToEdit != null) {
+                      context.read<SchedulePickupBloc>().add(
+                        InitializePickupFormEvent(entity: pickupToEdit),
+                      );
+                    }        
+                       Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => SchedulePickUpForm(
+                            schedulePickupEntity: pickupState.scheduledPickup?[index],
+                          ),
+                        ));
+                    },
                   );
                 },
               ),

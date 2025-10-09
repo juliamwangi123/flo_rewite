@@ -29,3 +29,11 @@ class SchedulePickupRequestEvent extends SchedulePickupEvent {
 class ScheduleFormResetEvent extends SchedulePickupEvent {}
 
 class ClearSuccessStateEvent extends SchedulePickupEvent {}
+class InitializePickupFormEvent extends SchedulePickupEvent {
+  final SchedulePickupEntity entity;
+
+  const InitializePickupFormEvent({required this.entity});
+
+  @override
+  List<Object> get props => [entity];
+}

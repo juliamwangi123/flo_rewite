@@ -58,7 +58,7 @@ class QuickActionCardWidget extends StatelessWidget {
             mediumVerticalSizedBox,
             Text(
               title,
-              style: boldSize15Text(AppColors.deepNavy),
+              style: boldSize12Text(AppColors.deepNavy),
             ),
             verySmallVerticalSizedBox,
             Text(

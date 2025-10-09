@@ -9,15 +9,26 @@ import 'package:floo_aid_rewrite/features/pick_up/domain/usecase/schedule_pickup
 part 'schedule_pickup_event.dart';
 part 'schedule_pickup_state.dart';
 
-class SchedulePickupBloc
-    extends Bloc<SchedulePickupEvent, SchedulePickupState> {
+class SchedulePickupBloc extends Bloc<SchedulePickupEvent, SchedulePickupState> {
   final SchedulePickupUsecase schedulePickupUsecase;
-  SchedulePickupBloc(this.schedulePickupUsecase)
-    : super( SchedulePickupState()) {
+
+  SchedulePickupBloc(this.schedulePickupUsecase) : super(SchedulePickupState()) {
     on<SchedulePickupRequestEvent>(_onSchedulePickup);
     on<UpdateFormFieldEvent>(_onUpdateFormField);
     on<ScheduleFormResetEvent>(_onFormReset);
-    on<ClearSuccessStateEvent>(_onClearSuccessState); 
+    on<ClearSuccessStateEvent>(_onClearSuccessState);
+    on<InitializePickupFormEvent>(_onInitializePickupForm); 
+  }
+
+  void _onInitializePickupForm(
+    InitializePickupFormEvent event,
+    Emitter<SchedulePickupState> emit,
+  ) {
+    emit(
+      state.copyWith(
+        currentForm: event.entity,
+      ),
+    );
   }
 
   void _onUpdateFormField(
@@ -26,7 +37,7 @@ class SchedulePickupBloc
   ) {
     final currentForm = state.currentForm;
     SchedulePickupEntity updatedForm;
-    
+
     switch (event.field) {
       case 'fullName':
         updatedForm = currentForm.copyWith(fullName: event.value);
@@ -46,7 +57,7 @@ class SchedulePickupBloc
       case 'donationType':
         updatedForm = currentForm.copyWith(
           donationType: event.value,
-          typeOfDonation: event.value, 
+          typeOfDonation: event.value,
         );
         break;
       case 'pickupTime':
@@ -54,17 +65,20 @@ class SchedulePickupBloc
         break;
       case 'pickupDate':
         updatedForm = currentForm.copyWith(pickupDate: event.value);
+        break;
       case 'countryCode':
-        updatedForm = currentForm.copyWith(countryCode: CountryCode(
-          code: (event.value as CountryCode).code ?? 'KE',
-          dialCode: (event.value as CountryCode).dialCode ?? '+254',
-          name: (event.value as CountryCode).name ?? 'Kenya',
-        )); 
+        updatedForm = currentForm.copyWith(
+          countryCode: CountryCode(
+            code: (event.value as CountryCode).code ?? 'KE',
+            dialCode: (event.value as CountryCode).dialCode ?? '+254',
+            name: (event.value as CountryCode).name ?? 'Kenya',
+          ),
+        );
         break;
       default:
-        return; 
+        return;
     }
-    
+
     emit(state.copyWith(currentForm: updatedForm));
   }
 
@@ -79,9 +93,10 @@ class SchedulePickupBloc
         scheduledPickup: null,
       ),
     );
-    final failureOrRequestPickUp = await schedulePickupUsecase(
-      event.schedulePickupParams,
-    );
+
+    final failureOrRequestPickUp =
+        await schedulePickupUsecase(event.schedulePickupParams);
+
     failureOrRequestPickUp.fold(
       (failure) => emit(
         state.copyWith(
@@ -100,7 +115,10 @@ class SchedulePickupBloc
     );
   }
 
-  void _onFormReset(ScheduleFormResetEvent event, Emitter<SchedulePickupState> emit) {
+  void _onFormReset(
+    ScheduleFormResetEvent event,
+    Emitter<SchedulePickupState> emit,
+  ) {
     emit(
       state.copyWith(
         currentForm: SchedulePickupEntity(
@@ -114,20 +132,22 @@ class SchedulePickupBloc
           pickupDate: '',
           pickupTime: '',
           countryCode: CountryCode(
-            code: '', 
-            dialCode: '', 
-            name: ''
+            code: '',
+            dialCode: '',
+            name: '',
           ),
         ),
         isLoading: false,
         errorMessage: null,
         scheduledPickup: null,
-        
       ),
     );
   }
 
-  void _onClearSuccessState(ClearSuccessStateEvent event, Emitter<SchedulePickupState> emit) {
+  void _onClearSuccessState(
+    ClearSuccessStateEvent event,
+    Emitter<SchedulePickupState> emit,
+  ) {
     emit(
       state.copyWith(
         scheduledPickup: null,
