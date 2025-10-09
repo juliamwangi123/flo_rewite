@@ -67,7 +67,7 @@ class _UserScheduledPickupListState extends State<UserScheduledPickupList> {
         >(
           listener: (context, pickupState) {},
           builder: (context, pickupState) {
-            if(pickupState.scheduledPickup == null){
+            if(pickupState.scheduledPickup == null || pickupState.scheduledPickup!.isEmpty){
               return const PickupsEmptyState();
             }else{
             return Skeletonizer(
