@@ -6,7 +6,7 @@ class SchedulePickupState extends Equatable {
   final SchedulePickupEntity? scheduledPickup;
   final SchedulePickupEntity currentForm;
 
-SchedulePickupState({
+  SchedulePickupState({
     this.isLoading = false, 
     this.errorMessage = '', 
     this.scheduledPickup,
@@ -26,7 +26,6 @@ SchedulePickupState({
             code: '', 
             dialCode: '', 
             name: '',
-             
           ),
         );
 
@@ -35,11 +34,12 @@ SchedulePickupState({
     String? errorMessage, 
     SchedulePickupEntity? scheduledPickup,
     SchedulePickupEntity? currentForm,
+    bool clearScheduledPickup = false,
   }) {
     return SchedulePickupState(
       isLoading: isLoading ?? this.isLoading,
       errorMessage: errorMessage ?? this.errorMessage,
-      scheduledPickup: scheduledPickup ?? this.scheduledPickup,
+      scheduledPickup: clearScheduledPickup ? null : (scheduledPickup ?? this.scheduledPickup), 
       currentForm: currentForm ?? this.currentForm,
     );
   }

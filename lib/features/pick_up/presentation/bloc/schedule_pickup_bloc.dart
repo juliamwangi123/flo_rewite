@@ -153,6 +153,7 @@ class SchedulePickupBloc extends Bloc<SchedulePickupEvent, SchedulePickupState> 
         scheduledPickup: null,
         errorMessage: null,
         isLoading: false,
+        clearScheduledPickup: true
       ),
     );
   }

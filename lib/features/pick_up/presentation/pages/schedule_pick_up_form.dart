@@ -83,8 +83,7 @@ class _SchedulePickUpState extends State<SchedulePickUpForm> {
                 mediumVerticalSizedBox,
                 Expanded(
                   child: SingleChildScrollView(
-                    child: BlocConsumer<UpdateScheduledPickupBloc, UpdateScheduledPickupState
->(
+                    child: BlocConsumer<UpdateScheduledPickupBloc, UpdateScheduledPickupState>(
                       listener: (context, updateSate) {
                         if(updateSate.isLoading  == true ){
                           isLoading = updateSate.isLoading;
@@ -98,6 +97,7 @@ class _SchedulePickUpState extends State<SchedulePickUpForm> {
                               setState(() {
                                 hasNavigatedToSuccess = false;
                               });
+                              context.read<SchedulePickupBloc>().add(ClearSuccessStateEvent());
                             }
                       },
                       builder: (context, state) {
@@ -115,6 +115,8 @@ class _SchedulePickUpState extends State<SchedulePickUpForm> {
                               setState(() {
                                 hasNavigatedToSuccess = false;
                               });
+                            context.read<SchedulePickupBloc>().add(ClearSuccessStateEvent());
+
                             }
                             if (state.isLoading == true ) {
                               isLoading = state.isLoading;
@@ -308,8 +310,13 @@ class _SchedulePickUpState extends State<SchedulePickUpForm> {
                                                                   .pickupTime,
                                                         ),
                                                       ),
+                                                      
                                                     ),
+                                                 
                                                   );
+                                                     _formKey.currentState!.reset();
+                                                setState(() {});
+                                                // context.read<SchedulePickupBloc>().add(ClearSuccessStateEvent());
                                                 } else {
                                                   context.read<SchedulePickupBloc>().add(
                                                     SchedulePickupRequestEvent(
