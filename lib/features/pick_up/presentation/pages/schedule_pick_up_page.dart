@@ -1,7 +1,6 @@
 import 'package:floo_aid_rewrite/core/theme/theme.dart';
 import 'package:floo_aid_rewrite/core/widgets/spaces.dart';
 import 'package:floo_aid_rewrite/features/pick_up/presentation/widgets/header_schedule_pickup.dart';
-import 'package:floo_aid_rewrite/features/pick_up/presentation/widgets/schedule_pick_up_tab.dart';
 import 'package:floo_aid_rewrite/features/pick_up/presentation/widgets/user_scheduled_pickup_list.dart';
 import 'package:flutter/widgets.dart';
 
@@ -16,7 +15,6 @@ class SchedulePickUpScreen extends StatelessWidget {
         children: [
           const HeaderSchedulePickup(),
           smallVerticalSizedBox,
-          const SchedulePickUpTab(),
           smallVerticalSizedBox,
          const Expanded(child: UserScheduledPickupList()),
         ],
