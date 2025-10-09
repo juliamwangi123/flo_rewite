@@ -14,7 +14,8 @@ class SchedulePickupModel extends SchedulePickupEntity{
     super.countryCode,
     super.uId,
     super.status,
-    super.id
+    super.id,
+    super.createdAt
 
   });
 
@@ -32,7 +33,8 @@ class SchedulePickupModel extends SchedulePickupEntity{
       countryCode: json['countryCode'],
       uId: json['uId'],
       status: json['status'],
-      id: json['id']
+      id: json['id'],
+      createdAt: json['createdAt']
     );
   }
 
@@ -50,7 +52,8 @@ class SchedulePickupModel extends SchedulePickupEntity{
       'countryCode': countryCode,
       'uId': uId,
       'status': status,
-      'id': id
+      'id': id,
+      'createdAt': createdAt
     };
   }
 }

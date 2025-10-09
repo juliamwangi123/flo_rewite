@@ -15,6 +15,7 @@ class SchedulePickupEntity extends Equatable{
   final String? uId;
   final bool? status;
   final String? id;
+  final int? createdAt;
   
 
   const SchedulePickupEntity({
@@ -30,7 +31,8 @@ class SchedulePickupEntity extends Equatable{
     this.countryCode,
     this.uId,
     this.status,
-    this.id
+    this.id,
+    this.createdAt
   });
 
   SchedulePickupEntity copyWith({
@@ -46,7 +48,8 @@ class SchedulePickupEntity extends Equatable{
     CountryCode? countryCode,
     String? uId,
     bool? status,
-    String? id
+    String? id,
+    int? createdAt
 
   }) {
     return SchedulePickupEntity(
@@ -62,7 +65,8 @@ class SchedulePickupEntity extends Equatable{
       countryCode: countryCode ?? this.countryCode,
       uId: uId ?? this.uId,
       status: status ?? this.status,
-      id: id ?? this.id
+      id: id ?? this.id,
+      createdAt: createdAt ?? this.createdAt
     );
   }
 
@@ -80,7 +84,8 @@ class SchedulePickupEntity extends Equatable{
         countryCode,
         uId,
         status,
-        id
+        id,
+        createdAt
       ];
 }
  

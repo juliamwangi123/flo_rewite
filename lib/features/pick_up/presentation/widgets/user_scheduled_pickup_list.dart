@@ -79,6 +79,15 @@ class _UserScheduledPickupListState extends State<UserScheduledPickupList> {
                 },
                 itemBuilder: (BuildContext context, int index) {
                   final pickups = pickupState.scheduledPickup?[index];
+                  bool canEditPickup = false;
+                  if (pickups?.createdAt != null) {
+                    final createdAt = DateTime.fromMicrosecondsSinceEpoch(pickups?.createdAt ?? 0);
+                    final now = DateTime.now();
+                    final hoursSinceCreation = now.difference(createdAt).inHours;
+                    
+                    canEditPickup = hoursSinceCreation < 12; 
+                    debugPrint('can edit: $canEditPickup');
+                  }
                   return SchedulePickCard(
                   scheduleId: pickups != null && pickups.id != null && pickups.id!.length >= 5
                                 ? pickups.id!.substring(pickups.id!.length - 5)
@@ -90,6 +99,7 @@ class _UserScheduledPickupListState extends State<UserScheduledPickupList> {
                     landmark: pickups?.landmark ?? '',
                     donation: pickups?.donationType ?? '',
                     typeOfDonation: pickups?.typeOfDonation ?? '',
+                    showActionButton:canEditPickup ,
                     handleCancelPickUp: () {
                       FloAidDialog.show(
                         context: context,
