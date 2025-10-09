@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class NearbyDropOffPoints extends StatefulWidget {
@@ -116,9 +117,7 @@ Future<void> openMapsWithPlaceName({
           child: BlocConsumer<DropOffPointsBloc, DropOffPointsState>(
             listener: (context, state) {},
             builder: (context, state) {
-               if(state.isLoading == true) {
-                return const Center(child: CircularProgressIndicator());
-              } else if (state.errorMessage != null && state.errorMessage!.isNotEmpty){
+               if (state.errorMessage != null && state.errorMessage!.isNotEmpty){
                 return Center(child: Text(state.errorMessage!));
               }else{
                 final allDropOffPoints = state.dropOffPoints ?? [];
@@ -140,42 +139,45 @@ Future<void> openMapsWithPlaceName({
                  }
                 points = !showAllDropOffPoints ? allDropOffPoints :  nerbyDropOffPoints;
 
-            return  ListView.builder(
-                shrinkWrap: true,
-                // physics: const NeverScrollableScrollPhysics(),
-                itemCount: points.length,
-                itemBuilder: (context, index) {  
-                  final point = points[index];
-                  return Padding(
-                    padding: const EdgeInsets.only(bottom: 16),
-                    child: DropOffPointsCard(
-                      title: point.name,
-                      address: point.address,
-                      distance: getDistanceDiffrenceToDropOffPoints(
-                       _currentPosition?.latitude ?? 0.0,
-                        _currentPosition?.longitude ?? 0.0,
-                        DropOffCoordinatesEntity(
-                        latitude:point.coordinates.latitude,
-                        longitude: point.coordinates.longitude                  
-                        ) 
+            return  Skeletonizer(
+              enabled: state.isLoading == true,
+              child: ListView.builder(
+                  shrinkWrap: true,
+                  // physics: const NeverScrollableScrollPhysics(),
+                  itemCount: points.length,
+                  itemBuilder: (context, index) {  
+                    final point = points[index];
+                    return Padding(
+                      padding: const EdgeInsets.only(bottom: 16),
+                      child: DropOffPointsCard(
+                        title: point.name,
+                        address: point.address,
+                        distance: getDistanceDiffrenceToDropOffPoints(
+                         _currentPosition?.latitude ?? 0.0,
+                          _currentPosition?.longitude ?? 0.0,
+                          DropOffCoordinatesEntity(
+                          latitude:point.coordinates.latitude,
+                          longitude: point.coordinates.longitude                  
+                          ) 
+                        ),
+                        availabilityStatus: point.availabilityStatus,
+                        urgencyLevel: point.urgencyLevel,
+                        currentStock: point.stockLevel.current,
+                        maxCapacity: point.stockLevel.capacity,
+                        stockPercentage: point.stockLevel.percentage,
+                        iconType: point.iconType,
+                        updatedTime: point.updatedTime,
+                        onCall: _launchCaller,
+                        onDirections: () => openMapsWithPlaceName(
+                          latitude: point.coordinates.latitude,
+                          longitude: point.coordinates.longitude,
+                          placeName: point.name,
+                        ),
                       ),
-                      availabilityStatus: point.availabilityStatus,
-                      urgencyLevel: point.urgencyLevel,
-                      currentStock: point.stockLevel.current,
-                      maxCapacity: point.stockLevel.capacity,
-                      stockPercentage: point.stockLevel.percentage,
-                      iconType: point.iconType,
-                      updatedTime: point.updatedTime,
-                      onCall: _launchCaller,
-                      onDirections: () => openMapsWithPlaceName(
-                        latitude: point.coordinates.latitude,
-                        longitude: point.coordinates.longitude,
-                        placeName: point.name,
-                      ),
-                    ),
-                  );
-                },
-              );}
+                    );
+                  },
+                ),
+            );}
             },
           ),
         ),

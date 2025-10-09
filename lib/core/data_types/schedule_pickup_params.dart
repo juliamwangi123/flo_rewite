@@ -8,6 +8,7 @@ class SchedulePickupParams{
   final String typeOfDonation;
   final String pickupDate;
   final String pickupTime;
+  final String uId;
 
 const SchedulePickupParams({
     required this.fullName,
@@ -19,5 +20,6 @@ const SchedulePickupParams({
     required this.typeOfDonation,
     required this.pickupDate,
     required this.pickupTime,
+    required this.uId
   });
 }

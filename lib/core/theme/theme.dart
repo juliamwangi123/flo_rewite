@@ -95,7 +95,8 @@ class AppColors {
   static const Color mediumGrey = Color(0xFF4B5563);
   static const Color veryLightGray = Color(0xFFF3F4F6);
   static const Color hintTextColor = Color(0xFFB3B3B3);
-
+ static  const Color lightGreenish = Color(0xFFDCFCE7);
+ static  const Color darkGreen = Color(0xFF15803D); 
   
 
   // --- Gradients ---
