@@ -39,7 +39,7 @@ class BottomNav extends StatelessWidget {
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.people_outline),
-              label: 'Community',
+              label: 'Stories',
             ),
           ],
         );

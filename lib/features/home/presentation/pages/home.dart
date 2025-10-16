@@ -1,6 +1,6 @@
 import 'package:floo_aid_rewrite/core/theme/theme.dart';
 import 'package:floo_aid_rewrite/features/collection_points/presentation/pages/collection_points.dart';
-import 'package:floo_aid_rewrite/features/community/presentation/pages/community.dart';
+import 'package:floo_aid_rewrite/features/stories/presentation/pages/stories.dart';
 import 'package:floo_aid_rewrite/features/dashboard/presentation/pages/dashboard.dart';
 import 'package:floo_aid_rewrite/features/dashboard/presentation/widgets/dashboard_appbar.dart';
 import 'package:floo_aid_rewrite/features/dashboard/presentation/widgets/drawer.dart';
@@ -47,5 +47,5 @@ List<Widget> screens = [
   const CollectionPoints(),
   const SchedulePickUpScreen(),
   const DonationScreen(),
-  const CommunityPage(),
+  const StoriesPage(),
 ];
