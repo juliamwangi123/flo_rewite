@@ -12,6 +12,8 @@ class WelcomeSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+  String capitalizedUserName = '';
+
     const bool hasScheduledPickup = true;
     const String nextPickupDate = 'Tomorrow, 2:00 PM';
     String getGreeting() {
@@ -46,11 +48,15 @@ class WelcomeSection extends StatelessWidget {
         children: [
           BlocBuilder<AuthBloc, AuthState>(
             builder: (context, state) {
-              final userName = state.user?.displayName?.split(' ').first ?? '';
-              final capitalizedUserName =
+              debugPrint('${state.user?.displayName}');
+              final userName = state.user?.displayName?.split(' ').first ??   state.user?.email.split('@').first;
+                 if(userName !=null){
+                   capitalizedUserName =
                   userName.isNotEmpty
                       ? '${userName[0].toUpperCase()}${userName.substring(1)}'
                       : '';
+                 }
+              
               return Text(
                 '${getGreeting()}, $capitalizedUserName. 💜',
                 style: boldSize20Text(AppColors.whiteColor),
