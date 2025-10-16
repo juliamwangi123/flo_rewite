@@ -15,6 +15,7 @@ class SchedulePickCard extends StatelessWidget {
   final String typeOfDonation;
   final VoidCallback handleCancelPickUp;
   final VoidCallback handleEditPickUp;
+  final bool showActionButton;
 
   const SchedulePickCard({
     super.key, 
@@ -27,7 +28,8 @@ class SchedulePickCard extends StatelessWidget {
     required this.donation, 
     required this.typeOfDonation,
     required this.handleCancelPickUp,
-    required this.handleEditPickUp
+    required this.handleEditPickUp,
+    required this.showActionButton
     });
 
   @override
@@ -93,7 +95,7 @@ class SchedulePickCard extends StatelessWidget {
             ),
             verySmallVerticalSizedBox,
             Text(
-              'Scheduled. Can be edited',
+              'Scheduled. Can be edited ',
               style: normalSize11Text(AppColors.lightGray),
             ),
             Row(
@@ -168,9 +170,11 @@ class SchedulePickCard extends StatelessWidget {
               ],
             ),
             smallVerticalSizedBox,
+          if (showActionButton)...[
             const Divider(thickness: 1, color: AppColors.veryLightGray),
             smallVerticalSizedBox,
-            Row(
+
+          Row(
               children: [
                 Expanded(
                   child: PickUpActionButton(
@@ -194,7 +198,7 @@ class SchedulePickCard extends StatelessWidget {
                   ),
                 ),
               ],
-            ),
+            )]
           ],
         ),
       ),

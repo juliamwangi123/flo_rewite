@@ -2,7 +2,9 @@ import 'package:floo_aid_rewrite/core/routes/routes.dart';
 import 'package:floo_aid_rewrite/core/theme/text_theme.dart';
 import 'package:floo_aid_rewrite/core/theme/theme.dart';
 import 'package:floo_aid_rewrite/core/widgets/spaces.dart';
+import 'package:floo_aid_rewrite/features/pick_up/presentation/bloc/get_users_scheduled_pickups_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HeaderSchedulePickup extends StatelessWidget {
   const HeaderSchedulePickup({super.key});
@@ -56,58 +58,72 @@ class HeaderSchedulePickup extends StatelessWidget {
           ),
           smallVerticalSizedBox,
           verySmallVerticalSizedBox,
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Expanded(
-                // flex:  2,
-                child: Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 10,
-                    vertical: 8,
-                  ),
-                  // margin:const EdgeInsets.only(right: 20),
-                  decoration: BoxDecoration(
-                    color: AppColors.whiteColor.withValues(alpha: .2),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('2', style: boldSize22Text(AppColors.whiteColor)),
-                      Text(
-                        'Upcoming',
-                        style: boldSize12Text(AppColors.whiteColor),
+          BlocConsumer<GetUsersScheduledPickupsBloc, GetUsersScheduledPickupsState>(
+            listener: (context, state) {
+            },
+            builder: (context, state) {
+              return Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    // flex:  2,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 10,
+                        vertical: 8,
                       ),
-                    ],
-                  ),
-                ),
-              ),
-              smallHorizontalSizedBox,
-              Expanded(
-                // flex:  2,
-                child: Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 10,
-                    vertical: 8,
-                  ),
-                  decoration: BoxDecoration(
-                    color: AppColors.whiteColor.withValues(alpha: .2),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('2', style: boldSize22Text(AppColors.whiteColor)),
-                      Text(
-                        'Completed',
-                        style: boldSize12Text(AppColors.whiteColor),
+                      // margin:const EdgeInsets.only(right: 20),
+                      decoration: BoxDecoration(
+                        color: AppColors.whiteColor.withValues(alpha: .2),
+                        borderRadius: BorderRadius.circular(12),
                       ),
-                    ],
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            state.scheduledPickup != null ?
+                            '${state.scheduledPickup?.length}' : '0',
+                            style: boldSize22Text(AppColors.whiteColor),
+                          ),
+                          Text(
+                            'Upcoming',
+                            style: boldSize12Text(AppColors.whiteColor),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
-                ),
-              ),
-            ],
+                  smallHorizontalSizedBox,
+                  Expanded(
+                    // flex:  2,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 10,
+                        vertical: 8,
+                      ),
+                      decoration: BoxDecoration(
+                        color: AppColors.whiteColor.withValues(alpha: .2),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          //TODOL GET COMPLETED PICK UPS LENGTH
+                          Text(
+                            '2',
+                            style: boldSize22Text(AppColors.whiteColor),
+                          ),
+                          Text(
+                            'Completed',
+                            style: boldSize12Text(AppColors.whiteColor),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              );
+            },
           ),
         ],
       ),

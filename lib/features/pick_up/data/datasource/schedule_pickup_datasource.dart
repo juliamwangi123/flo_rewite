@@ -41,6 +41,7 @@ class SchedulePickUpDataSourceImpl implements SchedulePickUpDataSource {
         'typeOfDonation': schedulePickupParams.typeOfDonation,
         'pickupDate': schedulePickupParams.pickupDate,
         'pickupTime': schedulePickupParams.pickupTime,
+        'createdAt': DateTime.now().microsecondsSinceEpoch,
       };
 
       final response = await http.post(
@@ -155,7 +156,8 @@ Future<SchedulePickupModel> updateScheduledPickup(UpdateScheduledPickupParams up
       typeOfDonation: updateScheduledPickupParams.pickupParams.typeOfDonation,
       pickupDate: updateScheduledPickupParams.pickupParams.pickupDate,
       pickupTime: updateScheduledPickupParams.pickupParams.pickupTime,
-      id: updateScheduledPickupParams.id
+      id: updateScheduledPickupParams.id,
+      createdAt: DateTime.now().microsecondsSinceEpoch
     );
     
     final response = await http.patch(

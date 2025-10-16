@@ -3,7 +3,15 @@ import 'package:floo_aid_rewrite/core/theme/theme.dart';
 import 'package:flutter/material.dart';
 
 class SchedulePickUpTab extends StatelessWidget {
-  const SchedulePickUpTab({super.key});
+  final int upcomingSchedulesPickupLength;
+  final int historySchedulesPickUpLenght;
+
+  const SchedulePickUpTab({
+    super.key,
+    required this.upcomingSchedulesPickupLength,
+    required this.historySchedulesPickUpLenght
+  
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -23,11 +31,11 @@ class SchedulePickUpTab extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           Text(
-            'Upcoming (2)',
+            'Upcoming ($upcomingSchedulesPickupLength)',
             style: boldSize13Text(AppColors.highlightPink)
           ),
           Text(
-            'History (2)',
+            'History ($historySchedulesPickUpLenght)',
             style: boldSize13Text(AppColors.lightGray)
           ),
         ],

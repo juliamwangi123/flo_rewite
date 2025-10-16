@@ -3,7 +3,9 @@
 import 'package:floo_aid_rewrite/core/theme/text_theme.dart';
 import 'package:floo_aid_rewrite/core/theme/theme.dart';
 import 'package:floo_aid_rewrite/core/widgets/spaces.dart';
+import 'package:floo_aid_rewrite/features/auth/presenataion/bloc/auth_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CustomDrawerHeader extends StatelessWidget {
   const CustomDrawerHeader({super.key});
@@ -11,10 +13,10 @@ class CustomDrawerHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 15).copyWith(top: 30,),
+      padding: const EdgeInsets.symmetric(horizontal: 15).copyWith(top: 30),
       height: 170,
       decoration: BoxDecoration(
-         gradient: LinearGradient(
+        gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
           colors: [
@@ -31,25 +33,41 @@ class CustomDrawerHeader extends StatelessWidget {
             CircleAvatar(
               backgroundColor: AppColors.whiteColor,
               radius: 30,
-              child: Text('J', style: veryBoldSize18Text(AppColors.floaidPink),),
+              child: Text('J', style: veryBoldSize18Text(AppColors.floaidPink)),
             ),
             mediumHorizontalSizedBox,
-            Column( 
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                smallVerticalSizedBox,
-                Text('Julia', style: boldSize18Text(AppColors.whiteColor).copyWith(fontWeight: FontWeight.w700),),
-                Text('Volunteer', style: normalSize14Text(AppColors.whiteColor.withOpacity(0.8))),
-              ],
+            BlocConsumer<AuthBloc, AuthState>(
+              listener: (context, state) {
+              },
+              builder: (context, state) {
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    smallVerticalSizedBox,
+                    Text(
+                     '${state.user?.displayName?.split(' ').first}',
+                      style: boldSize18Text(
+                        AppColors.whiteColor,
+                      ).copyWith(fontWeight: FontWeight.w700),
+                    ),
+                    Text(
+                      'Volunteer',
+                      style: normalSize14Text(
+                        AppColors.whiteColor.withOpacity(0.8),
+                      ),
+                    ),
+                  ],
+                );
+              },
             ),
             const Spacer(),
             IconButton(
-              onPressed: (){
-                Navigator.of(context).pop(); 
-              }, 
-              icon: const Icon(Icons.close, color: AppColors.whiteColor)
-              )
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              icon: const Icon(Icons.close, color: AppColors.whiteColor),
+            ),
           ],
         ),
       ),
