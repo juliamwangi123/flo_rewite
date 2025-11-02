@@ -9,7 +9,7 @@ class StoriesModel extends StoryEntity {
     required super.postedAt});
 
 
-factory StoriesModel.toJson(Map<dynamic, dynamic> json){
+factory StoriesModel.fromJson(Map<dynamic, dynamic> json){
   return StoriesModel(
     storyImageUrl: json['storyImageUrl'],
     storyTitle:  json['storyTitle'],
