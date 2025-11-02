@@ -32,6 +32,11 @@ import 'package:floo_aid_rewrite/features/pick_up/presentation/bloc/cancel_sched
 import 'package:floo_aid_rewrite/features/pick_up/presentation/bloc/get_users_scheduled_pickups_bloc.dart';
 import 'package:floo_aid_rewrite/features/pick_up/presentation/bloc/schedule_pickup_bloc.dart';
 import 'package:floo_aid_rewrite/features/pick_up/presentation/bloc/update_scheduled_pickup_bloc.dart';
+import 'package:floo_aid_rewrite/features/stories/data/datasource/stories_remote_datasource.dart';
+import 'package:floo_aid_rewrite/features/stories/data/repository/stories_impl_repository.dart';
+import 'package:floo_aid_rewrite/features/stories/domain/repository/story_repository.dart';
+import 'package:floo_aid_rewrite/features/stories/domain/usecase/story_usecase.dart';
+import 'package:floo_aid_rewrite/features/stories/presentation/bloc/stories_bloc.dart';
 import 'package:floo_aid_rewrite/firebase_options.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -171,6 +176,28 @@ sl.registerLazySingleton(
 
    sl.registerFactory(
     () => UpdateScheduledPickupBloc( sl<UpdateScheduledPickupUsecase>()),
-  );      
+  );     
+
+
+   //stoires
+   // Data Source
+sl.registerLazySingleton<StoriesRemoteDatasource>(
+  StoriesRemoteDatasourceImpl.new,
+);
+
+// Repository
+sl.registerLazySingleton<StoryRepository>(
+  () => StoriesImplRepository(storiesRemoteDatasource: sl<StoriesRemoteDatasource>()),
+);
+
+// Use Case
+sl.registerLazySingleton(
+  () => StoryUseCase(storyRepository: sl<StoryRepository>()),
+);
+
+// BLoC
+sl.registerFactory(
+  () => StoriesBloc(sl<StoryUseCase>()),
+);
 
 }
