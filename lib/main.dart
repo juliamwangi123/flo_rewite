@@ -14,6 +14,7 @@ import 'package:floo_aid_rewrite/features/stories/presentation/bloc/stories_bloc
 import 'package:floo_aid_rewrite/injection.container.dart' as di;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 
 
 void main() async {
@@ -21,6 +22,9 @@ void main() async {
   try {
     await di.init();
     await DeepLinkService.initialize();
+     OneSignal.Debug.setLogLevel(OSLogLevel.verbose);
+     OneSignal.initialize('bec12332-c520-46c2-9df4-685e4cdb5ce7');
+     OneSignal.Notifications.requestPermission(true);
 
     runApp(
       MultiBlocProvider(
