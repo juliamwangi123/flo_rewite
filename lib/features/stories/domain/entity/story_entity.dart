@@ -1,39 +1,59 @@
 import 'package:equatable/equatable.dart';
 
 class StoryEntity extends Equatable{
-  final String storyImageUrl;
-  final String storyTitle;
-  final String storyContent;
-  final String postedAt;
-  final String readDuration;
+  final String id;
+  final String? author;
+  final DateTime date;
+  final String excerpt;
+  final String imageUrl;
+  final String slug;
+  final String title;
+  final String url;
+  final dynamic content; 
+  final String? plainTextContent; 
 
   const StoryEntity({
-    required this.storyImageUrl,
-    required this.storyTitle,
-    required this.storyContent,
-    required this.readDuration,
-    required this.postedAt
+    required this.id,
+    this.author,
+    required this.date,
+    required this.excerpt,
+    required this.imageUrl,
+    required this.slug,
+    required this.title,
+    required this.url,
+    this.content,
+    this.plainTextContent,
 
   });
 
 
-StoryEntity copyWith({
-   String? storyImageUrl,
-   String? storyTitle,
-   String? storyContent,
-   String?postedAt,
-   String? readDuration,
+  StoryEntity copyWith({
+    String? id,
+    String? author,
+    DateTime? date,
+    String? excerpt,
+    String? imageUrl,
+    String? slug,
+    String? title,
+    String? url,
+    dynamic content,
+    String? plainTextContent,
+  }){
+    return StoryEntity(
+      id: id ?? this.id,
+      author: author ?? this.author,
+      date: date ?? this.date,
+      excerpt: excerpt ?? this.excerpt,
+      imageUrl: imageUrl ?? this.imageUrl,
+      slug: slug ?? this.slug,
+      title: title ?? this.title,
+      url: url ?? this.url,
+      content: content ?? this.content,
+      plainTextContent: plainTextContent ?? this.plainTextContent,
+    );
+  }
 
-}){
-  return StoryEntity(
-    postedAt: postedAt ?? this.postedAt,
-    storyImageUrl: storyImageUrl ?? this.storyImageUrl,
-    storyContent: storyContent ?? this.storyContent,
-    storyTitle:  storyTitle ?? this.storyTitle,
-    readDuration:  readDuration ?? this.readDuration
-     );
-}
   @override
-  List<Object?> get props => [storyImageUrl,storyTitle,storyContent,postedAt,readDuration ];
+  List<Object?> get props => [id, author, date, excerpt, imageUrl, slug, title, url, content, plainTextContent];
 
 }

@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 class StoriesCard extends StatelessWidget {
   final String imageUrl;
   final String storyTitle;
-  final String postedAt;       
+  final  DateTime postedAt;       
   final String readDuration; 
 
   const StoriesCard({super.key, 
@@ -28,7 +28,7 @@ class StoriesCard extends StatelessWidget {
       borderRadius: BorderRadius.circular(12), 
         ),
       child: ListTile(
-        leading: Image.asset(imageUrl),
+        leading:  Image.network(imageUrl),
         title: Text(
           storyTitle,
           style:  boldSize15Text(AppColors.deepNavy),
@@ -38,7 +38,7 @@ class StoriesCard extends StatelessWidget {
         subtitle: Row(
           children: [
             Text(
-          postedAt,
+          postedAt.day.toString(),
           style:  normalSize12Text(AppColors.deepNavy),
         ),
         smallHorizontalSizedBox,
