@@ -12,4 +12,5 @@ class AppRoutes {
   static const String resetPasswordScreen = '/resetPasswordScreen';
   static const String newPasswordScreen = '/newPasswordScreen';
   static const String schedulePickForm = '/schedulePickUpForm';
+  static const String storyDetails = '/storyDetails';
 }

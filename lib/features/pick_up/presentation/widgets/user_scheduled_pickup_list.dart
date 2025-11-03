@@ -98,7 +98,6 @@ class _UserScheduledPickupListState extends State<UserScheduledPickupList> {
                                 now.difference(createdAt).inHours;
                     
                             canEditPickup = hoursSinceCreation < 12;
-                            debugPrint('can edit: $canEditPickup');
                           }
                           return SchedulePickCard(
                             scheduleId:
