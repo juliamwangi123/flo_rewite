@@ -8,6 +8,8 @@ import 'package:floo_aid_rewrite/features/dashboard/presentation/pages/dashboard
 import 'package:floo_aid_rewrite/features/home/presentation/pages/home.dart';
 import 'package:floo_aid_rewrite/features/pick_up/presentation/pages/schedule_pick_up_form.dart';
 import 'package:floo_aid_rewrite/features/pick_up/presentation/widgets/confiramtion_schedule_screen.dart';
+import 'package:floo_aid_rewrite/features/stories/domain/entity/story_entity.dart';
+import 'package:floo_aid_rewrite/features/stories/presentation/pages/story_details.dart';
 import 'package:flutter/material.dart';
 
 Route<dynamic> generateRoutes(RouteSettings settings) {
@@ -29,7 +31,8 @@ Route<dynamic> generateRoutes(RouteSettings settings) {
         builder: (_) => const VerifyEmailScreen(),
       );
     case AppRoutes.homePage:
-      return MaterialPageRoute<HomePage>(builder: (_) => const HomePage());
+      return MaterialPageRoute<HomePage>(
+        builder: (_) => const HomePage());
     case AppRoutes.scheduleSuccessScreen:
       return MaterialPageRoute<SuccessScheduleBottomSheet>(
         builder: (_) => const SuccessScheduleBottomSheet(),
@@ -46,6 +49,11 @@ Route<dynamic> generateRoutes(RouteSettings settings) {
     case AppRoutes.schedulePickForm:
       return MaterialPageRoute<SchedulePickUpForm>(
         builder: (_) => const SchedulePickUpForm(),
+      );
+      case AppRoutes.storyDetails:
+      final StoryEntity story = settings.arguments as StoryEntity;
+       return MaterialPageRoute<StoryDetailsPage>(
+        builder: (_) => StoryDetailsPage(storyDetails: story,)
       );
     default:
       return MaterialPageRoute<RegistrationScreen>(

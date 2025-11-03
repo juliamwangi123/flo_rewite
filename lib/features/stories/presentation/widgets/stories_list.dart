@@ -1,3 +1,4 @@
+import 'package:floo_aid_rewrite/core/routes/routes.dart';
 import 'package:floo_aid_rewrite/features/stories/presentation/bloc/stories_bloc.dart';
 import 'package:floo_aid_rewrite/features/stories/presentation/widgets/stories_card.dart';
 import 'package:flutter/material.dart';
@@ -35,12 +36,20 @@ class _StoriesListState extends State<StoriesList> {
             itemCount: state.stories?.length,
             itemBuilder: (BuildContext context, int index) {
               final story = state.stories?[index];
-              return StoriesCard(
-                imageUrl: story?.imageUrl ??  'https://fastly.picsum.photos/id/648/300/200.jpg?hmac=1CBWajz31GOLUdds_HpCDPaHDG6FF3eoY1fYcoFgEMY',
-                storyTitle: story?.title ?? '',
-                postedAt: story?.date ?? DateTime.now(),
-                readDuration: '3 mins',
-          
+              return  GestureDetector(
+                onTap: (){
+                    Navigator.pushNamed(
+                      context, AppRoutes.storyDetails,
+                      arguments: story
+                      );
+                },
+                child: StoriesCard(
+                  imageUrl: story?.imageUrl ??  'https://fastly.picsum.photos/id/648/300/200.jpg?hmac=1CBWajz31GOLUdds_HpCDPaHDG6FF3eoY1fYcoFgEMY',
+                  storyTitle: story?.title ?? '',
+                  postedAt: story?.date ?? DateTime.now(),
+                  readDuration: '3 mins',
+                          
+                ),
               );
             },
           ),
