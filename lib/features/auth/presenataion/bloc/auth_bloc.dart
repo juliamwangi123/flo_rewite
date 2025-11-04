@@ -12,6 +12,7 @@ import 'package:floo_aid_rewrite/features/auth/domain/usecase/sign_in_with_email
 import 'package:floo_aid_rewrite/features/auth/domain/usecase/sign_out_usecase.dart';
 import 'package:floo_aid_rewrite/features/auth/domain/usecase/sign_up_with_email_password_usecase.dart';
 import 'package:floo_aid_rewrite/features/auth/domain/usecase/sign_up_with_google_usecase.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 
 part 'auth_event.dart';
 part 'auth_state.dart';
@@ -51,7 +52,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     (failure) => emit(state.copyWith(
         isLoading: false,
         errorMessage: (failure as ServerFailure).message)),
-    (user) => emit(state.copyWith(isLoading: false, user: user, errorMessage: null, isUserLoggedIn: true)),
+    (user) {
+      OneSignal.login(user.uuid);      
+      emit(state.copyWith(isLoading: false, user: user, errorMessage: null, isUserLoggedIn: true));
+    },
   );
 }
 
@@ -63,7 +67,10 @@ void _onSignInWithEmailAndPassword(SignInwithEmailandPasswordEvent event, Emitte
         isLoading: false,
         isLoginScreen: true,
         errorMessage: (failure as ServerFailure).message)),
-    (user) => emit(state.copyWith(isLoading: false, user: user, errorMessage: null, isUserLoggedIn: true)),
+    (user) {
+     OneSignal.login(user.uuid);    
+      emit(state.copyWith(isLoading: false, user: user, errorMessage: null, isUserLoggedIn: true));
+    },
   );
 }
 
@@ -74,12 +81,15 @@ void _onSignInWithEmailAndPassword(SignInwithEmailandPasswordEvent event, Emitte
         (failure) => emit(state.copyWith(
             isGoogleLoading: false,
             errorMessage: (failure as ServerFailure).message)),
-        (user) => emit(
-          state.copyWith(
-            isGoogleLoading: false, 
-            user: user, 
-            errorMessage: null, 
-            isUserLoggedIn: true)));
+        (user) {
+          OneSignal.login(user.uuid);       
+          emit(
+            state.copyWith(
+              isGoogleLoading: false, 
+              user: user, 
+              errorMessage: null, 
+              isUserLoggedIn: true));
+        });
 
   }
 
@@ -90,10 +100,15 @@ void _onSignInWithEmailAndPassword(SignInwithEmailandPasswordEvent event, Emitte
         (failure) => emit(state.copyWith(
             isLoading: false,
             errorMessage: (failure as ServerFailure).message)),
-        (user) => emit(state.copyWith(
-          isLoading: false, user: null, 
-          errorMessage: null, 
-          isUserLoggedIn: false)));
+        (user) {
+          // Logout from OneSignal when user signs out
+          OneSignal.logout(); // ← ADD THIS LINE
+          
+          emit(state.copyWith(
+            isLoading: false, user: null, 
+            errorMessage: null, 
+            isUserLoggedIn: false));
+        });
 
   }
 
@@ -143,4 +158,3 @@ failureOrPasswordReset.fold(
 
 }
 }
-
