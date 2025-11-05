@@ -1,5 +1,6 @@
 // ignore_for_file: deprecated_member_use
 
+import 'package:floo_aid_rewrite/core/routes/routes.dart';
 import 'package:floo_aid_rewrite/core/theme/text_theme.dart';
 import 'package:floo_aid_rewrite/core/theme/theme.dart';
 import 'package:floo_aid_rewrite/core/widgets/floaid_appbar.dart';
@@ -52,7 +53,12 @@ class _DashboardAppbarState extends State<DashboardAppbar> {
                   ],
                 ),
                 trailingWidget: GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                     Navigator.pushNamed(
+                                context,
+                                AppRoutes.notificationsScreen
+                              );
+                  },
                   child: Stack(
                     children: [
                       Icon(

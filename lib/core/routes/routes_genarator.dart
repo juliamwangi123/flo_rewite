@@ -6,6 +6,7 @@ import 'package:floo_aid_rewrite/features/auth/presenataion/pages/forgot_passwor
 import 'package:floo_aid_rewrite/features/auth/presenataion/pages/set_new_password_screen.dart';
 import 'package:floo_aid_rewrite/features/dashboard/presentation/pages/dashboard.dart';
 import 'package:floo_aid_rewrite/features/home/presentation/pages/home.dart';
+import 'package:floo_aid_rewrite/features/notifications/presentation/pages/notification.dart';
 import 'package:floo_aid_rewrite/features/pick_up/presentation/pages/schedule_pick_up_form.dart';
 import 'package:floo_aid_rewrite/features/pick_up/presentation/widgets/confiramtion_schedule_screen.dart';
 import 'package:floo_aid_rewrite/features/stories/domain/entity/story_entity.dart';
@@ -54,6 +55,10 @@ Route<dynamic> generateRoutes(RouteSettings settings) {
       final StoryEntity story = settings.arguments as StoryEntity;
        return MaterialPageRoute<StoryDetailsPage>(
         builder: (_) => StoryDetailsPage(storyDetails: story,)
+      );
+      case AppRoutes.notificationsScreen:
+      return MaterialPageRoute<NotificationPage>(
+        builder: (_) => const NotificationPage(),
       );
     default:
       return MaterialPageRoute<RegistrationScreen>(
