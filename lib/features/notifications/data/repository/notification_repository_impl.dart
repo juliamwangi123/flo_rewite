@@ -12,6 +12,59 @@ class NotificationRepositoryImpl implements NotificationRepository {
     final box = Hive.box<NotificationModel>(_boxName);
     return box.clear();
   }
+  @override
+Future<Either<Failure, void>> markAllAsRead() {
+  try {
+    final box = Hive.box<NotificationModel>(_boxName);
+    for (var key in box.keys) {
+      final notification = box.get(key);
+      if (notification != null && !notification.isRead) {
+        final updatedNotification = NotificationModel(
+          id: notification.id,
+          title: notification.title,
+          body: notification.body,
+          receivedAt: notification.receivedAt,
+          isRead: true,
+        );
+        box.put(key, updatedNotification);
+      }
+    }
+    return Future.value(const Right(null));
+  } catch (e) {
+    return Future.value(Left(ServerFailure('Failed to mark notifications as read: $e')));
+  }
+}
+
+@override
+Future<Either<Failure, void>> markAsRead(String notificationId) {
+  try {
+    final box = Hive.box<NotificationModel>(_boxName);
+    final notification = box.get(notificationId);
+    if (notification != null) {
+      final updatedNotification = NotificationModel(
+        id: notification.id,
+        title: notification.title,
+        body: notification.body,
+        receivedAt: notification.receivedAt,
+        isRead: true,
+      );
+      box.put(notificationId, updatedNotification);
+    }
+    return Future.value(const Right(null));
+  } catch (e) {
+    return Future.value(Left(ServerFailure('Failed to mark notification as read: $e')));
+  }
+}
+@override
+Future<Either<Failure, int>> getUnreadCount() {
+  try {
+    final box = Hive.box<NotificationModel>(_boxName);
+    final unreadCount = box.values.where((notification) => !notification.isRead).length;
+    return Future.value(Right(unreadCount));
+  } catch (e) {
+    return Future.value(Left(ServerFailure('Failed to get unread count: $e')));
+  }
+}
 
   @override
   Future<Either<Failure, List<NotificationModel>>> getNotifications() {

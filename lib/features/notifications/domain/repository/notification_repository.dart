@@ -7,4 +7,7 @@ abstract class NotificationRepository {
   Future<Either<Failure, void>> saveNotification(NotificationModel notification);
   Future<Either<Failure, List<NotificationModel>>> getNotifications();
   Future<void> clearNotifications();
+  Future<Either<Failure, void>> markAllAsRead();
+  Future<Either<Failure, void>> markAsRead(String notificationId); 
+  Future<Either<Failure, int>> getUnreadCount();
 }

@@ -46,9 +46,23 @@ void main() async {
           isRead: false,
         ),
       );
-      debugPrint('Notification clicked: ${notification.title} - ${notification.body}');
 
      });
+
+     OneSignal.Notifications.addClickListener((event) {
+    final notification = event.notification;
+    
+    notificationRepo.saveNotification(
+      NotificationModel(
+        id: notification.notificationId,
+        title: notification.title ?? '',
+        body: notification.body ?? '',
+        receivedAt: DateTime.now(),
+        isRead: true,
+      ),
+    );
+  });
+
 
     runApp(
       MultiBlocProvider(
