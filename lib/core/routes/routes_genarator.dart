@@ -44,7 +44,10 @@ final GoRouter appRouter = GoRouter(
       GoRoute(
         path: AppRoutes.homePage,
         name: 'home',
-        builder: (context, state) => const HomePage(),
+        builder: (context, state) {
+          final pageIxndx = state.extra as int?;
+          return  HomePage(pageIndx: pageIxndx);
+        }
       ),
       
       GoRoute(

@@ -56,7 +56,8 @@ class DashboardDrawer extends StatelessWidget {
             (item) => BlocConsumer<AuthBloc, AuthState>(
               listener: (context, state) {
                 if(state.user == null ){
-                 Navigator.pushReplacementNamed(context, AppRoutes.loginRoute);
+                //  Navigator.pushReplacementNamed(context, AppRoutes.loginRoute);
+                   context.push( AppRoutes.loginRoute);
 
                 }
               },

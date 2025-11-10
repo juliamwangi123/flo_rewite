@@ -1,3 +1,4 @@
+import 'package:floo_aid_rewrite/core/routes/routes.dart';
 import 'package:floo_aid_rewrite/core/routes/routes_genarator.dart';
 import 'package:floo_aid_rewrite/core/services/deep_link_service.dart';
 import 'package:floo_aid_rewrite/core/theme/theme.dart';
@@ -43,7 +44,7 @@ void main() async {
       );
      });
 
-     OneSignal.Notifications.addClickListener((event) {
+    OneSignal.Notifications.addClickListener((event) {
     final notification = event.notification;
     notificationRepo.saveNotification(
       NotificationModel(
@@ -54,6 +55,7 @@ void main() async {
         isRead: true,
       ),
     );
+   appRouter.push(AppRoutes.homePage, extra:2 );  
   });
 
     runApp(
