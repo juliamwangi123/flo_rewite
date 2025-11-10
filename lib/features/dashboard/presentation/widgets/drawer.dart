@@ -6,6 +6,7 @@ import 'package:floo_aid_rewrite/core/theme/theme.dart';
 import 'package:floo_aid_rewrite/features/dashboard/presentation/widgets/drawer_header.dart';
 import 'package:floo_aid_rewrite/features/dashboard/presentation/widgets/drawer_item.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 class DashboardDrawer extends StatelessWidget {
   DashboardDrawer({super.key});
@@ -69,7 +70,8 @@ class DashboardDrawer extends StatelessWidget {
                             context.read<AuthBloc>().add(
                               const SignOutUserEvent(),
                             );
-                             Navigator.pushReplacementNamed(context, AppRoutes.loginRoute);
+                            //  Navigator.pushReplacementNamed(context,);
+                             context.push( AppRoutes.loginRoute);
 
                           }
                           : item['onTap'],

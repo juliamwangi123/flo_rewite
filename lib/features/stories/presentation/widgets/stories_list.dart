@@ -3,6 +3,7 @@ import 'package:floo_aid_rewrite/features/stories/presentation/bloc/stories_bloc
 import 'package:floo_aid_rewrite/features/stories/presentation/widgets/stories_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 class StoriesList extends StatefulWidget {
@@ -38,9 +39,13 @@ class _StoriesListState extends State<StoriesList> {
               final story = state.stories?[index];
               return  GestureDetector(
                 onTap: (){
-                    Navigator.pushNamed(
-                      context, AppRoutes.storyDetails,
-                      arguments: story
+                    // Navigator.pushNamed(
+                    //   context, AppRoutes.storyDetails,
+                    //   arguments: story
+                    //   );
+                      context.push(
+                        AppRoutes.storyDetails,
+                        extra: story,
                       );
                 },
                 child: StoriesCard(

@@ -75,7 +75,7 @@ class NotifcationList extends StatelessWidget {
                 onClearAll();
               },
               style: TextButton.styleFrom(
-                backgroundColor: AppColors.floaidPink.withOpacity(0.1),
+                backgroundColor: AppColors.floaidPink.withValues(alpha: .1),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8),
                 ),

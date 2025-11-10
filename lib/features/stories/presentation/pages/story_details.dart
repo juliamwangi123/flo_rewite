@@ -4,6 +4,7 @@ import 'package:floo_aid_rewrite/core/widgets/floaid_appbar.dart';
 import 'package:floo_aid_rewrite/core/widgets/spaces.dart';
 import 'package:floo_aid_rewrite/features/stories/domain/entity/story_entity.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class StoryDetailsPage extends StatelessWidget {
   final StoryEntity storyDetails;
@@ -20,7 +21,7 @@ class StoryDetailsPage extends StatelessWidget {
             FloAidAppBar(
               leadingWidget: Icons.arrow_back,
               onLeadingPressed: () {
-                Navigator.of(context).pop();
+                context.pop();
               },
             ),
             Expanded(

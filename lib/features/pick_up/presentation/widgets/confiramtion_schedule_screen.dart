@@ -9,6 +9,7 @@ import 'package:floo_aid_rewrite/features/pick_up/presentation/widgets/confirmat
 import 'package:floo_aid_rewrite/features/pick_up/presentation/widgets/confirmation_pickup_details.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 class SuccessScheduleBottomSheet extends StatelessWidget {
   const SuccessScheduleBottomSheet({super.key});
@@ -99,11 +100,13 @@ class SuccessScheduleBottomSheet extends StatelessWidget {
                 onTap: () {
                  context.read<SchedulePickupBloc>().add(ScheduleFormResetEvent());
                  context.read<SchedulePickupBloc>().add(ClearSuccessStateEvent());
-                Navigator.pushNamedAndRemoveUntil(
-                  context,
-                  AppRoutes.homePage,
-                  (route) => false, 
-                );         
+                // Navigator.pushNamedAndRemoveUntil(
+                //   context,
+                //   AppRoutes.homePage,
+                //   (route) => false, 
+                // );        
+                //
+                context.go(AppRoutes.homePage); 
                 context.read<NavigationBloc>().add(
                   const ChangeCurrentEvent(currentIndex: 0),
                 );

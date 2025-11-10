@@ -6,6 +6,7 @@ import 'package:floo_aid_rewrite/features/auth/presenataion/bloc/auth_bloc.dart'
 import 'package:floo_aid_rewrite/features/auth/presenataion/widgets/auth_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 class LoginScreen extends StatelessWidget {
    
@@ -21,7 +22,8 @@ class LoginScreen extends StatelessWidget {
     return BlocConsumer<AuthBloc, AuthState>(
       listener: (context, state) {
         if (state.user != null && state.isUserLoggedIn == true) {
-          Navigator.pushReplacementNamed(context, AppRoutes.homePage);
+          // Navigator.pushReplacementNamed(context, AppRoutes.homePage);
+          context.go(AppRoutes.homePage);
           showCustomSnackBar(
             context,
             'Successfully logged in!',

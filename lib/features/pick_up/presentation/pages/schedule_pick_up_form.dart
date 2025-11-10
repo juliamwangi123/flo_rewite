@@ -16,6 +16,7 @@ import 'package:floo_aid_rewrite/features/pick_up/presentation/widgets/step_indi
 import 'package:floo_aid_rewrite/features/pick_up/presentation/widgets/schedule_pickup_time.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 class SchedulePickUpForm extends StatefulWidget {
   final SchedulePickupEntity? schedulePickupEntity;
@@ -108,10 +109,12 @@ class _SchedulePickUpState extends State<SchedulePickUpForm> {
                           listener: (context, state) {
                             if (state.scheduledPickup != null &&
                                 hasNavigatedToSuccess) {
-                              Navigator.pushNamed(
-                                context,
-                                AppRoutes.scheduleSuccessScreen,
-                              );
+                              // Navigator.pushNamed(
+                              //   context,
+                              //   AppRoutes.scheduleSuccessScreen,
+
+                              // );
+                              context.go(AppRoutes.scheduleSuccessScreen);
                               setState(() {
                                 hasNavigatedToSuccess = false;
                               });

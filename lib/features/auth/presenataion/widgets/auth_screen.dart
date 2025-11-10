@@ -1,3 +1,4 @@
+import 'package:floo_aid_rewrite/core/routes/routes.dart';
 import 'package:floo_aid_rewrite/core/theme/text_theme.dart';
 import 'package:floo_aid_rewrite/core/theme/theme.dart';
 import 'package:floo_aid_rewrite/core/widgets/spaces.dart';
@@ -8,6 +9,7 @@ import 'package:floo_aid_rewrite/features/auth/presenataion/widgets/forgot_passw
 import 'package:floo_aid_rewrite/features/auth/presenataion/widgets/google_signin_button.dart';
 import 'package:floo_aid_rewrite/features/auth/presenataion/widgets/submit_auth_button.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class AuthScreen extends StatefulWidget {
   final String authHeaderTitle;
@@ -169,9 +171,12 @@ class _AuthScreenState extends State<AuthScreen> {
                           authActionText:
                               widget.isLoginScreen ? 'Sign Up' : 'Login',
                           onAuthActionTap: () {
-                            Navigator.pushReplacementNamed(
-                              context,
-                              widget.isLoginScreen ? '/register' : '/login',
+                            // Navigator.pushReplacementNamed(
+                            //   context,
+                            //   widget.isLoginScreen ? '/register' : '/login',
+                            // );
+                            context.go(
+                              widget.isLoginScreen ? AppRoutes.registerRoute : '/login'
                             );
                           },
                         ),

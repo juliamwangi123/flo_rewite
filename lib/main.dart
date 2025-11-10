@@ -2,7 +2,6 @@ import 'package:floo_aid_rewrite/core/routes/routes_genarator.dart';
 import 'package:floo_aid_rewrite/core/services/deep_link_service.dart';
 import 'package:floo_aid_rewrite/core/theme/theme.dart';
 import 'package:floo_aid_rewrite/features/auth/presenataion/bloc/auth_bloc.dart';
-import 'package:floo_aid_rewrite/features/auth/presenataion/pages/auth_wrapper.dart';
 import 'package:floo_aid_rewrite/features/collection_points/presentation/bloc/drop_off_points_bloc.dart';
 import 'package:floo_aid_rewrite/features/home/presentation/bloc/navigation_bloc.dart';
 import 'package:floo_aid_rewrite/features/notifications/data/models/notification_model.dart';
@@ -19,7 +18,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   try {
@@ -28,9 +26,6 @@ void main() async {
      OneSignal.Debug.setLogLevel(OSLogLevel.verbose);
      OneSignal.initialize('bec12332-c520-46c2-9df4-685e4cdb5ce7');
      OneSignal.Notifications.requestPermission(true);
-
-     
-    
      await Hive.initFlutter();
      final notificationRepo = di.sl<NotificationRepository>();
      Hive.registerAdapter(NotificationModelAdapter());
@@ -46,12 +41,10 @@ void main() async {
           isRead: false,
         ),
       );
-
      });
 
      OneSignal.Notifications.addClickListener((event) {
     final notification = event.notification;
-    
     notificationRepo.saveNotification(
       NotificationModel(
         id: notification.notificationId,
@@ -62,7 +55,6 @@ void main() async {
       ),
     );
   });
-
 
     runApp(
       MultiBlocProvider(
@@ -76,8 +68,6 @@ void main() async {
           BlocProvider(create: (_) => di.sl<CancelScheduledPickupBloc>()),
           BlocProvider(create: (_) => di.sl<UpdateScheduledPickupBloc>()),
           BlocProvider(create: (_) => di.sl<StoriesBloc>()),
-
-
         ],
         child: const MyApp(),
       ),
@@ -93,13 +83,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       title: 'FloAid',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.getAppTheme(),
-       navigatorKey: DeepLinkService.navigatorKey, 
-      home: const AuthWrapper(),
-      onGenerateRoute: generateRoutes,
+      routerConfig: appRouter
     );
   }
 }
