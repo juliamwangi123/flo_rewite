@@ -19,6 +19,8 @@ import 'package:floo_aid_rewrite/features/collection_points/data/repository/drop
 import 'package:floo_aid_rewrite/features/collection_points/domain/usecase/drop_off_point_usecase.dart';
 import 'package:floo_aid_rewrite/features/collection_points/presentation/bloc/drop_off_points_bloc.dart';
 import 'package:floo_aid_rewrite/features/home/presentation/bloc/navigation_bloc.dart';
+import 'package:floo_aid_rewrite/features/notifications/data/repository/notification_repository_impl.dart';
+import 'package:floo_aid_rewrite/features/notifications/domain/repository/notification_repository.dart';
 import 'package:floo_aid_rewrite/features/pick_up/data/datasource/address_service.dart';
 import 'package:floo_aid_rewrite/features/pick_up/data/datasource/schedule_pickup_datasource.dart';
 import 'package:floo_aid_rewrite/features/pick_up/data/repository/schedule_pickup_impl_repository.dart';
@@ -200,4 +202,8 @@ sl.registerFactory(
   () => StoriesBloc(sl<StoryUseCase>()),
 );
 
+//notifications
+sl.registerLazySingleton<NotificationRepository>(
+  NotificationRepositoryImpl.new,
+);
 }

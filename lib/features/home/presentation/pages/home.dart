@@ -11,9 +11,29 @@ import 'package:floo_aid_rewrite/features/pick_up/presentation/pages/schedule_pi
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+class HomePage extends StatefulWidget {
+  final int? pageIndx;
+  const HomePage({super.key, this.pageIndx});
 
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+
+
+class _HomePageState extends State<HomePage> {
+  @override
+void initState() {
+  super.initState();
+ WidgetsBinding.instance.addPostFrameCallback((_) {
+  if(widget.pageIndx !=null){
+     context.read<NavigationBloc>().add(ChangeCurrentEvent(currentIndex:widget.pageIndx!));
+  }
+ 
+});
+  
+  
+}
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,7 +48,7 @@ class HomePage extends StatelessWidget {
                 children: [
                   const DashboardAppbar(),
                   Expanded(
-                    child: screens[state.currentIndex],
+                    child: screens[ state.currentIndex],
                   ),
                 ],
               ),

@@ -1,10 +1,10 @@
-// ignore_for_file: deprecated_member_use
-
+import 'package:floo_aid_rewrite/core/routes/routes.dart';
 import 'package:floo_aid_rewrite/core/theme/text_theme.dart';
 import 'package:floo_aid_rewrite/core/theme/theme.dart';
 import 'package:floo_aid_rewrite/core/widgets/floaid_appbar.dart';
 import 'package:floo_aid_rewrite/core/widgets/spaces.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class DashboardAppbar extends StatefulWidget {
   const DashboardAppbar({super.key});
@@ -33,7 +33,7 @@ class _DashboardAppbarState extends State<DashboardAppbar> {
                         borderRadius: BorderRadius.circular(16),
                         boxShadow: [
                           BoxShadow(
-                            color: AppColors.floaidPink.withOpacity(0.3),
+                            color: AppColors.floaidPink.withValues(alpha: .3),
                             blurRadius: 8,
                             offset: const Offset(0, 2),
                           ),
@@ -52,14 +52,16 @@ class _DashboardAppbarState extends State<DashboardAppbar> {
                   ],
                 ),
                 trailingWidget: GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    context.push(AppRoutes.notificationsScreen);
+                  },
                   child: Stack(
                     children: [
                       Icon(
                             Icons.notifications_outlined,
                         size: 24,
                         color: 
-                            AppColors.deepNavy.withOpacity(0.7),
+                            AppColors.deepNavy.withValues(alpha: .7),
                       ),
                       if (hasNotifications)
                         Positioned(

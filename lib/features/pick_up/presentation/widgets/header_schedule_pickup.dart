@@ -5,6 +5,7 @@ import 'package:floo_aid_rewrite/core/widgets/spaces.dart';
 import 'package:floo_aid_rewrite/features/pick_up/presentation/bloc/get_users_scheduled_pickups_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 class HeaderSchedulePickup extends StatelessWidget {
   const HeaderSchedulePickup({super.key});
@@ -36,7 +37,8 @@ class HeaderSchedulePickup extends StatelessWidget {
               ),
               InkWell(
                 onTap: () {
-                  Navigator.pushNamed(context, AppRoutes.schedulePickForm);
+                  // Navigator.pushNamed(context, AppRoutes.schedulePickForm);
+                  context.push(AppRoutes.schedulePickForm);
                 },
                 child: Container(
                   decoration: BoxDecoration(

@@ -4,6 +4,7 @@ import 'package:floo_aid_rewrite/core/widgets/floaid_appbar.dart';
 import 'package:floo_aid_rewrite/core/widgets/spaces.dart';
 import 'package:floo_aid_rewrite/features/stories/domain/entity/story_entity.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class StoryDetailsPage extends StatelessWidget {
   final StoryEntity storyDetails;
@@ -12,61 +13,133 @@ class StoryDetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.lightBackground,
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-           FloAidAppBar(
+            FloAidAppBar(
               leadingWidget: Icons.arrow_back,
               onLeadingPressed: () {
-                Navigator.of(context).pop();
+                context.pop();
               },
             ),
             Expanded(
               child: SingleChildScrollView(
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  padding: const EdgeInsets.all(16.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                    smallVerticalSizedBox,  
-                      Text(
-                        storyDetails.title,
-                        style: boldSize20Text(AppColors.deepNavy),
-                      ),
-                     smallVerticalSizedBox,
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(12),
-                        child: SizedBox(
+                      Card(
+                        color: AppColors.softWhite,
+                        elevation: 2,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(24),
+                        ),
+                        child: Container(
                           height: 250,
                           width: double.infinity,
-                          child: Image.network(
-                            storyDetails.imageUrl,
-                            fit: BoxFit.cover,
-                            errorBuilder: (context, error, stackTrace) {
-                              return const ColoredBox(
-                                color: AppColors.lightBackground,
-                                child:  Icon(
-                                  Icons.image_not_supported,
-                                  size: 64,
-                                  color: AppColors.blueGray
-                                ),
-                              );
-                            },
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(24),
+                            gradient: const LinearGradient(
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                              colors: [
+                                AppColors.primaryPink,
+                                AppColors.floaidPurple,
+                                AppColors.primaryPink,
+                              ],
+                            ),
+                          ),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(24),
+                            child: Image.network(
+                              storyDetails.imageUrl,
+                              fit: BoxFit.cover,
+                              errorBuilder: (context, error, stackTrace) {
+                                return DecoratedBox(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(24),
+                                    gradient:const LinearGradient(
+                                      begin: Alignment.topLeft,
+                                      end: Alignment.bottomRight,
+                                      colors: [
+                                        AppColors.primaryPink,
+                                        AppColors.floaidPurple,
+                                        AppColors.primaryPink,
+                                      ],
+                                    ),
+                                  ),
+                                  child: const Center(
+                                    child: Icon(
+                                      Icons.article_outlined,
+                                      size: 64,
+                                      color: AppColors.softWhite,
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
                           ),
                         ),
                       ),
-                      verySmallVerticalSizedBox,
-                      Text(
-                        _formatDate(storyDetails.date),
-                        style: normalSize14Text(AppColors.blueGray)
+                      mediumVerticalSizedBox,
+                      Card(
+                        color: AppColors.softWhite,
+                        elevation: 2,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(24),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(20.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                storyDetails.title,
+                                style: boldSize20Text(AppColors.deepNavy),
+                              ),
+                              mediumVerticalSizedBox,
+                              Row(
+                                children: [
+                                  Text(
+                                    _formatDate(storyDetails.date),
+                                    style: normalSize12Text(AppColors.floaidPurple),
+                                  ),
+                                  smallHorizontalSizedBox,
+                                 const Icon(
+                                    Icons.access_time,
+                                    size: 12,
+                                    color: AppColors.lightCyan
+                                  ),
+                                  verySmallHorizontalSizedBox,
+                                  Text(
+                                    '3 mins',
+                                    style: normalSize12Text(AppColors.lightGray),
+                                  ),
+                                ],
+                              ),
+                              mediumVerticalSizedBox,
+                              Container(
+                                height: 1,
+                                color: AppColors.blueGray.withValues(alpha: .1),
+                              ),
+                              mediumVerticalSizedBox,
+                              Text(
+                                storyDetails.plainTextContent ?? storyDetails.content,
+                                style: normalSize14Text(AppColors.deepBlue).copyWith(
+                                  height: 1.6,
+                                  letterSpacing: 0.3,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
                       ),
                       mediumVerticalSizedBox,
-                      Text(
-                        storyDetails.plainTextContent ?? storyDetails.content, 
-                        style: normalSize16Text(AppColors.deepBlue).copyWith(height: 1.6, letterSpacing: 0.3),
-                      ),
-                      veryLargeVerticalSizedBox
+                      
+                      veryLargeVerticalSizedBox,
                     ],
                   ),
                 ),

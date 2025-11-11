@@ -13,4 +13,5 @@ class AppRoutes {
   static const String newPasswordScreen = '/newPasswordScreen';
   static const String schedulePickForm = '/schedulePickUpForm';
   static const String storyDetails = '/storyDetails';
+  static const String notificationsScreen = '/notificationsScreen';
 }

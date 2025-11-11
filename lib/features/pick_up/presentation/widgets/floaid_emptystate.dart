@@ -3,6 +3,7 @@ import 'package:floo_aid_rewrite/core/theme/text_theme.dart';
 import 'package:floo_aid_rewrite/core/theme/theme.dart';
 import 'package:floo_aid_rewrite/core/widgets/spaces.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class PickupsEmptyState extends StatelessWidget {
   const PickupsEmptyState({super.key});
@@ -71,7 +72,9 @@ class PickupsEmptyState extends StatelessWidget {
               ),
               child: ElevatedButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, AppRoutes.schedulePickForm);
+                  // Navigator.pushNamed(context, AppRoutes.schedulePickForm);
+                  context.push(AppRoutes.schedulePickForm);
+
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.transparent,
