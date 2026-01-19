@@ -8,28 +8,53 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
    
   const LoginScreen({
     super.key,
   });
 
   @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+
+class _LoginScreenState extends State<LoginScreen> {
+  late TextEditingController emailController;
+  late TextEditingController passwordController;
+
+   @override
+  void initState() {
+    super.initState();
+    emailController = TextEditingController();
+    passwordController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
+  // TextEditingController emailController = TextEditingController();
+  // TextEditingController passwordController = TextEditingController();
 
     return BlocConsumer<AuthBloc, AuthState>(
       listener: (context, state) {
-        if (state.user != null && state.isUserLoggedIn == true) {
+        if (state.isUserLoggedIn == true ) {
           // Navigator.pushReplacementNamed(context, AppRoutes.homePage);
-          context.go(AppRoutes.homePage);
           showCustomSnackBar(
             context,
             'Successfully logged in!',
             AppColors.successGreen,
             AppColors.offWhite
           );
+                    
+          context.go(AppRoutes.homePage);
+
         }  
           else if ( 
             state.errorMessage != null && 
@@ -41,7 +66,7 @@ class LoginScreen extends StatelessWidget {
             AppColors.errorRed,
             AppColors.offWhite,
             duration: const Duration(seconds: 2),
-          );
+          ); 
         }    
       },
       builder: (context, state) {

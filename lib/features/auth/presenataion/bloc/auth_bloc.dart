@@ -69,30 +69,37 @@ void _onSignInWithEmailAndPassword(SignInwithEmailandPasswordEvent event, Emitte
         errorMessage: (failure as ServerFailure).message)),
     (user) {
      OneSignal.login(user.uuid);    
-      emit(state.copyWith(isLoading: false, user: user, errorMessage: null, isUserLoggedIn: true));
+      emit(state.copyWith(
+        isLoading: false, 
+        user: user, 
+        errorMessage: null,
+        isLoginScreen: false,
+        isUserLoggedIn: true));
     },
   );
 }
 
-  void _onSignInWithGoogle(SignInwithGoogleEvent event, Emitter<AuthState> emit) async {
-    emit(state.copyWith(isGoogleLoading: true, errorMessage: null));
-    final failureOrRegisterUser = await signInWithGoogleUsecase(NoParams());
-    failureOrRegisterUser.fold(
-        (failure) => emit(state.copyWith(
+void _onSignInWithGoogle(SignInwithGoogleEvent event, Emitter<AuthState> emit) async {
+  emit(state.copyWith(isGoogleLoading: true, errorMessage: null));
+  final failureOrRegisterUser = await signInWithGoogleUsecase(NoParams());
+  failureOrRegisterUser.fold(
+      (failure) {
+        emit(state.copyWith(
             isGoogleLoading: false,
-            errorMessage: (failure as ServerFailure).message)),
-        (user) {
-          OneSignal.login(user.uuid);       
-          emit(
-            state.copyWith(
-              isGoogleLoading: false, 
-              user: user, 
-              errorMessage: null, 
-              isUserLoggedIn: true));
-        });
-
-  }
-
+            isLoginScreen: true,
+            errorMessage: (failure as ServerFailure).message));
+      },
+      (user) {
+        OneSignal.login(user.uuid);       
+        emit(
+          state.copyWith(
+            isGoogleLoading: false, 
+            user: user, 
+            errorMessage: null,
+            isLoginScreen: false,
+            isUserLoggedIn: true));
+      });
+}
     void _onSignOutUser(SignOutUserEvent event, Emitter<AuthState> emit) async {
     emit(state.copyWith(isLoading: true, errorMessage: null));
     final failureOrSignOutUser = await signOutUserUsecase(NoParams());
@@ -101,13 +108,15 @@ void _onSignInWithEmailAndPassword(SignInwithEmailandPasswordEvent event, Emitte
             isLoading: false,
             errorMessage: (failure as ServerFailure).message)),
         (user) {
-          // Logout from OneSignal when user signs out
-          OneSignal.logout(); // ← ADD THIS LINE
-          
+          OneSignal.logout(); 
           emit(state.copyWith(
-            isLoading: false, user: null, 
+            isLoading: false, 
+            user: null, 
             errorMessage: null, 
-            isUserLoggedIn: false));
+            isUserLoggedIn: false,
+            isGoogleLoading: false,
+            isErrorMessage: false
+            ));
         });
 
   }

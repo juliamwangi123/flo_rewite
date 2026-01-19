@@ -4,18 +4,37 @@ import 'package:floo_aid_rewrite/core/theme/text_theme.dart';
 import 'package:floo_aid_rewrite/core/theme/theme.dart';
 import 'package:floo_aid_rewrite/core/widgets/spaces.dart';
 import 'package:floo_aid_rewrite/features/auth/presenataion/bloc/auth_bloc.dart';
+import 'package:floo_aid_rewrite/features/dashboard/presentation/utilities/datehelper.dart';
+import 'package:floo_aid_rewrite/features/pick_up/presentation/bloc/get_users_scheduled_pickups_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class WelcomeSection extends StatelessWidget {
+class WelcomeSection extends StatefulWidget {
   const WelcomeSection({super.key});
 
   @override
+  State<WelcomeSection> createState() => _WelcomeSectionState();
+}
+
+class _WelcomeSectionState extends State<WelcomeSection> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final uId = context.read<AuthBloc>().state.user?.uuid;
+      if (uId != null) {
+        context.read<GetUsersScheduledPickupsBloc>().add(
+          FetchUserScheduledPickUpsEvent(userId: uId),
+        );
+      }
+    });
+  }
+  @override
   Widget build(BuildContext context) {
-  String capitalizedUserName = '';
+    String capitalizedUserName = '';
 
     const bool hasScheduledPickup = true;
-    const String nextPickupDate = 'Tomorrow, 2:00 PM';
+    // const String nextPickupDate = 'Tomorrow, 2:00 PM';
     String getGreeting() {
       final hour = DateTime.now().hour;
       if (hour < 12) return 'Good Morning';
@@ -49,14 +68,16 @@ class WelcomeSection extends StatelessWidget {
           BlocBuilder<AuthBloc, AuthState>(
             builder: (context, state) {
               debugPrint('${state.user?.displayName}');
-              final userName = state.user?.displayName?.split(' ').first ??   state.user?.email.split('@').first;
-                 if(userName !=null){
-                   capitalizedUserName =
-                  userName.isNotEmpty
-                      ? '${userName[0].toUpperCase()}${userName.substring(1)}'
-                      : '';
-                 }
-              
+              final userName =
+                  state.user?.displayName?.split(' ').first ??
+                  state.user?.email.split('@').first;
+              if (userName != null) {
+                capitalizedUserName =
+                    userName.isNotEmpty
+                        ? '${userName[0].toUpperCase()}${userName.substring(1)}'
+                        : '';
+              }
+
               return Text(
                 '${getGreeting()}, $capitalizedUserName. 💜',
                 style: boldSize20Text(AppColors.whiteColor),
@@ -86,14 +107,38 @@ class WelcomeSection extends StatelessWidget {
                     size: 20,
                   ),
                   smallHorizontalSizedBox,
-                  Expanded(
-                    child: Align(
-                      alignment: AlignmentDirectional.bottomStart,
-                      child: Text(
-                        'Pickup scheduled for $nextPickupDate',
-                        style: normalSize13Text(AppColors.whiteColor),
-                      ),
-                    ),
+                  BlocConsumer<GetUsersScheduledPickupsBloc, GetUsersScheduledPickupsState>(
+                    listener: (context, state) {
+                      // TODO: implement listener
+                    },
+                    builder: (context, state) {
+                      final today = DateTime.now();
+                      final upComingPickup = state.scheduledPickup?.where((pickup) {
+                        final pickupDate = DateTime.parse(pickup.pickupDate);
+                        return pickupDate.isAfter(today);
+                      }).toList();
+                      debugPrint('Upcoming pickups: $upComingPickup');
+
+                      upComingPickup?.sort((a, b) => DateTime.parse(a.pickupDate)
+                          .compareTo(DateTime.parse(b.pickupDate)));
+
+                      final firstUpcoming = upComingPickup?.firstOrNull;
+                      final pickupDateStr = firstUpcoming?.pickupDate;
+                        debugPrint('Upcoming date: $pickupDateStr');
+
+                      final pickupText = (pickupDateStr != null && pickupDateStr.isNotEmpty)
+                          ? getPickupTimeText(DateTime.parse(pickupDateStr), context)
+                          : '';
+                      return Expanded(
+                        child: Align(
+                          alignment: AlignmentDirectional.bottomStart,
+                          child: Text(
+                            pickupText,
+                            style: normalSize13Text(AppColors.whiteColor),
+                          ),
+                        ),
+                      );
+                    },
                   ),
                   GestureDetector(
                     onTap: () {},

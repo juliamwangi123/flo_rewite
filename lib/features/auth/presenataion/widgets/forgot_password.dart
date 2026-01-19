@@ -1,6 +1,7 @@
 import 'package:floo_aid_rewrite/core/routes/routes.dart';
 import 'package:floo_aid_rewrite/core/theme/text_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class ForgotPassword extends StatelessWidget {
 
@@ -10,7 +11,8 @@ class ForgotPassword extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: (){
-       Navigator.pushNamed(context, AppRoutes.resetPasswordScreen);
+      //  Navigator.pushNamed(context, AppRoutes.resetPasswordScreen);
+        context.go(AppRoutes.resetPasswordScreen);
       },
       child: Align(
         alignment: Alignment.centerRight,
